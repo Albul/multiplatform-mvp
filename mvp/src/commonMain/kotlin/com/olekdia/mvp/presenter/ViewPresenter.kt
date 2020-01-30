@@ -2,11 +2,12 @@ package com.olekdia.mvp.presenter
 
 import com.olekdia.mvp.WeakReference
 
-abstract class ViewPresenter<T : Any> : BasePresenter(), IViewPresenter<T> {
+abstract class ViewPresenter<V : Any, S : Any> : BasePresenter(),
+    IViewPresenter<V, S> {
 
-    private var _view: WeakReference<T>? = null
+    private var _view: WeakReference<V>? = null
 
-    override var view: T?
+    override var view: V?
         get() = _view?.get()
         set(value) {
             _view = if (value == null) {
@@ -16,11 +17,19 @@ abstract class ViewPresenter<T : Any> : BasePresenter(), IViewPresenter<T> {
             }
         }
 
-    override fun onAttach(v: T) {
+    override var state: S? = null // todo
+
+    override fun onAttach(v: V) {
         view = v
     }
 
-    override fun onDetach(v: T) {
+    override fun onStart() {
+    }
+
+    override fun onStop() {
+    }
+
+    override fun onDetach(v: V) {
         if (v == view) {
             view = null
         }

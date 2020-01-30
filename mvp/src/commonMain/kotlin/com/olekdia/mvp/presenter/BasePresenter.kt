@@ -10,9 +10,6 @@ abstract class BasePresenter : IBasePresenter {
     lateinit var modelProvider: IModelProvider
         internal set
 
-    override val platformPresenter: IPlatformPresenter?
-        get() = null
-
     override fun onCreate() {
     }
 

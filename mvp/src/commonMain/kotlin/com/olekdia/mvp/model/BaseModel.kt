@@ -10,9 +10,6 @@ abstract class BaseModel : IBaseModel {
     lateinit var modelProvider: IModelProvider
         internal set
 
-    override val platformModel: IPlatformModel?
-        get() = null
-
     override fun onCreate() {
     }
 

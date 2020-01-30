@@ -2,6 +2,7 @@ package com.olekdia.sample
 
 import android.os.Bundle
 import androidx.annotation.IdRes
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.olekdia.fam.FloatingActionsMenu
@@ -12,27 +13,33 @@ import com.olekdia.sample.view.fragments.TaskListFragment
 
 class MainActivity : AppCompatActivity() {
 
+    var actionBar: ActionBar? = null
+    var fabMenu: FloatingActionsMenu? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_main)
 
-        supportFragmentManager
-            .beginTransaction()
-            .add(
-                R.id.content_container,
-                TaskListFragment(),
-                TaskListFragment.TAG
-            )
+        actionBar = supportActionBar?.also {
+            it.setDisplayShowTitleEnabled(true)
+        }
+
+        fabMenu = findViewById<FloatingActionsMenu>(R.id.fab_menu)
             .also {
-                it.commit()
+                it.setOnFabClickListener { btnId ->
+                    when (btnId) {
+                        R.id.fab_expand_menu_button -> onShowTaskFrag()
+                        R.id.fab_category -> onShowCategoryFrag()
+                    }
+                }
             }
 
-        findViewById<FloatingActionsMenu>(R.id.fab_menu).setOnFabClickListener { btnId ->
-            when (btnId) {
-                R.id.fab_expand_menu_button -> onShowTaskFrag()
-                R.id.fab_category -> onShowCategoryFrag()
-            }
-        }
+        showFragment(
+            frag = TaskListFragment(),
+            fragTag = TaskListFragment.TAG,
+            data = null,
+            containerViewId = R.id.content_container
+        )
     }
 
     fun onShowTaskFrag() {
@@ -41,6 +48,44 @@ class MainActivity : AppCompatActivity() {
 
     fun onShowCategoryFrag() {
         // todo
+    }
+
+    fun prepareToolbar(@ViewId componentId: String) {
+        when (componentId) {
+            ViewId.INPUT_TASK ->
+                actionBar?.setDisplayHomeAsUpEnabled(true)
+
+            else -> {
+                actionBar?.setDisplayHomeAsUpEnabled(false)
+            }
+        }
+    }
+
+    fun setActionBarTitle(title: CharSequence?) {
+        actionBar?.title = title
+    }
+
+//--------------------------------------------------------------------------------------------------
+//  Fragment management
+//--------------------------------------------------------------------------------------------------
+
+    override fun onBackPressed() {
+        val stackCount: Int = supportFragmentManager.backStackEntryCount
+
+        if (fabMenu?.isExpanded == true && stackCount == 1) {
+            fabMenu?.collapse()
+        } else if (stackCount == 1) {
+            moveTaskToBack(true)
+            supportFinishAfterTransition()
+        } else {
+            val topFrag: Fragment? = this.topFragment
+            if (!keepFragment(topFrag)) {
+                sendFragmentTo(topFrag, StackState.ETERNITY)
+                if (supportFragmentManager.popBackStackImmediate()) {
+                    sendFragmentTo(this.topFragment, StackState.FOREGROUND)
+                }
+            }
+        }
     }
 
     protected fun showFragment(
@@ -109,4 +154,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    /**
+     * Keep fragment when back button is pressed
+     * @param frag Fragment
+     * @return true keep it, false - can be removed from backstack
+     */
+    protected fun keepFragment(frag: Fragment?): Boolean =
+        frag !is IStatefulFragment || (frag as IStatefulFragment).onBackPressed()
 }

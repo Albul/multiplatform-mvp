@@ -1,9 +1,13 @@
 package com.olekdia.mvp.presenter
 
-interface IViewPresenter<T> : IBasePresenter {
-    var view: T?
+interface IViewPresenter<V, S> : IStatefulPresenter<S> {
+    var view: V?
 
-    fun onAttach(v: T)
+    fun onAttach(v: V)
 
-    fun onDetach(v: T)
+    fun onStart()
+
+    fun onStop()
+
+    fun onDetach(v: V)
 }
