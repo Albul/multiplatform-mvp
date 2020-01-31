@@ -10,11 +10,13 @@ import android.widget.TextView
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.olekdia.androidcommon.NO_RESOURCE
 import com.olekdia.androidcommon.extensions.ifNotNull
+import com.olekdia.androidcommon.extensions.resetFocus
 import com.olekdia.sample.Key
 import com.olekdia.sample.MainActivity
 import com.olekdia.sample.R
 import com.olekdia.sample.TaskPriority
 import com.olekdia.sample.extensions.presenterProvider
+import com.olekdia.sample.model.parcels.TaskParcel
 import com.olekdia.sample.presenter.IInputTaskPresenter
 import com.olekdia.sample.presenter.IInputTaskView
 import com.olekdia.sample.presenter.InputTaskState
@@ -29,15 +31,29 @@ class InputTaskFragment : StatefulFragment(),
     private var nameEditText: EditText? = null
     private var priorityGroup: MaterialButtonToggleGroup? = null
 
+    override fun setName(name: String?) {
+        nameEditText?.setText(name)
+    }
+
+    override fun setPriority(priority: Int) {
+        priorityGroup?.check(priority.toBtnId())
+    }
+
+//--------------------------------------------------------------------------------------------------
+//  Fragment lifecycle
+//--------------------------------------------------------------------------------------------------
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        presenter = presenterProvider?.get(IInputTaskPresenter.COMPONENT_ID)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? =
         inflater.inflate(R.layout.frag_input_task, container, false).also {
-
-            presenter = presenterProvider?.get(IInputTaskPresenter.COMPONENT_ID)
-
             nameEditText = it.findViewById<EditText>(R.id.task_name)
                 .also { editText ->
                     editText.setOnEditorActionListener(this)
@@ -47,19 +63,50 @@ class InputTaskFragment : StatefulFragment(),
                     group.addOnButtonCheckedListener(this)
                 }
 
-            presenter?.onAttach(this)
             setHasOptionsMenu(true)
         }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        presenter?.onAttach(this)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if (savedInstanceState != null) {
-            presenter?.state = savedInstanceState.toInputTaskState()
-        } else {
-            presenter?.state = arguments.toInputTaskState()
+
+        presenter?.let { presenter ->
+            if (savedInstanceState == null) {
+                arguments?.let { args ->
+                    args.getParcelable<TaskParcel>(Key.INITIAL_ENTRY)
+                        ?.entry
+                        ?.let { initEntry ->
+                            presenter.onRestoreState(
+                                InputTaskState(
+                                    initTask = initEntry,
+                                    currTask = initEntry.copy()
+                                )
+                            )
+                        }
+                }
+            } else {
+                ifNotNull(
+                    savedInstanceState.getParcelable<TaskParcel>(Key.INITIAL_ENTRY)?.entry,
+                    savedInstanceState.getParcelable<TaskParcel>(Key.CURRENT_ENTRY)?.entry
+                ) { initEntry, currEntry ->
+                    presenter.onRestoreState(
+                        InputTaskState(
+                            initTask = initEntry,
+                            currTask = currEntry
+                        )
+                    )
+                }
+            }
         }
 
         onForeground()
+    }
+
+    override fun onStart() {
+        super.onStart()
         presenter?.onStart()
     }
 
@@ -84,6 +131,7 @@ class InputTaskFragment : StatefulFragment(),
 
     override fun onBackground() {
         super.onBackground()
+
         setMenuVisibility(isForeground)
     }
 
@@ -98,14 +146,20 @@ class InputTaskFragment : StatefulFragment(),
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         presenter?.onDetach(this)
+        super.onDestroyView()
     }
 
     override fun onEternity() {
         super.onEternity()
+        resetFocus()
+
         presenter?.onDestroy()
         presenter = null
+    }
+
+    override fun isKeepFragment(): Boolean {
+        return presenter?.isStateUnsaved() == true
     }
 
 //--------------------------------------------------------------------------------------------------
@@ -124,6 +178,7 @@ class InputTaskFragment : StatefulFragment(),
                 activity?.onBackPressed()
                 true
             }
+
             R.id.apply_button -> {
                 presenter?.onEnterName(nameEditText?.text.toString())
                 presenter?.onApply()
@@ -132,18 +187,6 @@ class InputTaskFragment : StatefulFragment(),
             }
             else -> super.onOptionsItemSelected(item)
         }
-
-    override fun setName(name: String?) {
-        nameEditText?.setText(name)
-    }
-
-    override fun setPriority(priority: Int) {
-        priorityGroup?.check(priority.toBtnId())
-    }
-
-    companion object {
-        const val TAG = "INPUT_TASK_FRAGMENT"
-    }
 
 //--------------------------------------------------------------------------------------------------
 //  Event handlers
@@ -165,8 +208,10 @@ class InputTaskFragment : StatefulFragment(),
     }
 
     private fun resetFocus() {
-        if (nameEditText?.hasFocus() == true) {
-            // todo
+        ifNotNull(
+            activity, nameEditText, priorityGroup
+        ) { activity, editText, group ->
+            activity.resetFocus(editText, group)
         }
     }
 
@@ -201,18 +246,12 @@ class InputTaskFragment : StatefulFragment(),
             else -> NO_RESOURCE
         }
 
-    private inline fun Bundle?.toInputTaskState(): InputTaskState =
-        if (this == null) {
-            InputTaskState()
-        } else {
-            InputTaskState(
-                name = this.getString(Key.NAME) ?: "",
-                priority = this.getInt(Key.PRIORITY)
-            )
-        }
-
     private inline fun InputTaskState.putToBundle(outState: Bundle) {
-        outState.putString(Key.NAME, this.name)
-        outState.putInt(Key.PRIORITY, this.priority)
+        ifNotNull(
+            initTask, currTask
+        ) { init, curr ->
+            outState.putParcelable(Key.INITIAL_ENTRY, TaskParcel(init))
+            outState.putParcelable(Key.CURRENT_ENTRY, TaskParcel(curr))
+        }
     }
 }

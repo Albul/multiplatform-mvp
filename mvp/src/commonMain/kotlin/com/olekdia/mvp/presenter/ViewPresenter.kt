@@ -9,7 +9,7 @@ abstract class ViewPresenter<V : Any, S : Any> : BasePresenter(),
 
     override var view: V?
         get() = _view?.get()
-        set(value) {
+        protected set(value) {
             _view = if (value == null) {
                 null
             } else {
@@ -17,10 +17,11 @@ abstract class ViewPresenter<V : Any, S : Any> : BasePresenter(),
             }
         }
 
-    override var state: S? = null // todo
-
     override fun onAttach(v: V) {
         view = v
+    }
+
+    override fun onRestoreState(state: S) {
     }
 
     override fun onStart() {

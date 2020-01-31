@@ -14,6 +14,6 @@ abstract class BaseModel : IBaseModel {
     }
 
     override fun onDestroy() {
-        presenterProvider.remove(this)
+        modelProvider.remove(this)
     }
 }

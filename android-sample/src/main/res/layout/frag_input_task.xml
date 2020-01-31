@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorPrimaryLight">
+
+    <EditText
+        android:id="@+id/task_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/task_priority_group"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:weightSum="3"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/task_priority_low"
+            style="@style/AcTheme.IconOnlyToggleButton"
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:layout_height="@dimen/priority_button_height"
+            android:text="*" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/task_priority_medium"
+            style="@style/AcTheme.IconOnlyToggleButton"
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:layout_height="@dimen/priority_button_height"
+            android:text="!" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/task_priority_high"
+            style="@style/AcTheme.IconOnlyToggleButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/priority_button_height"
+            android:text="!!" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+</LinearLayout>
