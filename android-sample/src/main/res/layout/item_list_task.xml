@@ -10,13 +10,27 @@
     <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/task_checkbox"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp" />
 
     <TextView
         android:id="@+id/task_name_label"
-        android:layout_width="wrap_content"
+        android:layout_width="0px"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:layout_gravity="center_vertical" />
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/task_remove_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:tint="@color/drawable_tint"
+        android:background="@drawable/item_selector"
+        android:src="@drawable/icb_remove" />
 
 </LinearLayout>

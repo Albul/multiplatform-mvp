@@ -9,9 +9,9 @@ import com.olekdia.androidcommon.extensions.ifNotNull
 import com.olekdia.sample.MainActivity
 import com.olekdia.sample.R
 import com.olekdia.sample.model.entries.TaskEntry
-import com.olekdia.sample.presenter.ITaskListPresenter
+import com.olekdia.sample.presenter.presenters.ITaskListPresenter
 import com.olekdia.sample.extensions.presenterProvider
-import com.olekdia.sample.presenter.ITaskListView
+import com.olekdia.sample.presenter.presenters.ITaskListView
 import com.olekdia.sample.view.adapters.TaskListAdapter
 
 class TaskListFragment : StatefulFragment(),
@@ -21,6 +21,10 @@ class TaskListFragment : StatefulFragment(),
 
     private var taskListView: ListView? = null
     private var taskListAdapter: TaskListAdapter? = null
+    private var _isReady: Boolean = false
+
+    override val isReady: Boolean
+        get() = _isReady
 
     override var dataProvider: List<TaskEntry>?
         get() = taskListAdapter?.dataProvider
@@ -36,19 +40,23 @@ class TaskListFragment : StatefulFragment(),
 //  Fragment lifecycle
 //--------------------------------------------------------------------------------------------------
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        presenter = presenterProvider?.get(ITaskListPresenter.COMPONENT_ID)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? =
         inflater.inflate(R.layout.frag_task_list, container, false).also {
-
-            presenter = presenterProvider?.get(ITaskListPresenter.COMPONENT_ID)
-
             taskListView = it.findViewById(R.id.task_list)
-
-            presenter?.onAttach(this)
         }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        presenter?.onAttach(this)
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -58,8 +66,13 @@ class TaskListFragment : StatefulFragment(),
             TaskListAdapter(activity, listView, presenter)
         }
 
+        _isReady = true
         onForeground()
-        //presenter?.platformPresenter?.onRestoreInstanceState(savedInstanceState)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        presenter?.onStart()
     }
 
     override fun onForeground() {
@@ -80,13 +93,14 @@ class TaskListFragment : StatefulFragment(),
         setMenuVisibility(isForeground)
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        //presenter?.platformPresenter?.onSaveInstanceState(outState)
+    override fun onStop() {
+        super.onStop()
+        presenter?.onStop()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _isReady = false
         presenter?.onDetach(this)
     }
 }

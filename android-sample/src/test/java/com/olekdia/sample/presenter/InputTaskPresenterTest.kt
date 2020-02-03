@@ -4,6 +4,8 @@ import com.olekdia.sample.BaseTest
 import com.olekdia.sample.TaskPriority
 import com.olekdia.sample.model.entries.TaskEntry
 import com.olekdia.sample.model.models.ITaskModel
+import com.olekdia.sample.presenter.presenters.IInputTaskPresenter
+import com.olekdia.sample.presenter.presenters.InputTaskState
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -28,9 +30,11 @@ class InputTaskPresenterTest : BaseTest() {
     }
 
     @Test
-    fun setPresState_isNewCreation_false() {
-        inputPresenter.state = InputTaskState(
-            TaskEntry(25, 39, "Buy some food", TaskPriority.MEDIUM, false, System.currentTimeMillis())
+    fun onRestorePresState_withExistingTask_isNewCreation_false() {
+        inputPresenter.onRestoreState(
+            InputTaskState(
+                TaskEntry(25, 39, "Buy some food", TaskPriority.MEDIUM, false, System.currentTimeMillis())
+            )
         )
         assertNotNull(inputPresenter.state.currTask)
         assertFalse(inputPresenter.state.isNewCreation())
@@ -80,7 +84,7 @@ class InputTaskPresenterTest : BaseTest() {
     }
 
     @Test
-    fun newTask_apply_newTaskIsCreated() {
+    fun edit_newTask_apply_newTaskIsCreated() {
         val name = "Buy food"
         inputPresenter.onEnterName(name)
         inputPresenter.onPriorityChange(TaskPriority.HIGH)
@@ -93,13 +97,15 @@ class InputTaskPresenterTest : BaseTest() {
     }
 
     @Test
-    fun existedTask_apply_taskIsSaved() {
+    fun edit_existedTask_apply_taskIsSaved() {
         val existedTask = TaskEntry(
             111, 2, "Buy food", TaskPriority.LOW, false, System.currentTimeMillis()
         )
         taskModel.add(existedTask)
 
-        inputPresenter.state = InputTaskState(existedTask)
+        inputPresenter.onRestoreState(
+            InputTaskState(existedTask)
+        )
 
         val newName = "Buy lots of food"
         inputPresenter.onEnterName(newName)

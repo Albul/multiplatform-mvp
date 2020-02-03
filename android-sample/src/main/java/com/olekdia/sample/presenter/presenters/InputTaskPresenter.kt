@@ -1,14 +1,14 @@
-package com.olekdia.sample.presenter
+package com.olekdia.sample.presenter.presenters
 
 import com.olekdia.androidcommon.INVALID_L
 import com.olekdia.androidcommon.extensions.ifNotNull
 import com.olekdia.mvp.IComponent
 import com.olekdia.mvp.presenter.IViewPresenter
-import com.olekdia.mvp.presenter.ViewPresenter
 import com.olekdia.sample.PresenterId
 import com.olekdia.sample.ViewId
 import com.olekdia.sample.model.entries.TaskEntry
 import com.olekdia.sample.model.models.ITaskModel
+import com.olekdia.sample.presenter.ExtViewPresenter
 
 data class InputTaskState(
     val initTask: TaskEntry = TaskEntry(),
@@ -34,7 +34,7 @@ interface IInputTaskView : IComponent {
 
 interface IInputTaskPresenter : IViewPresenter<IInputTaskView, InputTaskState> {
 
-    fun onEnterName(name: String)
+    fun onNameChange(name: String)
 
     fun onPriorityChange(priority: Int)
 
@@ -49,10 +49,8 @@ interface IInputTaskPresenter : IViewPresenter<IInputTaskView, InputTaskState> {
     }
 }
 
-class InputTaskPresenter : ViewPresenter<IInputTaskView, InputTaskState>(),
+class InputTaskPresenter : ExtViewPresenter<IInputTaskView, InputTaskState>(),
     IInputTaskPresenter {
-
-    private var taskModel: ITaskModel? = null
 
     override fun isStateUnsaved(): Boolean =
         state.initTask != state.currTask
@@ -61,7 +59,7 @@ class InputTaskPresenter : ViewPresenter<IInputTaskView, InputTaskState>(),
         state = state.copy(initTask = state.currTask)
     }
 
-    override fun onEnterName(name: String) {
+    override fun onNameChange(name: String) {
         state = state.copy(currTask = state.currTask.copy(name = name))
         view?.setName(name)
     }
@@ -77,15 +75,17 @@ class InputTaskPresenter : ViewPresenter<IInputTaskView, InputTaskState>(),
         ) { model, task ->
             if (state.isNewCreation()) {
                 model.add(task)
+                toastPresenter?.onTaskCreated()
             } else {
-                model.save(task)
+                if (model.save(task)) {
+                    toastPresenter?.onTaskSaved()
+                }
+                Unit
             }
         }
         discardState()
 
-        presenterProvider
-            .get<ITaskListPresenter>(ITaskListPresenter.COMPONENT_ID)
-            ?.onUpdate()
+        taskListPresenter?.onUpdate()
     }
 
 //--------------------------------------------------------------------------------------------------
@@ -97,12 +97,14 @@ class InputTaskPresenter : ViewPresenter<IInputTaskView, InputTaskState>(),
 
     override var state: InputTaskState = InputTaskState() // New creation case by default
 
+    private val taskListPresenter: ITaskListPresenter?
+        get() = presenterProvider.get(ITaskListPresenter.COMPONENT_ID)
+
+    private val taskModel: ITaskModel?
+        get() = modelProvider.get(ITaskModel.COMPONENT_ID)
+
     override fun onRestoreState(state: InputTaskState) {
         this.state = state
-    }
-
-    override fun onCreate() {
-        taskModel = modelProvider.get(ITaskModel.COMPONENT_ID)
     }
 
     override fun onStart() {

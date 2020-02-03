@@ -1,4 +1,4 @@
-package com.olekdia.sample.presenter
+package com.olekdia.sample.presenter.presenters
 
 import com.olekdia.androidcommon.extensions.ifNotNullAnd
 import com.olekdia.mvp.IComponent
@@ -49,14 +49,15 @@ interface ITaskListPresenter : IViewPresenter<ITaskListView, TaskListState> {
     }
 }
 
-class TaskListPresenter : ViewPresenter<ITaskListView, TaskListState>(), ITaskListPresenter {
+class TaskListPresenter : ViewPresenter<ITaskListView, TaskListState>(),
+    ITaskListPresenter {
 
     var taskModel: ITaskModel? = null
 
     override fun onToggleCompleted(pos: Int) {
         state.taskList?.getOrNull(pos)?.let { task ->
             taskModel?.complete(task)
-            view?.refresh()
+            view?.dataProvider = state.taskList
         }
     }
 

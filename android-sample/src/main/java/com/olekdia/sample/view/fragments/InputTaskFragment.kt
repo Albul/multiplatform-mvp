@@ -17,9 +17,9 @@ import com.olekdia.sample.R
 import com.olekdia.sample.TaskPriority
 import com.olekdia.sample.extensions.presenterProvider
 import com.olekdia.sample.model.parcels.TaskParcel
-import com.olekdia.sample.presenter.IInputTaskPresenter
-import com.olekdia.sample.presenter.IInputTaskView
-import com.olekdia.sample.presenter.InputTaskState
+import com.olekdia.sample.presenter.presenters.IInputTaskPresenter
+import com.olekdia.sample.presenter.presenters.IInputTaskView
+import com.olekdia.sample.presenter.presenters.InputTaskState
 
 class InputTaskFragment : StatefulFragment(),
     IInputTaskView,
@@ -180,7 +180,7 @@ class InputTaskFragment : StatefulFragment(),
             }
 
             R.id.apply_button -> {
-                presenter?.onEnterName(nameEditText?.text.toString())
+                presenter?.onNameChange(nameEditText?.text.toString())
                 presenter?.onApply()
                 activity?.onBackPressed()
                 true
@@ -199,7 +199,7 @@ class InputTaskFragment : StatefulFragment(),
                     && event.keyCode == KEYCODE_ENTER)
         ) {
             nameEditText?.text?.toString()?.let {
-                presenter?.onEnterName(it)
+                presenter?.onNameChange(it)
             }
             resetFocus()
             return true
@@ -216,13 +216,11 @@ class InputTaskFragment : StatefulFragment(),
     }
 
     override fun onButtonChecked(
-        group: MaterialButtonToggleGroup?,
+        group: MaterialButtonToggleGroup,
         checkedId: Int,
         isChecked: Boolean
     ) {
-        if (isChecked) {
-            presenter?.onPriorityChange(checkedId.toTaskPriority())
-        }
+        presenter?.onPriorityChange(group.checkedButtonId.toTaskPriority())
     }
 
 //--------------------------------------------------------------------------------------------------
@@ -230,7 +228,7 @@ class InputTaskFragment : StatefulFragment(),
 //--------------------------------------------------------------------------------------------------
 
     @TaskPriority
-    private inline fun Int.toTaskPriority(): Int =
+    private inline fun Int?.toTaskPriority(): Int =
         when (this) {
             R.id.task_priority_low -> TaskPriority.LOW
             R.id.task_priority_medium -> TaskPriority.MEDIUM

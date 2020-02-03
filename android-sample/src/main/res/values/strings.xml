@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Todo MVP</string>
+    <string name="cat">Category</string>
+
+    <!-- Tasks -->
+    <string name="task">Task</string>
+    <string name="new_task">New task</string>
+    <string name="edit_task">Edit task</string>
+    <string name="tasks">Tasks</string>
+    <string name="task_created">Task is created</string>
+    <string name="task_saved">Task is saved</string>
+
+    <!-- Common -->
+    <string name="undo">Undo</string>
+    <string name="save">Save</string>
+</resources>

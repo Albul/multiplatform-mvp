@@ -4,14 +4,16 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorPrimaryLight">
+    android:background="?attr/colorPrimaryLight"
+    android:clickable="true">
 
     <EditText
         android:id="@+id/task_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" />
+        android:layout_marginRight="10dp"
+        android:inputType="textCapSentences" />
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/task_priority_group"
@@ -29,6 +31,7 @@
             android:layout_width="0px"
             android:layout_weight="1"
             android:layout_height="@dimen/priority_button_height"
+            android:textColor="@color/low_priority"
             android:text="*" />
 
         <com.google.android.material.button.MaterialButton
@@ -37,6 +40,7 @@
             android:layout_width="0px"
             android:layout_weight="1"
             android:layout_height="@dimen/priority_button_height"
+            android:textColor="@color/medium_priority"
             android:text="!" />
 
         <com.google.android.material.button.MaterialButton
@@ -45,6 +49,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/priority_button_height"
+            android:textColor="@color/high_priority"
             android:text="!!" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
