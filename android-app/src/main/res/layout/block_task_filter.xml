@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.button.MaterialButtonToggleGroup
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/task_filter_group"
+    android:layout_gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:singleSelection="true"
+    app:selectionRequired="true">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/all_filter"
+        style="@style/AcTheme.IconOnlyToggleButton"
+        android:layout_width="@dimen/filter_button_width"
+        android:layout_height="@dimen/toggle_button_height"
+        android:textAllCaps="false"
+        android:text="@string/all_filter" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/active_filter"
+        style="@style/AcTheme.IconOnlyToggleButton"
+        android:layout_width="@dimen/filter_button_width"
+        android:layout_weight="1"
+        android:layout_height="@dimen/toggle_button_height"
+        android:textAllCaps="false"
+        android:text="@string/active_filter" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/completed_filter"
+        style="@style/AcTheme.IconOnlyToggleButton"
+        android:layout_width="@dimen/filter_button_width"
+        android:layout_height="@dimen/toggle_button_height"
+        android:textAllCaps="false"
+        android:text="@string/completed_filter" />
+
+</com.google.android.material.button.MaterialButtonToggleGroup>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:alpha="@dimen/bg_toggle_checked_alpha"
+      android:color="?attr/colorAccent"
+      android:state_checked="true" />
+
+  <item android:alpha="@dimen/bg_toggle_pressed_alpha"
+      android:color="?attr/colorAccent"
+      android:state_pressed="true" />
+
+  <item android:color="?attr/colorPrimaryLight"
+      android:state_checked="false" />
+</selector>

@@ -1,0 +1,9 @@
+<resources>
+    <!-- !Fab -->
+    <dimen name="fab_port_left_margin">16dp</dimen>
+    <dimen name="fab_port_bottom_margin">28dp</dimen>
+
+    <dimen name="fab_land_left_margin">27dp</dimen>
+    <dimen name="fab_land_bottom_margin">16dp</dimen>
+
+</resources>

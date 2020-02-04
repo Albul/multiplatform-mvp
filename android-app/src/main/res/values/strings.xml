@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Todo MVP</string>
+    <string name="cat">Category</string>
+
+    <!-- Tasks -->
+    <string name="task">Task</string>
+    <string name="new_task">New task</string>
+    <string name="edit_task">Edit task</string>
+    <string name="tasks">Tasks</string>
+    <string name="task_created">Task is created</string>
+    <string name="task_saved">Task is saved</string>
+    <string name="task_deleted">Task was deleted!</string>
+    <string name="clear_completed">Clear completed</string>
+    <string name="tasks_deleted_4">%d tasks were deleted!</string>
+    <string name="tasks_deleted_5">%d tasks were deleted!</string>
+
+    <string name="all_filter">All</string>
+    <string name="active_filter">Active</string>
+    <string name="completed_filter">Completed</string>
+
+    <!-- Common -->
+    <string name="undo">Undo</string>
+    <string name="save">Save</string>
+</resources>

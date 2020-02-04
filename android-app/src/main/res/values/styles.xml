@@ -1,0 +1,37 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="AcTheme.IconOnlyToggleButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="backgroundTint">@drawable/ac_toggle_bg_selector</item>
+        <item name="iconTint">@drawable/ac_toggle_fg_selector</item>
+        <item name="strokeColor">@drawable/ac_toggle_fg_selector</item>
+        <item name="android:textColor">@drawable/toggle_text_color_selector</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppBaseTheme" parent="Theme.MaterialComponents.Light">
+        <item name="actionBarStyle">@style/ActionBarStyle</item>
+        <item name="actionBarTheme">@style/ActionBarTheme</item>
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryLight">@color/white</item>
+        <item name="colorPrimaryText">@color/primary_text</item>
+        <item name="colorSecondaryText">@color/secondary_text</item>
+    </style>
+
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
+
+    <style name="ActionBarStyle" parent="@style/Widget.MaterialComponents.ActionBar.Surface">
+        <item name="background">@color/white</item>
+    </style>
+
+    <style name="ActionBarTheme" parent="@style/ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="colorControlNormal">@color/primary_text</item>
+    </style>
+
+</resources>
