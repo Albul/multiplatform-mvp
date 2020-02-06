@@ -2,28 +2,14 @@ plugins {
     id("kotlin-multiplatform")
 }
 
-/*android {
-    compileSdkVersion(29)
-    defaultConfig {
-        minSdkVersion(14)
-    }
-
-    sourceSets {
-        val main by getting {
-            setRoot("src/androidMain")
-        }
-    }
-}*/
-
 kotlin {
     sourceSets {
         jvm()
         js() {
             browser()
         }
-        //android("android")
         linuxX64("native")
-        // macosX64("linux")
+        // macosX64("native")
 
         val commonMain by getting {
             dependencies {
@@ -31,33 +17,29 @@ kotlin {
                 implementation("com.olekdia:multiplatform-common:0.1.1")
             }
         }
-/*        val commonTest by getting {
+        val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
             }
-        }*/
+        }
         val jvmMain by getting {
             dependencies {
                 implementation(kotlin("stdlib"))
+                implementation("com.olekdia:multiplatform-common-jvm:0.1.1")
             }
         }
         val jsMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-js"))
+                implementation("com.olekdia:multiplatform-common-js:0.1.1")
             }
         }
         val nativeMain by getting {
             dependencies {
                 implementation(kotlin("stdlib"))
+                implementation("com.olekdia:multiplatform-common-native:0.1.1")
             }
         }
-//        val androidMain by getting {
-//            dependencies {
-//                implementation(kotlin("stdlib"))
-//                implementation("androidx.appcompat:appcompat:1.1.0")
-//                implementation("androidx.fragment:fragment:1.1.0")
-//            }
-//        }
     }
 }
