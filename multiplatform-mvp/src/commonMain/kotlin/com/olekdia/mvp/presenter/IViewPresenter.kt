@@ -26,7 +26,7 @@ package com.olekdia.mvp.presenter
  *         | onDestroy() |
  *          -------------
  */
-interface IViewPresenter<V> : IBasePresenter {
+interface IViewPresenter<V> : IPresenter {
     val view: V?
 
     /**

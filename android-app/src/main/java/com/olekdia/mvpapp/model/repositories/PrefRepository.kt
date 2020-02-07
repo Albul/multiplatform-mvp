@@ -1,10 +1,12 @@
 package com.olekdia.mvpapp.model.repositories
 
 import android.content.SharedPreferences
-import com.olekdia.mvp.platform.BasePlatformComponent
+import com.olekdia.mvp.platform.PlatformComponent
+import com.olekdia.mvp.presenter.IPresenter
+import com.olekdia.mvp.presenter.IPresenterFactory
 import com.olekdia.mvpcore.model.repositories.IPrefRepository
 
-class PrefRepository(private val pref: SharedPreferences) : BasePlatformComponent(),
+class PrefRepository(private val pref: SharedPreferences) : PlatformComponent(),
     IPrefRepository {
 
     override val componentId: String
@@ -53,5 +55,11 @@ class PrefRepository(private val pref: SharedPreferences) : BasePlatformComponen
     }
     override operator fun set(key: String, value: Set<String>?) {
         pref.edit().putStringSet(key, value).apply()
+    }
+
+    companion object : IPresenterFactory {
+        override fun create(): IPresenter {
+            return PrefRepository()
+        }
     }
 }

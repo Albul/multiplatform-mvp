@@ -1,21 +1,17 @@
 package com.olekdia.mvpcore.presentation
 
-import com.olekdia.mvp.IComponent
-import com.olekdia.mvp.IComponentFactory
+import com.olekdia.mvp.ComponentFactory
+import com.olekdia.mvp.presenter.IPresenter
 import com.olekdia.mvpcore.presentation.presenters.*
 
-class PresenterFactory : IComponentFactory {
+class PresenterFactory : ComponentFactory<IPresenter>(
+    mutableMapOf(
+        IMainAppPresenter.COMPONENT_ID to { MainAppPresenter() },
+        IMainViewPresenter.COMPONENT_ID to { MainViewPresenter() },
+        IToastPresenter.COMPONENT_ID to ::ToastPresenter,
+        ISnackPresenter.COMPONENT_ID to ::SnackPresenter,
 
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : IComponent> construct(componentId: String): T =
-        when (componentId) {
-            IMainAppPresenter.COMPONENT_ID -> MainAppPresenter()
-            IMainViewPresenter.COMPONENT_ID -> MainViewPresenter()
-            IToastPresenter.COMPONENT_ID -> ToastPresenter()
-            ISnackPresenter.COMPONENT_ID -> SnackPresenter()
-
-            IInputTaskPresenter.COMPONENT_ID -> InputTaskPresenter()
-            ITaskListPresenter.COMPONENT_ID -> TaskListPresenter()
-            else -> throw RuntimeException("Presenter class not found")
-        }.let { it as T }
-}
+        IInputTaskPresenter.COMPONENT_ID to { InputTaskPresenter() },
+        ITaskListPresenter.COMPONENT_ID to { TaskListPresenter() }
+    )
+)

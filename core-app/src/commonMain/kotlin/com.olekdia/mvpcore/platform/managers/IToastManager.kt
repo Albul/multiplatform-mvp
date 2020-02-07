@@ -1,8 +1,8 @@
 package com.olekdia.mvpcore.platform.managers
 
-import com.olekdia.mvp.platform.IBasePlatformComponent
+import com.olekdia.mvp.platform.IPlatformComponent
 
-interface IToastManager : IBasePlatformComponent {
+interface IToastManager : IPlatformComponent {
 
     fun show(text: CharSequence)
 

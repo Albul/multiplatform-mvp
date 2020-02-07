@@ -1,5 +1,5 @@
 package com.olekdia.mvp.model
 
-interface IStatefulModel<S> : IBaseModel {
+interface IStatefulModel<S> : IModel {
     val state: S
 }

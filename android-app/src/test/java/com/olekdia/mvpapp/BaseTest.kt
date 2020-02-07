@@ -1,24 +1,28 @@
 package com.olekdia.mvpapp
 
-import com.olekdia.mvp.model.IModelProvider
-import com.olekdia.mvp.presenter.IPresenterProvider
-import com.olekdia.mvp.presenter.PresenterProvider
+import com.olekdia.mvp.Facade
+import com.olekdia.mvp.IComponentProvider
+import com.olekdia.mvp.model.IModel
+import com.olekdia.mvp.platform.IPlatformComponent
+import com.olekdia.mvp.presenter.IPresenter
 import com.olekdia.mvpapp.mocks.PlatformFactoryMock
-import com.olekdia.mvpapp.model.ModelFactory
-import com.olekdia.mvpapp.presentation.PresenterFactory
-import kotlin.reflect.jvm.isAccessible
+import com.olekdia.mvpcore.model.ModelFactory
+import com.olekdia.mvpcore.presentation.PresenterFactory
 
 abstract class BaseTest {
 
-    val presenterProvider: IPresenterProvider = PresenterProvider(
-        PresenterFactory(),
+    private val facade: Facade = Facade(
         ModelFactory(),
+        PresenterFactory(),
         PlatformFactoryMock()
     )
 
-    val modelProvider: IModelProvider =
-        PresenterProvider::class.members.find {
-            it.isAccessible = true
-            it.name == "modelProvider"
-        }!!.call(presenterProvider) as IModelProvider
+    val presenterProvider: IComponentProvider<IPresenter>
+        get() = facade.presenterProvider
+
+    val modelProvider: IComponentProvider<IModel>
+        get() = facade.modelProvider
+
+    val platformProvider: IComponentProvider<IPlatformComponent>
+        get() = facade.platformProvider
 }

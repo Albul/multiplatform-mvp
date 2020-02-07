@@ -3,14 +3,14 @@ package com.olekdia.mvpapp.platform.managers
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import com.olekdia.common.WeakReference
-import com.olekdia.mvp.platform.BasePlatformComponent
+import com.olekdia.mvp.platform.PlatformComponent
 import com.olekdia.mvpapp.MainActivity
 import com.olekdia.mvpapp.R
 import com.olekdia.mvpcore.platform.managers.ISnackManager
 import com.olekdia.mvpcore.platform.managers.OnSnackbarStateChangedListener
 import com.olekdia.mvpcore.presentation.presenters.IMainViewPresenter
 
-class SnackManager : BasePlatformComponent(),
+class SnackManager : PlatformComponent(),
     ISnackManager {
 
     override val componentId: String

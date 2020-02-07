@@ -40,8 +40,12 @@ sealed class PrefEntry<T>(
                 pref[key] = value
             }
 
-        inline fun <reified T : Enum<T>> getEnumValue(): T? =
+        inline fun <reified T : Enum<T>> getEnumValue(): T =
             enumValueOf<T>(value)
+
+        fun setEnumValue(enumValue: Enum<*>) {
+            value = enumValue.name
+        }
     }
 
     class StringSetPref(key: String, defValue: Set<String>) : PrefEntry<Set<String>>(key, defValue) {

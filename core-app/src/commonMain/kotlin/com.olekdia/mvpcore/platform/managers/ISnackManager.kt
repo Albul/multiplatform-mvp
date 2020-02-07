@@ -1,13 +1,13 @@
 package com.olekdia.mvpcore.platform.managers
 
-import com.olekdia.mvp.platform.IBasePlatformComponent
+import com.olekdia.mvp.platform.IPlatformComponent
 
 interface OnSnackbarStateChangedListener {
     fun onUndo()
     fun onApply()
 }
 
-interface ISnackManager : IBasePlatformComponent {
+interface ISnackManager : IPlatformComponent {
 
     val isShown: Boolean
 

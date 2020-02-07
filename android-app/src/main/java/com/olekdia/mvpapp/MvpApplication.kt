@@ -1,8 +1,9 @@
 package com.olekdia.mvpapp
 
 import android.app.Application
-import com.olekdia.mvp.presenter.IPresenterProvider
+import com.olekdia.mvp.IComponentProvider
+import com.olekdia.mvp.presenter.IPresenter
 
 abstract class MvpApplication : Application() {
-    abstract val presenterProvider: IPresenterProvider
+    abstract val presenterProvider: IComponentProvider<IPresenter>
 }

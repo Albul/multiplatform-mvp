@@ -1,9 +1,9 @@
 package com.olekdia.mvpcore.model.repositories
 
-import com.olekdia.mvp.platform.IBasePlatformComponent
+import com.olekdia.mvp.platform.IPlatformComponent
 import com.olekdia.mvpcore.model.entries.TaskEntry
 
-interface ITaskDbRepository : IBasePlatformComponent {
+interface ITaskDbRepository : IPlatformComponent {
 
     fun loadAsync(onComplete: (list: List<TaskEntry>) -> Unit)
 

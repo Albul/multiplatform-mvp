@@ -1,29 +1,34 @@
 package com.olekdia.mvpapp
 
 import android.content.res.Configuration
-import com.olekdia.mvp.presenter.IPresenterProvider
-import com.olekdia.mvp.presenter.PresenterProvider
+import com.olekdia.mvp.Facade
+import com.olekdia.mvp.IComponentProvider
+import com.olekdia.mvp.presenter.IPresenter
 import com.olekdia.mvpapp.platform.PlatformComponentFactory
 import com.olekdia.mvpcore.model.ModelFactory
-import com.olekdia.mvpcore.presentation.PresenterFactory
 import com.olekdia.mvpcore.platform.views.IMainApp
+import com.olekdia.mvpcore.presentation.PresenterFactory
 import com.olekdia.mvpcore.presentation.presenters.IMainAppPresenter
 
-class MainApplication : MvpApplication(), IMainApp {
+class MainApplication : MvpApplication(),
+    IMainApp {
 
     override val componentId: String
         get() = IMainApp.COMPONENT_ID
 
-    override val presenterProvider: IPresenterProvider by lazy {
-        PresenterProvider(
-            PresenterFactory(),
+    private val facade: Facade by lazy {
+        Facade(
             ModelFactory(),
+            PresenterFactory(),
             PlatformComponentFactory(baseContext)
         )
     }
 
+    override val presenterProvider: IComponentProvider<IPresenter>
+        get() = facade.presenterProvider
+
     override fun initApp() {
-        // todo app specific logic
+
     }
 
     override fun updateConfiguration() {

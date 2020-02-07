@@ -1,6 +1,8 @@
 package com.olekdia.mvpapp.model.repositories
 
-import com.olekdia.mvp.platform.BasePlatformComponent
+import com.olekdia.mvp.ISingleComponentFactory
+import com.olekdia.mvp.platform.PlatformComponent
+import com.olekdia.mvp.platform.IPlatformComponent
 import com.olekdia.mvpapp.common.FutureTask
 import com.olekdia.mvpcore.model.entries.TaskEntry
 import com.olekdia.mvpapp.model.entries.extensions.toContentValues
@@ -12,7 +14,7 @@ import com.olekdia.mvpapp.model.repositories.db.IDbRepository
 import com.olekdia.mvpcore.model.repositories.ITaskDbRepository
 import org.intellij.lang.annotations.Language
 
-class TaskDbRepository : BasePlatformComponent(),
+class TaskDbRepository : PlatformComponent(),
     ITaskDbRepository {
 
     override val componentId: String
@@ -80,7 +82,9 @@ class TaskDbRepository : BasePlatformComponent(),
     private fun whereIdIn(list: List<TaskEntry>): String =
         whereColumnInValues(AppContract.BaseColumns._ID, list.map { it.id }, list.size)
 
-    companion object {
+    companion object : ISingleComponentFactory<IPlatformComponent> {
+        override fun invoke(): TaskDbRepository =
+            TaskDbRepository()
 
         @Language("SQLAndroid")
         fun whereColumnInValues(

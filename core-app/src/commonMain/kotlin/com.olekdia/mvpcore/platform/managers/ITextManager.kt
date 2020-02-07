@@ -1,8 +1,8 @@
 package com.olekdia.mvpcore.platform.managers
 
-import com.olekdia.mvp.platform.IBasePlatformComponent
+import com.olekdia.mvp.platform.IPlatformComponent
 
-interface ITextManager : IBasePlatformComponent {
+interface ITextManager : IPlatformComponent {
 
     val undo: String
 

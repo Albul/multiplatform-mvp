@@ -1,11 +1,11 @@
 package com.olekdia.mvpcore.presentation.presenters
 
-import com.olekdia.mvp.presenter.IBasePresenter
+import com.olekdia.mvp.presenter.IPresenter
 import com.olekdia.mvp.presenter.StatelessViewPresenter
 import com.olekdia.mvpcore.platform.managers.ISnackManager
 import com.olekdia.mvpcore.platform.managers.OnSnackbarStateChangedListener
 
-interface ISnackPresenter : IBasePresenter {
+interface ISnackPresenter : IPresenter {
 
     fun onShow(
         content: CharSequence,

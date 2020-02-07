@@ -1,8 +1,10 @@
 package com.olekdia.mvp
 
-/**
- * Component factory interface.
- */
-interface IComponentFactory {
-    fun <T : IComponent> construct(componentId: String): T
+interface IComponentFactory<T : IComponent> {
+
+    fun create(componentId: String): T?
+
+    fun load(componentFactories: Array<Pair<String, ISingleComponentFactory<T>>>)
+
+    fun unload(componentIds: Array<String>)
 }

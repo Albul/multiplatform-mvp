@@ -21,6 +21,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+                implementation("org.jetbrains.kotlin:kotlin-reflect:1.3.61")
             }
         }
         val jvmMain by getting {

@@ -1,10 +1,10 @@
 package com.olekdia.mvpcore.presentation.presenters
 
-import com.olekdia.mvp.presenter.BasePresenter
-import com.olekdia.mvp.presenter.IBasePresenter
+import com.olekdia.mvp.presenter.Presenter
+import com.olekdia.mvp.presenter.IPresenter
 import com.olekdia.mvpcore.platform.managers.IToastManager
 
-interface IToastPresenter : IBasePresenter {
+interface IToastPresenter : IPresenter {
 
     fun onShow(text: CharSequence)
 
@@ -18,7 +18,7 @@ interface IToastPresenter : IBasePresenter {
     }
 }
 
-class ToastPresenter : BasePresenter(), IToastPresenter {
+class ToastPresenter : Presenter(), IToastPresenter {
 
     override fun onShow(text: CharSequence) {
         toastMng?.show(text)

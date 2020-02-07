@@ -1,21 +1,20 @@
 package com.olekdia.mvp.presenter
 
+import com.olekdia.mvp.IComponent
+
 /**
  *           Lifecycle:
  *          ------------
  *         | onCreate() |
  *          ------------
  *               ↓
- *       ------------------
- *      | onRestoreState() |
- *       ------------------
- *               ↓
  *          -------------
  *         | onDestroy() |
  *          -------------
  */
-interface IStatefulPresenter<S> : IPresenter {
-    val state: S
+interface IPresenter : IComponent {
 
-    fun onRestoreState(state: S)
+    fun onCreate()
+
+    fun onDestroy()
 }

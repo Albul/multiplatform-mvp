@@ -1,8 +1,8 @@
 package com.olekdia.mvpcore.model.repositories
 
-import com.olekdia.mvp.platform.IBasePlatformComponent
+import com.olekdia.mvp.platform.IPlatformComponent
 
-interface IPrefRepository : IBasePlatformComponent {
+interface IPrefRepository : IPlatformComponent {
 
     operator fun get(key: String, defValue: Boolean): Boolean
     operator fun get(key: String, defValue: Int): Int

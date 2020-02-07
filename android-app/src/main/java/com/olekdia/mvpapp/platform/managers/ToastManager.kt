@@ -3,10 +3,10 @@ package com.olekdia.mvpapp.platform.managers
 import android.content.Context
 import android.widget.Toast
 import com.olekdia.common.WeakReference
-import com.olekdia.mvp.platform.BasePlatformComponent
+import com.olekdia.mvp.platform.PlatformComponent
 import com.olekdia.mvpcore.platform.managers.IToastManager
 
-class ToastManager(private val context: Context) : BasePlatformComponent(),
+class ToastManager(private val context: Context) : PlatformComponent(),
     IToastManager {
 
     private var toastRef: WeakReference<Toast>? = null

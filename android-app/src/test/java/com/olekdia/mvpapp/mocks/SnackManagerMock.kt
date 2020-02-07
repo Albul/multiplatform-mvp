@@ -1,12 +1,14 @@
 package com.olekdia.mvpapp.mocks
 
-import com.olekdia.mvp.platform.BasePlatformComponent
-import com.olekdia.mvpapp.presentation.presenters.ISnackManager
-import com.olekdia.mvpapp.presentation.presenters.OnSnackbarStateChangedListener
+import com.olekdia.mvp.platform.PlatformComponent
+import com.olekdia.mvpcore.platform.managers.ISnackManager
+import com.olekdia.mvpcore.platform.managers.OnSnackbarStateChangedListener
 
-class SnackManagerMock : BasePlatformComponent(), ISnackManager {
+class SnackManagerMock : PlatformComponent(),
+    ISnackManager {
 
-    private var snackCallbackListener: OnSnackbarStateChangedListener? = null
+    override val componentId: String
+        get() = ISnackManager.COMPONENT_ID
 
     override val isShown: Boolean
         get() = snackCallbackListener != null
@@ -30,9 +32,13 @@ class SnackManagerMock : BasePlatformComponent(), ISnackManager {
         snackCallbackListener?.onApply()
         snackCallbackListener = null
     }
+
+    private var snackCallbackListener: OnSnackbarStateChangedListener? = null
+
 }
 
-class SnackCallback(val listener: OnSnackbarStateChangedListener) : OnSnackbarStateChangedListener {
+class SnackCallback(val listener: OnSnackbarStateChangedListener) :
+    OnSnackbarStateChangedListener {
     private var fired = false
 
     override fun onUndo() {

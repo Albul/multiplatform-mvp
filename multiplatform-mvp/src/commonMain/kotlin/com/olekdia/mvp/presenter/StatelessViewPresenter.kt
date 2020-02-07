@@ -1,3 +1,3 @@
 package com.olekdia.mvp.presenter
 
-typealias StatelessViewPresenter<V> = BaseViewPresenter<V>
+typealias StatelessViewPresenter<V> = ViewPresenter<V>
