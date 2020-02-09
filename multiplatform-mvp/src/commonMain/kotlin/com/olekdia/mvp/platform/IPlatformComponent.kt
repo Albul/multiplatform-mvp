@@ -12,9 +12,4 @@ import com.olekdia.mvp.IComponent
  *         | onDestroy() |
  *          -------------
  */
-interface IPlatformComponent : IComponent {
-
-    fun onCreate()
-
-    fun onDestroy()
-}
+interface IPlatformComponent : IComponent

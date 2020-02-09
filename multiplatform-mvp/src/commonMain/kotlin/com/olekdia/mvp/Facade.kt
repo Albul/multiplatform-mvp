@@ -8,9 +8,9 @@ import com.olekdia.mvp.presenter.Presenter
 import com.olekdia.mvp.presenter.IPresenter
 
 class Facade(
-    modelFactory: IComponentFactory<IModel>,
-    presenterFactory: IComponentFactory<IPresenter>,
-    platformFactory: IComponentFactory<IPlatformComponent>
+    private val modelFactory: IComponentFactory<IModel>,
+    private val presenterFactory: IComponentFactory<IPresenter>,
+    private val platformFactory: IComponentFactory<IPlatformComponent>
 ) {
 
     val modelProvider: IComponentProvider<IModel> =
@@ -46,7 +46,9 @@ class Facade(
         presenterFactories: Array<Pair<String, ISingleComponentFactory<IPresenter>>>? = null,
         platformFactories: Array<Pair<String, ISingleComponentFactory<IPlatformComponent>>>? = null
     ) {
-        // todo
+        if (modelFactories != null) modelFactory.load(modelFactories)
+        if (presenterFactories != null) presenterFactory.load(presenterFactories)
+        if (platformFactories != null) platformFactory.load(platformFactories)
     }
 
     fun unload(
@@ -54,6 +56,8 @@ class Facade(
         presenterIds: Array<String>? = null,
         platformIds: Array<String>? = null
     ) {
-        // todo
+        if (modelIds != null) modelFactory.unload(modelIds)
+        if (presenterIds != null) presenterFactory.unload(presenterIds)
+        if (platformIds != null) platformFactory.unload(platformIds)
     }
 }

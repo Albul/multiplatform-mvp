@@ -5,46 +5,46 @@ class ComponentProvider<T : IComponent>(
     private val factory: IComponentFactory<T>
 ) : IComponentProvider<T> {
 
-    private val instanceMap: MutableMap<String, in T> = hashMapOf()
+    private val instanceMap: MutableMap<String, T> = hashMapOf()
 
     @Suppress("UNCHECKED_CAST")
     override fun <C : T> get(componentId: String): C? =
-        run {
-            instanceMap[componentId]
-                ?: create(componentId)
-                    ?.also {
-                        instanceMap[componentId] = it
-                        //it.onCreate() todo
-                    }
-        } as? C
+        get(componentId, null)
 
     @Suppress("UNCHECKED_CAST")
-    override fun <C : T> get(componentId: String, param: Any): C? =
+    override fun <C : T> get(componentId: String, param: Any?): C? =
         run {
-            val composeId = componentId + param.toString()
-            instanceMap[composeId]
+            val instanceId = toInstanceId(componentId, param)
+            instanceMap[instanceId]
                 ?: create(componentId)
                     ?.also {
-                        instanceMap[composeId] = it
-                        //it.onCreate() todo
+                        instanceMap[instanceId] = it
+                        it.onCreate()
                     }
         } as? C
+    
+    override fun remove(component: T) {
+        remove(component.componentId)
+    }
+
+    override fun remove(componentId: String) {
+        remove(componentId, null)
+    }
+
+    override fun remove(componentId: String, param: Any?) {
+        instanceMap.remove(toInstanceId(componentId, param))
+    }
 
     private fun create(componentId: String): T? =
         factory.create(componentId)
             ?.also {
                 facade.inject(it)
             }
-
-    override fun remove(component: T) {
-        remove(component.componentId)
-    }
-
-    override fun remove(componentId: String) {
-        instanceMap.remove(componentId)
-    }
-
-    override fun remove(componentId: String, tag: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    
+    private fun toInstanceId(componentId: String, param: Any?): String =
+        if (param == null) {
+            componentId
+        } else {
+            componentId + param.toString()
+        }
 }
