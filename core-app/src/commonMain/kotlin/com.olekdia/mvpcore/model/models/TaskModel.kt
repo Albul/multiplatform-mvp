@@ -3,9 +3,9 @@ package com.olekdia.mvpcore.model.models
 import com.olekdia.mvp.model.IStatefulModel
 import com.olekdia.mvp.model.StatefulModel
 import com.olekdia.mvpcore.TaskFilter
-import com.olekdia.mvpcore.extensions.plus
-import com.olekdia.mvpcore.extensions.replace
-import com.olekdia.mvpcore.model.repositories.ITaskDbRepository
+import com.olekdia.mvpcore.platform.extensions.plus
+import com.olekdia.mvpcore.platform.extensions.replace
+import com.olekdia.mvpcore.platform.repositories.ITaskDbRepository
 import com.olekdia.mvpcore.model.entries.TaskEntry
 import com.olekdia.mvpcore.platform.managers.PrefManager
 
@@ -109,9 +109,11 @@ class TaskModel : StatefulModel<TaskListState>(),
     }
 
     override fun insertNew(newEntry: TaskEntry) {
+        println("Before:" + state.list.toString())
         add(
             taskDbRep.insert(newEntry, state.list?.lastIndex ?: 0)
         )
+        println("After1:" + state.list.toString())
     }
 
     override fun add(entry: TaskEntry) {

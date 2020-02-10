@@ -2,8 +2,6 @@ package com.olekdia.mvpcore.presentation.presenters
 
 import com.olekdia.common.INVALID_L
 import com.olekdia.common.extensions.ifNotNull
-import com.olekdia.mvp.presenter.IPresenter
-import com.olekdia.mvp.presenter.IPresenterFactory
 import com.olekdia.mvp.presenter.IStatefulViewPresenter
 import com.olekdia.mvpcore.TaskPriority
 import com.olekdia.mvpcore.model.entries.TaskEntry
@@ -102,13 +100,5 @@ class InputTaskPresenter : ExtStatefulViewPresenter<IInputTaskView, InputTaskSta
             v.setName(e.name)
             v.setPriority(e.priority)
         }
-    }
-
-    companion object : IPresenterFactory {
-
-        override fun create(): IPresenter {
-            return InputTaskPresenter()
-        }
-
     }
 }

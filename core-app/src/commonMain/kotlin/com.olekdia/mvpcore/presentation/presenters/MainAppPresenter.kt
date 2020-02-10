@@ -2,7 +2,7 @@ package com.olekdia.mvpcore.presentation.presenters
 
 import com.olekdia.mvp.presenter.IViewPresenter
 import com.olekdia.mvp.presenter.StatelessViewPresenter
-import com.olekdia.mvpcore.model.repositories.IPrefRepository
+import com.olekdia.mvpcore.platform.repositories.IPrefRepository
 import com.olekdia.mvpcore.platform.managers.PrefManager
 import com.olekdia.mvpcore.platform.views.IMainApp
 

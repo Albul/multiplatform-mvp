@@ -1,4 +1,4 @@
-package com.olekdia.mvpcore.model.repositories
+package com.olekdia.mvpcore.platform.repositories
 
 import com.olekdia.mvp.platform.IPlatformComponent
 import com.olekdia.mvpcore.model.entries.TaskEntry

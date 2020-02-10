@@ -26,6 +26,9 @@ interface ISnackPresenter : IPresenter {
 class SnackPresenter : StatelessViewPresenter<ISnackManager>(),
     ISnackPresenter {
 
+    override val componentId: String
+        get() = ISnackPresenter.COMPONENT_ID
+
     override fun onShow(
         content: CharSequence,
         action: CharSequence,
@@ -42,9 +45,6 @@ class SnackPresenter : StatelessViewPresenter<ISnackManager>(),
     override fun onApply() {
         snackMng.apply()
     }
-
-    override val componentId: String
-        get() = ISnackPresenter.COMPONENT_ID
 
     private val snackMng: ISnackManager
         get() = platformProvider.get(ISnackManager.COMPONENT_ID)!!

@@ -1,5 +1,5 @@
 @file:JvmName("ListExt")
-package com.olekdia.mvpcore.extensions
+package com.olekdia.mvpcore.platform.extensions
 
 import kotlin.jvm.JvmName
 

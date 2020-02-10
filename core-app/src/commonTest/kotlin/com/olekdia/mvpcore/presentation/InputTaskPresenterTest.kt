@@ -1,17 +1,13 @@
-package com.olekdia.sample.presenter
+package com.olekdia.mvpcore.presentation
 
-import com.olekdia.sample.BaseTest
-import com.olekdia.sample.TaskPriority
-import com.olekdia.sample.model.entries.TaskEntry
-import com.olekdia.sample.model.models.ITaskModel
-import com.olekdia.sample.presenter.presenters.IInputTaskPresenter
-import com.olekdia.sample.presenter.presenters.InputTaskState
-import org.junit.Assert.*
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.junit.MockitoJUnitRunner
+import com.olekdia.mvpcore.BaseTest
+import com.olekdia.mvpcore.TaskPriority
+import com.olekdia.mvpcore.model.entries.TaskEntry
+import com.olekdia.mvpcore.model.models.ITaskModel
+import com.olekdia.mvpcore.presentation.presenters.IInputTaskPresenter
+import com.olekdia.mvpcore.presentation.presenters.InputTaskState
+import kotlin.test.*
 
-@RunWith(MockitoJUnitRunner::class)
 class InputTaskPresenterTest : BaseTest() {
 
     val inputPresenter: IInputTaskPresenter = presenterProvider.get(IInputTaskPresenter.COMPONENT_ID)!!
@@ -33,7 +29,13 @@ class InputTaskPresenterTest : BaseTest() {
     fun onRestorePresState_withExistingTask_isNewCreation_false() {
         inputPresenter.onRestoreState(
             InputTaskState(
-                TaskEntry(25, 39, "Buy some food", TaskPriority.MEDIUM, false, System.currentTimeMillis())
+                TaskEntry(
+                    25,
+                    "Buy some food",
+                    TaskPriority.MEDIUM,
+                    false,
+                    1234L
+                )
             )
         )
         assertNotNull(inputPresenter.state.currTask)
@@ -42,7 +44,7 @@ class InputTaskPresenterTest : BaseTest() {
 
     @Test
     fun changeName_isStateUnsaved_true() {
-        inputPresenter.onEnterName("Some name")
+        inputPresenter.onNameChange("Some name")
         assertTrue(inputPresenter.isStateUnsaved())
     }
 
@@ -54,7 +56,7 @@ class InputTaskPresenterTest : BaseTest() {
 
     @Test
     fun change_apply_isStateUnsaved_false() {
-        inputPresenter.onEnterName("Some task")
+        inputPresenter.onNameChange("Some task")
         inputPresenter.onPriorityChange(TaskPriority.HIGH)
         assertTrue(inputPresenter.isStateUnsaved())
 
@@ -64,7 +66,7 @@ class InputTaskPresenterTest : BaseTest() {
 
     @Test
     fun change_discardState_isStateUnsaved_false() {
-        inputPresenter.onEnterName("Some task2")
+        inputPresenter.onNameChange("Some task2")
         inputPresenter.onPriorityChange(TaskPriority.HIGH)
         assertTrue(inputPresenter.isStateUnsaved())
 
@@ -75,7 +77,7 @@ class InputTaskPresenterTest : BaseTest() {
     @Test
     fun change_stateIsCorrect() {
         val name = "Some task"
-        inputPresenter.onEnterName(name)
+        inputPresenter.onNameChange(name)
         assertEquals(inputPresenter.state.currTask.name, name)
 
         val priority = TaskPriority.MEDIUM
@@ -86,20 +88,28 @@ class InputTaskPresenterTest : BaseTest() {
     @Test
     fun edit_newTask_apply_newTaskIsCreated() {
         val name = "Buy food"
-        inputPresenter.onEnterName(name)
+        inputPresenter.onNameChange(name)
         inputPresenter.onPriorityChange(TaskPriority.HIGH)
         val taskToAdd = inputPresenter.state.currTask
         inputPresenter.onApply()
 
         assertTrue(
-            taskModel.state.taskList!!.contains(taskToAdd)
+            taskModel.state.list!!.any {
+                it.name == taskToAdd.name
+                        && it.priority == taskToAdd.priority
+                        && it.isCompleted == taskToAdd.isCompleted
+            }
         )
     }
 
     @Test
     fun edit_existedTask_apply_taskIsSaved() {
         val existedTask = TaskEntry(
-            111, 2, "Buy food", TaskPriority.LOW, false, System.currentTimeMillis()
+            1111L,
+            "Buy food",
+            TaskPriority.LOW,
+            false,
+            1234L
         )
         taskModel.add(existedTask)
 
@@ -108,18 +118,18 @@ class InputTaskPresenterTest : BaseTest() {
         )
 
         val newName = "Buy lots of food"
-        inputPresenter.onEnterName(newName)
+        inputPresenter.onNameChange(newName)
         inputPresenter.onPriorityChange(TaskPriority.HIGH)
 
         inputPresenter.onApply()
 
         assertNotNull(
-            taskModel.state.taskList!!.find { it.id == existedTask.id }
+            taskModel.state.list!!.find { it.id == existedTask.id }
         )
 
         assertEquals(
             newName,
-            taskModel.state.taskList!!.find { it.id == existedTask.id }!!.name
+            taskModel.state.list!!.find { it.id == existedTask.id }!!.name
         )
     }
 }

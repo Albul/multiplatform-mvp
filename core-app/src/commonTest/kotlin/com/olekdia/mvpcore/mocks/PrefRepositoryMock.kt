@@ -1,11 +1,12 @@
-package com.olekdia.mvpapp.model.repositories
+package com.olekdia.mvpcore.mocks
 
-import android.content.SharedPreferences
 import com.olekdia.mvp.platform.PlatformComponent
 import com.olekdia.mvpcore.platform.repositories.IPrefRepository
 
-class PrefRepository(private val pref: SharedPreferences) : PlatformComponent(),
+class PrefRepositoryMock : PlatformComponent(),
     IPrefRepository {
+
+    private val pref: HashMap<String, Any?> = hashMapOf()
 
     override val componentId: String
         get() = IPrefRepository.COMPONENT_ID
@@ -15,43 +16,43 @@ class PrefRepository(private val pref: SharedPreferences) : PlatformComponent(),
 //--------------------------------------------------------------------------------------------------
 
     override fun get(key: String, defValue: Boolean): Boolean =
-        pref.getBoolean(key, defValue)
+        pref[key] as? Boolean ?: defValue
 
     override fun get(key: String, defValue: Int): Int =
-        pref.getInt(key, defValue)
+        pref[key] as? Int ?: defValue
 
     override fun get(key: String, defValue: Long): Long =
-        pref.getLong(key, defValue)
+        pref[key] as? Long ?: defValue
 
     override fun get(key: String, defValue: Float): Float =
-        pref.getFloat(key, defValue)
+        pref[key] as? Float ?: defValue
 
     override fun get(key: String, defValue: String): String? =
-        pref.getString(key, defValue)
+        pref[key] as? String ?: defValue
 
     override fun get(key: String, defValues: Set<String>?): Set<String>? =
-        pref.getStringSet(key, defValues)
+        pref[key] as? Set<String> ?: defValues
 
 //--------------------------------------------------------------------------------------------------
 //  Set
 //--------------------------------------------------------------------------------------------------
 
     override operator fun set(key: String, value: Boolean) {
-        pref.edit().putBoolean(key, value).apply()
+        pref[key] = value
     }
     override operator fun set(key: String, value: Float) {
-        pref.edit().putFloat(key, value).apply()
+        pref[key] = value
     }
     override operator fun set(key: String, value: Int) {
-        pref.edit().putInt(key, value).apply()
+        pref[key] = value
     }
     override operator fun set(key: String, value: Long) {
-        pref.edit().putLong(key, value).apply()
+        pref[key] = value
     }
     override operator fun set(key: String, value: String) {
-        pref.edit().putString(key, value).apply()
+        pref[key] = value
     }
     override operator fun set(key: String, value: Set<String>?) {
-        pref.edit().putStringSet(key, value).apply()
+        pref[key] = value
     }
 }

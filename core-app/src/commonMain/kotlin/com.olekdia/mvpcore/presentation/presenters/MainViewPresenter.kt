@@ -15,11 +15,10 @@ interface IMainViewPresenter : IViewPresenter<IMainView> {
 class MainViewPresenter : StatelessViewPresenter<IMainView>(),
     IMainViewPresenter {
 
-    override fun showView(componentId: String, vararg params: Pair<String, Any?>) {
-        view?.showView(componentId, *params)
-    }
-
     override val componentId: String
         get() = IMainViewPresenter.COMPONENT_ID
 
+    override fun showView(componentId: String, vararg params: Pair<String, Any?>) {
+        view?.showView(componentId, *params)
+    }
 }
