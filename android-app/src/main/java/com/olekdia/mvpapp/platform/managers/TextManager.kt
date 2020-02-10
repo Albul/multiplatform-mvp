@@ -2,9 +2,9 @@ package com.olekdia.mvpapp.platform.managers
 
 import android.content.Context
 import com.olekdia.mvp.platform.PlatformComponent
-import com.olekdia.mvpapp.NumEndingFormat
+import com.olekdia.mvpcore.NumEndingFormat
 import com.olekdia.mvpapp.R
-import com.olekdia.mvpapp.platform.extensions.getNumEndingFormat
+import com.olekdia.mvpcore.platform.extensions.getNumEndingFormat
 import com.olekdia.mvpcore.platform.managers.ITextManager
 
 class TextManager(private val context: Context) : PlatformComponent(),

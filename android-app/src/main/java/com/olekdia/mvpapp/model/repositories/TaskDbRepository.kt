@@ -10,8 +10,8 @@ import com.olekdia.mvpapp.model.entries.extensions.toTask
 import com.olekdia.mvpapp.model.repositories.db.AppContract
 import com.olekdia.mvpapp.model.repositories.db.AppContract.Task
 import com.olekdia.mvpapp.model.repositories.db.DbRepository
-import com.olekdia.mvpapp.model.repositories.db.IDbRepository
-import com.olekdia.mvpcore.model.repositories.ITaskDbRepository
+import com.olekdia.mvpcore.platform.repositories.IDbRepository
+import com.olekdia.mvpcore.platform.repositories.ITaskDbRepository
 import org.intellij.lang.annotations.Language
 
 class TaskDbRepository : PlatformComponent(),

@@ -28,11 +28,11 @@ class MainApplication : MvpApplication(),
         get() = facade.presenterProvider
 
     override fun initApp() {
-
+        // App specific startup logic
     }
 
     override fun updateConfiguration() {
-        // todo app specific logic
+        // App specific logic
     }
 
     private val mainAppPresenter: IMainAppPresenter

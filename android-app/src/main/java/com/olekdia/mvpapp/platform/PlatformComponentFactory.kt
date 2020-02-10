@@ -7,12 +7,12 @@ import com.olekdia.mvp.platform.IPlatformComponent
 import com.olekdia.mvpapp.model.repositories.PrefRepository
 import com.olekdia.mvpapp.model.repositories.TaskDbRepository
 import com.olekdia.mvpapp.model.repositories.db.DbRepository
-import com.olekdia.mvpapp.model.repositories.db.IDbRepository
+import com.olekdia.mvpcore.platform.repositories.IDbRepository
 import com.olekdia.mvpapp.platform.managers.SnackManager
 import com.olekdia.mvpapp.platform.managers.TextManager
 import com.olekdia.mvpapp.platform.managers.ToastManager
-import com.olekdia.mvpcore.model.repositories.IPrefRepository
-import com.olekdia.mvpcore.model.repositories.ITaskDbRepository
+import com.olekdia.mvpcore.platform.repositories.IPrefRepository
+import com.olekdia.mvpcore.platform.repositories.ITaskDbRepository
 import com.olekdia.mvpcore.platform.managers.ISnackManager
 import com.olekdia.mvpcore.platform.managers.ITextManager
 import com.olekdia.mvpcore.platform.managers.IToastManager

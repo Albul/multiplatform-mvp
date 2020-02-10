@@ -14,7 +14,6 @@ class TaskParcel(val entry: TaskEntry) : Parcelable {
     constructor(parcel: Parcel) : this(
         TaskEntry(
             parcel.readLong(),
-            parcel.readLong(),
             parcel.readString() ?: "",
             parcel.readEnum<TaskPriority>()
                 ?: TaskPriority.NONE,
@@ -25,7 +24,6 @@ class TaskParcel(val entry: TaskEntry) : Parcelable {
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(entry.id)
-        parcel.writeLong(entry.pid)
         parcel.writeString(entry.name)
         parcel.writeEnum(entry.priority)
         parcel.writeBooleanCompat(entry.isCompleted)

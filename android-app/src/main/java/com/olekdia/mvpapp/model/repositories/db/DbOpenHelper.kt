@@ -1,4 +1,4 @@
-package com.olekdia.sample.model.repositories.db
+package com.olekdia.mvpapp.model.repositories.db
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -12,7 +12,6 @@ class DbOpenHelper(private val context: Context) :
         db.execSQL("""
             CREATE TABLE IF NOT EXISTS 'task' (
             _id INTEGER PRIMARY KEY,
-            pid INTEGER,
             pos INTEGER,
             name TEXT,
             priority INTEGER,

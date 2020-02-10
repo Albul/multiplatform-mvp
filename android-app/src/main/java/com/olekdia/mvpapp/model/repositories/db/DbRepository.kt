@@ -1,4 +1,4 @@
-package com.olekdia.sample.model.repositories.db
+package com.olekdia.mvpapp.model.repositories.db
 
 import android.content.ContentValues
 import android.content.Context
@@ -9,11 +9,13 @@ import android.database.sqlite.SQLiteStatement
 import android.os.*
 import android.util.Log
 import androidx.annotation.IntDef
-import com.olekdia.mvp.model.BaseModel
-import com.olekdia.sample.common.FutureTask
+import com.olekdia.mvp.platform.PlatformComponent
+import com.olekdia.mvpapp.common.FutureTask
+import com.olekdia.mvpcore.platform.repositories.IDbRepository
 import org.intellij.lang.annotations.Language
 
-class DbRepository(val context: Context) : BaseModel(), IDbRepository {
+class DbRepository(val context: Context) : PlatformComponent(),
+    IDbRepository {
 
     val dbOpenHelper: SQLiteOpenHelper = DbOpenHelper(context)
 

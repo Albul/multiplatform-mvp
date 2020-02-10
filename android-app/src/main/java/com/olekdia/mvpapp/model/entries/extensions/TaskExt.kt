@@ -15,7 +15,6 @@ val TaskEntry.priorityColor: Int
 
 fun TaskEntry.toContentValues() =
     ContentValues().also { cv ->
-        cv.put(AppContract.Task._PID, pid)
         cv.put(AppContract.Task._NAME, name)
         cv.put(AppContract.Task._PRIORITY, priority)
         cv.put(AppContract.Task._COMPLETED, isCompleted.toInt())
@@ -30,7 +29,6 @@ fun TaskEntry.toContentValues(pos: Int) =
 fun Cursor.toTask(): TaskEntry =
     TaskEntry(
         getLong(AppContract.Task.ID_),
-        getLong(AppContract.Task.PID_),
         getString(AppContract.Task.NAME_),
         getEnum(AppContract.Task.PRIORITY_),
         getInt(AppContract.Task.COMPLETED_).toBoolean(),
