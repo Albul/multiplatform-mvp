@@ -1,8 +1,8 @@
 @file:Suppress("NOTHING_TO_INLINE")
 package com.olekdia.mvpcore.platform.managers
 
-import com.olekdia.androidcore.model.entries.PrefEntry
 import com.olekdia.mvpcore.TaskFilter
+import com.olekdia.mvpcore.model.entries.PrefEntry
 import com.olekdia.mvpcore.model.repositories.IPrefRepository
 import kotlin.jvm.JvmField
 
@@ -25,5 +25,5 @@ object PrefManager {
     operator fun set(key: String, value: Set<String>) { pref[key] = value }
 
     @JvmField
-    val taskFilter = PrefEntry.StringPref("taskFilter", TaskFilter.ALL.name)
+    val taskFilter = PrefEntry.EnumPref("taskFilter", TaskFilter.ALL.name)
 }

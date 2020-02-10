@@ -1,10 +1,10 @@
 package com.olekdia.mvpcore.model.entries
 
+import com.olekdia.common.INVALID_L
 import com.olekdia.mvpcore.TaskPriority
 
 data class TaskEntry(
     var id: Long,
-    var pid: Long,
     var name: String,
     var priority: TaskPriority,
     var isCompleted: Boolean,
@@ -12,8 +12,7 @@ data class TaskEntry(
 ) {
     // New creation constructor
     constructor() : this(
-        id = -1L,
-        pid = -1L,
+        id = INVALID_L,
         name = "",
         priority = TaskPriority.NONE,
         isCompleted = false,

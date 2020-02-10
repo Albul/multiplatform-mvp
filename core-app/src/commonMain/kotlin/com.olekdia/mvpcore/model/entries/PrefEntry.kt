@@ -1,4 +1,4 @@
-package com.olekdia.androidcore.model.entries
+package com.olekdia.mvpcore.model.entries
 
 import com.olekdia.mvpcore.platform.managers.PrefManager.pref
 import kotlin.jvm.JvmField
@@ -31,9 +31,23 @@ sealed class PrefEntry<T>(
             }
     }
 
-    // todo float
+    class FloatPref(key: String, defValue: Float) : PrefEntry<Float>(key, defValue) {
+        override var value: Float
+            get() = pref[key, defValue]
+            set(value) {
+                pref[key] = value
+            }
+    }
 
     class StringPref(key: String, defValue: String) : PrefEntry<String>(key, defValue) {
+        override var value: String
+            get() = pref[key, defValue] ?: defValue
+            set(value) {
+                pref[key] = value
+            }
+    }
+
+    class EnumPref(key: String, defValue: String) : PrefEntry<String>(key, defValue) {
         override var value: String
             get() = pref[key, defValue] ?: defValue
             set(value) {
