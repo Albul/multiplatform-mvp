@@ -45,8 +45,4 @@ dependencies {
     //implementation("com.olekdia:multiplatform-common-jvm:${properties["olekdia.common"]}")
     implementation(project(":multiplatform-mvp", "jvmDefault"))
     implementation(project(":core-app", "jvmDefault"))
-
-    testImplementation("junit:junit:4.13")
-    testImplementation("org.mockito:mockito-core:3.2.4")
-    testImplementation("org.jetbrains.kotlin:kotlin-reflect:1.3.61")
 }
