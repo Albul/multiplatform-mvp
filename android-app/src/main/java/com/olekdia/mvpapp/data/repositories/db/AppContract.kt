@@ -1,4 +1,4 @@
-package com.olekdia.mvpapp.model.repositories.db
+package com.olekdia.mvpapp.data.repositories.db
 
 object AppContract {
     abstract class BaseColumns {

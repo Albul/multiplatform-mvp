@@ -1,12 +1,12 @@
-package com.olekdia.mvpapp.model.entries.extensions
+package com.olekdia.mvpapp.data.entries.extensions
 
 import android.content.ContentValues
 import android.database.Cursor
 import com.olekdia.androidcommon.extensions.toBoolean
 import com.olekdia.common.extensions.toInt
 import com.olekdia.mvpapp.common.AppColors
-import com.olekdia.mvpcore.model.entries.TaskEntry
-import com.olekdia.mvpapp.model.repositories.db.AppContract
+import com.olekdia.mvpcore.domain.entries.TaskEntry
+import com.olekdia.mvpapp.data.repositories.db.AppContract
 import com.olekdia.mvpapp.platform.extensions.getEnum
 import com.olekdia.mvpapp.platform.extensions.put
 

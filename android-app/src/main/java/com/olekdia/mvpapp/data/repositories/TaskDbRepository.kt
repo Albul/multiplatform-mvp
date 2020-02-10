@@ -1,15 +1,15 @@
-package com.olekdia.mvpapp.model.repositories
+package com.olekdia.mvpapp.data.repositories
 
 import com.olekdia.mvp.ISingleComponentFactory
 import com.olekdia.mvp.platform.PlatformComponent
 import com.olekdia.mvp.platform.IPlatformComponent
 import com.olekdia.mvpapp.common.FutureTask
-import com.olekdia.mvpcore.model.entries.TaskEntry
-import com.olekdia.mvpapp.model.entries.extensions.toContentValues
-import com.olekdia.mvpapp.model.entries.extensions.toTask
-import com.olekdia.mvpapp.model.repositories.db.AppContract
-import com.olekdia.mvpapp.model.repositories.db.AppContract.Task
-import com.olekdia.mvpapp.model.repositories.db.DbRepository
+import com.olekdia.mvpcore.domain.entries.TaskEntry
+import com.olekdia.mvpapp.data.entries.extensions.toContentValues
+import com.olekdia.mvpapp.data.entries.extensions.toTask
+import com.olekdia.mvpapp.data.repositories.db.AppContract
+import com.olekdia.mvpapp.data.repositories.db.AppContract.Task
+import com.olekdia.mvpapp.data.repositories.db.DbRepository
 import com.olekdia.mvpcore.platform.repositories.IDbRepository
 import com.olekdia.mvpcore.platform.repositories.ITaskDbRepository
 import org.intellij.lang.annotations.Language

@@ -1,4 +1,4 @@
-package com.olekdia.mvpapp.model.repositories.db
+package com.olekdia.mvpapp.data.repositories.db
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase

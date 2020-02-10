@@ -1,4 +1,4 @@
-package com.olekdia.mvpapp.model.repositories
+package com.olekdia.mvpapp.data.repositories
 
 import android.content.SharedPreferences
 import com.olekdia.mvp.platform.PlatformComponent

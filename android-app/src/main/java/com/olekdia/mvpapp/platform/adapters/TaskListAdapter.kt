@@ -9,8 +9,8 @@ import com.olekdia.androidcommon.extensions.ifNotNullAnd
 import com.olekdia.mvpapp.R
 import com.olekdia.mvpapp.common.AppColors
 import com.olekdia.mvpapp.platform.extensions.setTint
-import com.olekdia.mvpapp.model.entries.extensions.priorityColor
-import com.olekdia.mvpcore.model.entries.TaskEntry
+import com.olekdia.mvpapp.data.entries.extensions.priorityColor
+import com.olekdia.mvpcore.domain.entries.TaskEntry
 import com.olekdia.mvpcore.presentation.presenters.ITaskListPresenter
 
 class TaskListAdapter(

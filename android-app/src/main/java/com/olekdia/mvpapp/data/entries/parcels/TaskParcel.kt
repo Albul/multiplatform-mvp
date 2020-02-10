@@ -1,11 +1,11 @@
-package com.olekdia.mvpapp.model.entries.parcels
+package com.olekdia.mvpapp.data.entries.parcels
 
 import android.os.Parcel
 import android.os.Parcelable
 import com.olekdia.mvpcore.TaskPriority
 import com.olekdia.mvpapp.platform.extensions.readEnum
 import com.olekdia.mvpapp.platform.extensions.writeEnum
-import com.olekdia.mvpcore.model.entries.TaskEntry
+import com.olekdia.mvpcore.domain.entries.TaskEntry
 import com.olekdia.mvpapp.platform.extensions.readBooleanCompat
 import com.olekdia.mvpapp.platform.extensions.writeBooleanCompat
 

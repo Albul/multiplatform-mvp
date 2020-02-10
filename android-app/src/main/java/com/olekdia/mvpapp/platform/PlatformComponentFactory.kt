@@ -4,9 +4,9 @@ import android.content.Context
 import com.olekdia.androidcommon.extensions.defaultSharedPreferences
 import com.olekdia.mvp.ComponentFactory
 import com.olekdia.mvp.platform.IPlatformComponent
-import com.olekdia.mvpapp.model.repositories.PrefRepository
-import com.olekdia.mvpapp.model.repositories.TaskDbRepository
-import com.olekdia.mvpapp.model.repositories.db.DbRepository
+import com.olekdia.mvpapp.data.repositories.PrefRepository
+import com.olekdia.mvpapp.data.repositories.TaskDbRepository
+import com.olekdia.mvpapp.data.repositories.db.DbRepository
 import com.olekdia.mvpcore.platform.repositories.IDbRepository
 import com.olekdia.mvpapp.platform.managers.SnackManager
 import com.olekdia.mvpapp.platform.managers.TextManager

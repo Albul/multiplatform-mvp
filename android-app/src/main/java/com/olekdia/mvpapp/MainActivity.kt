@@ -6,10 +6,12 @@ import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.olekdia.fam.FloatingActionsMenu
 import com.olekdia.mvpapp.platform.extensions.presenterProvider
-import com.olekdia.mvpapp.model.entries.parcels.TaskParcel
+import com.olekdia.mvpapp.data.entries.parcels.TaskParcel
+import com.olekdia.mvpapp.platform.extensions.parcelize
 import com.olekdia.mvpcore.platform.views.IInputTaskView
 import com.olekdia.mvpcore.platform.views.IMainView
 import com.olekdia.mvpcore.presentation.presenters.IMainViewPresenter
@@ -18,7 +20,7 @@ import com.olekdia.mvpapp.platform.fragments.IStatefulFragment
 import com.olekdia.mvpapp.platform.fragments.IStatefulFragment.StackState
 import com.olekdia.mvpapp.platform.fragments.InputTaskFragment
 import com.olekdia.mvpapp.platform.fragments.TaskListFragment
-import com.olekdia.mvpcore.model.entries.TaskEntry
+import com.olekdia.mvpcore.domain.entries.TaskEntry
 import java.io.Serializable
 
 class MainActivity : AppCompatActivity(),
@@ -38,6 +40,14 @@ class MainActivity : AppCompatActivity(),
     @Suppress("UNCHECKED_CAST")
     override fun <T> getPlatformView(): T = this as T
 
+    override fun showView(componentId: String, params: Array<Pair<String, Any?>>) {
+        showFragment(
+            createFragment(componentId),
+            componentId,
+            bundleOf(*params.parcelize())
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_main)
@@ -51,7 +61,6 @@ class MainActivity : AppCompatActivity(),
                 it.setOnFabClickListener { btnId ->
                     when (btnId) {
                         R.id.fab_expand_menu_button -> onShowTaskFrag()
-                        R.id.fab_category -> onShowCategoryFrag()
                     }
                 }
             }
@@ -77,20 +86,8 @@ class MainActivity : AppCompatActivity(),
         super.onDestroy()
     }
 
-    override fun showView(componentId: String, vararg params: Pair<String, Any?>) {
-        showFragment(
-            createFragment(componentId),
-            componentId,
-            bundleOf(*params)
-        )
-    }
-
     fun onShowTaskFrag() {
         showFragment(InputTaskFragment(), IInputTaskView.COMPONENT_ID)
-    }
-
-    fun onShowCategoryFrag() {
-        // todo
     }
 
     fun prepareActionbar(componentId: String) {
@@ -226,69 +223,4 @@ class MainActivity : AppCompatActivity(),
      */
     protected fun keepFragment(frag: Fragment?): Boolean =
         frag !is IStatefulFragment || (frag as IStatefulFragment).isKeepFragment()
-}
-
-fun bundleOf(vararg pairs: Pair<String, Any?>) = Bundle(pairs.size).apply {
-    for ((key, value) in pairs) {
-        when (value) {
-            null -> putString(key, null) // Any nullable type will suffice.
-
-            // Scalars
-            is Boolean -> putBoolean(key, value)
-            is Byte -> putByte(key, value)
-            is Char -> putChar(key, value)
-            is Double -> putDouble(key, value)
-            is Float -> putFloat(key, value)
-            is Int -> putInt(key, value)
-            is Long -> putLong(key, value)
-            is Short -> putShort(key, value)
-
-            // References
-            is Bundle -> putBundle(key, value)
-            is CharSequence -> putCharSequence(key, value)
-            is Parcelable -> putParcelable(key, value)
-
-            // Scalar arrays
-            is BooleanArray -> putBooleanArray(key, value)
-            is ByteArray -> putByteArray(key, value)
-            is CharArray -> putCharArray(key, value)
-            is DoubleArray -> putDoubleArray(key, value)
-            is FloatArray -> putFloatArray(key, value)
-            is IntArray -> putIntArray(key, value)
-            is LongArray -> putLongArray(key, value)
-            is ShortArray -> putShortArray(key, value)
-
-            // Reference arrays
-            is Array<*> -> {
-                val componentType = value::class.java.componentType!!
-                @Suppress("UNCHECKED_CAST") // Checked by reflection.
-                when {
-                    Parcelable::class.java.isAssignableFrom(componentType) -> {
-                        putParcelableArray(key, value as Array<Parcelable>)
-                    }
-                    String::class.java.isAssignableFrom(componentType) -> {
-                        putStringArray(key, value as Array<String>)
-                    }
-                    CharSequence::class.java.isAssignableFrom(componentType) -> {
-                        putCharSequenceArray(key, value as Array<CharSequence>)
-                    }
-                    Serializable::class.java.isAssignableFrom(componentType) -> {
-                        putSerializable(key, value)
-                    }
-                    else -> {
-                        val valueType = componentType.canonicalName
-                        throw IllegalArgumentException(
-                            "Illegal value array type $valueType for key \"$key\"")
-                    }
-                }
-            }
-
-            // Last resort. Also we must check this after Array<*> as all arrays are serializable.
-            is Serializable -> putSerializable(key, value)
-            //
-            is TaskEntry -> putParcelable(key,
-                TaskParcel(value)
-            )
-        }
-    }
 }

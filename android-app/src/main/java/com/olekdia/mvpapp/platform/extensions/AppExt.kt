@@ -6,14 +6,18 @@ import android.content.res.ColorStateList
 import android.database.Cursor
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.os.Bundle
 import android.os.Parcel
+import android.os.Parcelable
 import android.widget.CheckBox
 import androidx.core.graphics.drawable.DrawableCompat
 import com.olekdia.androidcommon.extensions.getDrawableCompat
 import com.olekdia.common.extensions.toBoolean
 import com.olekdia.common.extensions.toInt
-import com.olekdia.mvpapp.NumEndingFormat
 import com.olekdia.mvpapp.R
+import com.olekdia.mvpapp.data.entries.parcels.TaskParcel
+import com.olekdia.mvpcore.domain.entries.TaskEntry
+import java.io.Serializable
 
 @SuppressLint("PrivateResource")
 fun CheckBox.setTint(color: Int) {
@@ -59,19 +63,13 @@ fun Parcel.writeBooleanCompat(value: Boolean) {
 fun Parcel.readBooleanCompat(): Boolean =
     readInt().toBoolean()
 
-// move todo
-fun Int.getNumEndingFormat(): NumEndingFormat =
-    when {
-        this == 1 -> NumEndingFormat.ONE
-        this.hasLast1Digit() -> NumEndingFormat.X1
-        this.hasLast234Digit() -> NumEndingFormat.X4
-        else -> NumEndingFormat.X5
-    }
-
-fun Int.hasLast1Digit(): Boolean =
-    this > 20 && this % 10 == 1
-
-fun Int.hasLast234Digit(): Boolean =
-    (this % 10).let { rest10 ->
-        this in 2..4 || rest10 in 2..4 && this > 20
+fun Array<Pair<String, Any?>>.parcelize(): Array<Pair<String, Any?>> =
+    this.apply {
+        for (i in this.lastIndex downTo 0) {
+            val pair = this[i]
+            val item = pair.second
+            if (item is TaskEntry) {
+                this[i] = pair.first to TaskParcel(item)
+            }
+        }
     }

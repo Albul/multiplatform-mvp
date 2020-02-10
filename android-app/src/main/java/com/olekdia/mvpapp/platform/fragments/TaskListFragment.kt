@@ -11,7 +11,7 @@ import com.olekdia.androidcommon.extensions.ifNotNull
 import com.olekdia.mvpapp.MainActivity
 import com.olekdia.mvpapp.R
 import com.olekdia.mvpapp.platform.extensions.presenterProvider
-import com.olekdia.mvpcore.model.entries.TaskEntry
+import com.olekdia.mvpcore.domain.entries.TaskEntry
 import com.olekdia.mvpcore.presentation.presenters.ITaskListPresenter
 import com.olekdia.mvpcore.platform.views.ITaskListView
 import com.olekdia.mvpapp.platform.adapters.TaskListAdapter

@@ -16,7 +16,7 @@ import com.olekdia.mvpapp.MainActivity
 import com.olekdia.mvpapp.R
 import com.olekdia.mvpcore.TaskPriority
 import com.olekdia.mvpapp.platform.extensions.presenterProvider
-import com.olekdia.mvpapp.model.entries.parcels.TaskParcel
+import com.olekdia.mvpapp.data.entries.parcels.TaskParcel
 import com.olekdia.mvpcore.presentation.presenters.IInputTaskPresenter
 import com.olekdia.mvpcore.platform.views.IInputTaskView
 import com.olekdia.mvpcore.presentation.presenters.InputTaskState
