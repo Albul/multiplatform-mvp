@@ -1,6 +1,6 @@
 package com.olekdia.mvp
 
-class ComponentProvider<T : IComponent>(
+class ComponentProvider<T : ILifecycleComponent>(
     private val facade: Facade,
     private val factory: IComponentFactory<T>
 ) : IComponentProvider<T> {

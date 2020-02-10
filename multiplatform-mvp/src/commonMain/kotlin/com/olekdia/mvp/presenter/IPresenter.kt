@@ -1,15 +1,5 @@
 package com.olekdia.mvp.presenter
 
-import com.olekdia.mvp.IComponent
+import com.olekdia.mvp.ILifecycleComponent
 
-/**
- *           Lifecycle:
- *          ------------
- *         | onCreate() |
- *          ------------
- *               ↓
- *          -------------
- *         | onDestroy() |
- *          -------------
- */
-interface IPresenter : IComponent
+interface IPresenter : ILifecycleComponent

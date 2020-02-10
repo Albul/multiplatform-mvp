@@ -22,7 +22,7 @@ class Facade(
     val platformProvider: IComponentProvider<IPlatformComponent> =
         ComponentProvider<IPlatformComponent>(this, platformFactory)
 
-    internal fun inject(component: IComponent) {
+    internal fun inject(component: ILifecycleComponent) {
         when (component) {
             is Presenter -> {
                 component.modelProvider = modelProvider

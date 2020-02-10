@@ -1,6 +1,6 @@
 package com.olekdia.mvp
 
-interface IComponentProvider<T : IComponent> {
+interface IComponentProvider<T : ILifecycleComponent> {
 
     fun <C : T> get(componentId: String): C?
 

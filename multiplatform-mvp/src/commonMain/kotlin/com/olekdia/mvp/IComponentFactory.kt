@@ -1,6 +1,6 @@
 package com.olekdia.mvp
 
-interface IComponentFactory<T : IComponent> {
+interface IComponentFactory<T : ILifecycleComponent> {
 
     fun create(componentId: String): T?
 

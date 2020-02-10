@@ -1,6 +1,6 @@
 package com.olekdia.mvp
 
-open class ComponentFactory<T : IComponent>(
+open class ComponentFactory<T : ILifecycleComponent>(
     private val factoryMap: MutableMap<String, ISingleComponentFactory<T>>
 ) : IComponentFactory<T> {
 

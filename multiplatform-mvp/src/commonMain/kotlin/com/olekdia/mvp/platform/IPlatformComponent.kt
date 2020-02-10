@@ -1,15 +1,5 @@
 package com.olekdia.mvp.platform
 
-import com.olekdia.mvp.IComponent
+import com.olekdia.mvp.ILifecycleComponent
 
-/**
- *           Lifecycle:
- *          ------------
- *         | onCreate() |
- *          ------------
- *               ↓
- *          -------------
- *         | onDestroy() |
- *          -------------
- */
-interface IPlatformComponent : IComponent
+interface IPlatformComponent : ILifecycleComponent

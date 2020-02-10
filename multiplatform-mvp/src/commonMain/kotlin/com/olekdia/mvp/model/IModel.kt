@@ -1,15 +1,5 @@
 package com.olekdia.mvp.model
 
-import com.olekdia.mvp.IComponent
+import com.olekdia.mvp.ILifecycleComponent
 
-/**
- *           Lifecycle:
- *          ------------
- *         | onCreate() |
- *          ------------
- *               ↓
- *          -------------
- *         | onDestroy() |
- *          -------------
- */
-interface IModel : IComponent
+interface IModel : ILifecycleComponent
