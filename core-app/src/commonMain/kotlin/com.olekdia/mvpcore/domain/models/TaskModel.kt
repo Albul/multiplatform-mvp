@@ -1,13 +1,13 @@
-package com.olekdia.mvpcore.model.models
+package com.olekdia.mvpcore.domain.models
 
 import com.olekdia.mvp.model.IStatefulModel
 import com.olekdia.mvp.model.StatefulModel
 import com.olekdia.mvpcore.TaskFilter
+import com.olekdia.mvpcore.domain.entries.TaskEntry
 import com.olekdia.mvpcore.platform.extensions.plus
 import com.olekdia.mvpcore.platform.extensions.replace
-import com.olekdia.mvpcore.platform.repositories.ITaskDbRepository
-import com.olekdia.mvpcore.model.entries.TaskEntry
 import com.olekdia.mvpcore.platform.managers.PrefManager
+import com.olekdia.mvpcore.platform.repositories.ITaskDbRepository
 
 data class TaskListState(
     val filter: TaskFilter = PrefManager.taskFilter.getEnumValue(),
@@ -109,11 +109,9 @@ class TaskModel : StatefulModel<TaskListState>(),
     }
 
     override fun insertNew(newEntry: TaskEntry) {
-        println("Before:" + state.list.toString())
         add(
             taskDbRep.insert(newEntry, state.list?.lastIndex ?: 0)
         )
-        println("After1:" + state.list.toString())
     }
 
     override fun add(entry: TaskEntry) {

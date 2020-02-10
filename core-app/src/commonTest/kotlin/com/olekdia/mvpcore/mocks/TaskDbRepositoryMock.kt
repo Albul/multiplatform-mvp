@@ -2,7 +2,7 @@ package com.olekdia.mvpcore.mocks
 
 import com.olekdia.common.INVALID_L
 import com.olekdia.mvpcore.TaskPriority
-import com.olekdia.mvpcore.model.entries.TaskEntry
+import com.olekdia.mvpcore.domain.entries.TaskEntry
 import com.olekdia.mvpcore.platform.repositories.ITaskDbRepository
 
 class TaskDbRepositoryMock : ITaskDbRepository {
@@ -18,10 +18,34 @@ class TaskDbRepositoryMock : ITaskDbRepository {
 
     override fun load(): ArrayList<TaskEntry> =
         arrayListOf(
-            TaskEntry(1L, "Apples", TaskPriority.MEDIUM, false, INVALID_L),
-            TaskEntry(2L, "Bananas", TaskPriority.MEDIUM, false, INVALID_L),
-            TaskEntry(3L, "Vegetables", TaskPriority.MEDIUM, false, INVALID_L),
-            TaskEntry(4L, "Nuts", TaskPriority.MEDIUM, false, INVALID_L)
+            TaskEntry(
+                1L,
+                "Apples",
+                TaskPriority.MEDIUM,
+                false,
+                INVALID_L
+            ),
+            TaskEntry(
+                2L,
+                "Bananas",
+                TaskPriority.MEDIUM,
+                false,
+                INVALID_L
+            ),
+            TaskEntry(
+                3L,
+                "Vegetables",
+                TaskPriority.MEDIUM,
+                false,
+                INVALID_L
+            ),
+            TaskEntry(
+                4L,
+                "Nuts",
+                TaskPriority.MEDIUM,
+                false,
+                INVALID_L
+            )
         )
 
     override fun save(entry: TaskEntry) {

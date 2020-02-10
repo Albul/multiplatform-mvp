@@ -2,8 +2,8 @@ package com.olekdia.mvpcore.presentation
 
 import com.olekdia.mvpcore.BaseTest
 import com.olekdia.mvpcore.TaskPriority
-import com.olekdia.mvpcore.model.entries.TaskEntry
-import com.olekdia.mvpcore.model.models.ITaskModel
+import com.olekdia.mvpcore.domain.entries.TaskEntry
+import com.olekdia.mvpcore.domain.models.ITaskModel
 import com.olekdia.mvpcore.presentation.presenters.IInputTaskPresenter
 import com.olekdia.mvpcore.presentation.presenters.InputTaskState
 import kotlin.test.*
@@ -11,7 +11,8 @@ import kotlin.test.*
 class InputTaskPresenterTest : BaseTest() {
 
     val inputPresenter: IInputTaskPresenter = presenterProvider.get(IInputTaskPresenter.COMPONENT_ID)!!
-    val taskModel: ITaskModel = modelProvider.get(ITaskModel.COMPONENT_ID)!!
+    val taskModel: ITaskModel = modelProvider.get(
+        ITaskModel.COMPONENT_ID)!!
 
     @Test
     fun presWithoutChange_isStateUnsaved_false() {

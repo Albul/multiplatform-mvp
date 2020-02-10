@@ -2,7 +2,7 @@ package com.olekdia.mvpcore.platform.views
 
 import com.olekdia.mvp.IComponent
 import com.olekdia.mvpcore.TaskFilter
-import com.olekdia.mvpcore.model.entries.TaskEntry
+import com.olekdia.mvpcore.domain.entries.TaskEntry
 
 interface ITaskListView : IComponent {
 

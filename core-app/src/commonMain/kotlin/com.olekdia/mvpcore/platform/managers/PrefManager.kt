@@ -2,7 +2,7 @@
 package com.olekdia.mvpcore.platform.managers
 
 import com.olekdia.mvpcore.TaskFilter
-import com.olekdia.mvpcore.model.entries.PrefEntry
+import com.olekdia.mvpcore.domain.entries.PrefEntry
 import com.olekdia.mvpcore.platform.repositories.IPrefRepository
 import kotlin.jvm.JvmField
 

@@ -4,8 +4,8 @@ import com.olekdia.common.INVALID_L
 import com.olekdia.common.extensions.ifNotNull
 import com.olekdia.mvp.presenter.IStatefulViewPresenter
 import com.olekdia.mvpcore.TaskPriority
-import com.olekdia.mvpcore.model.entries.TaskEntry
-import com.olekdia.mvpcore.model.models.ITaskModel
+import com.olekdia.mvpcore.domain.entries.TaskEntry
+import com.olekdia.mvpcore.domain.models.ITaskModel
 import com.olekdia.mvpcore.platform.views.IInputTaskView
 import com.olekdia.mvpcore.presentation.ExtStatefulViewPresenter
 

@@ -2,6 +2,7 @@ package com.olekdia.mvpcore.presentation.presenters
 
 import com.olekdia.mvp.presenter.IViewPresenter
 import com.olekdia.mvp.presenter.StatelessViewPresenter
+import com.olekdia.mvpcore.domain.models.ITaskModel
 import com.olekdia.mvpcore.platform.repositories.IPrefRepository
 import com.olekdia.mvpcore.platform.managers.PrefManager
 import com.olekdia.mvpcore.platform.views.IMainApp
@@ -24,6 +25,16 @@ class MainAppPresenter : StatelessViewPresenter<IMainApp>(),
 
     override fun onAppInit() {
         PrefManager.pref = platformProvider.get(IPrefRepository.COMPONENT_ID)!!
+
+        // Load initial data
+        modelProvider
+            .get<ITaskModel>(ITaskModel.COMPONENT_ID)!!
+            .loadAsync {
+                presenterProvider
+                    .get<ITaskListPresenter>(ITaskListPresenter.COMPONENT_ID)!!
+                    .onUpdateView()
+            }
+
         // todo init rest presenter
 
         view?.initApp()

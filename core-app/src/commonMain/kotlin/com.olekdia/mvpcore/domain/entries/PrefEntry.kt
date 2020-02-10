@@ -1,4 +1,4 @@
-package com.olekdia.mvpcore.model.entries
+package com.olekdia.mvpcore.domain.entries
 
 import com.olekdia.mvpcore.platform.managers.PrefManager.pref
 import kotlin.jvm.JvmField

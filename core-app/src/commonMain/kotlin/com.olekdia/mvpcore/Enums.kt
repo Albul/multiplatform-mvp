@@ -9,6 +9,10 @@ enum class TaskFilter {
     ALL, ACTIVE, COMPLETED
 }
 
+enum class NumEndingFormat {
+    ONE, X1, X4, X5
+}
+
 annotation class Key {
     companion object {
         const val NAME = "NAME"

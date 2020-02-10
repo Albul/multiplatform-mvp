@@ -1,4 +1,4 @@
-package com.olekdia.mvpcore.model.entries
+package com.olekdia.mvpcore.domain.entries
 
 import com.olekdia.common.INVALID_L
 import com.olekdia.mvpcore.TaskPriority

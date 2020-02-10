@@ -5,8 +5,8 @@ import com.olekdia.common.extensions.ifNotNullAnd
 import com.olekdia.mvp.presenter.IStatefulViewPresenter
 import com.olekdia.mvpcore.Key
 import com.olekdia.mvpcore.TaskFilter
-import com.olekdia.mvpcore.model.models.ITaskModel
-import com.olekdia.mvpcore.model.models.TaskListState
+import com.olekdia.mvpcore.domain.models.ITaskModel
+import com.olekdia.mvpcore.domain.models.TaskListState
 import com.olekdia.mvpcore.platform.managers.OnSnackbarStateChangedListener
 import com.olekdia.mvpcore.platform.views.IInputTaskView
 import com.olekdia.mvpcore.platform.views.ITaskListView
@@ -139,11 +139,6 @@ class TaskListPresenter : ExtStatefulViewPresenter<ITaskListView, TaskListState>
 
     private val taskModel: ITaskModel
         get() = modelProvider.get(ITaskModel.COMPONENT_ID)!!
-
-    override fun onCreate() {
-        super.onCreate()
-        taskModel.loadAsync { onUpdateView() }
-    }
 
     override fun onStart() {
         super.onStart()
