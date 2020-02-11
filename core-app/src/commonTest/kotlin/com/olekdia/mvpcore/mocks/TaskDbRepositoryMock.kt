@@ -36,14 +36,14 @@ class TaskDbRepositoryMock : ITaskDbRepository {
                 3L,
                 "Vegetables",
                 TaskPriority.MEDIUM,
-                false,
+                true,
                 INVALID_L
             ),
             TaskEntry(
                 4L,
                 "Nuts",
                 TaskPriority.MEDIUM,
-                false,
+                true,
                 INVALID_L
             )
         )

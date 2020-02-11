@@ -60,7 +60,10 @@ interface ITaskModel : IStatefulModel<TaskListState> {
      * Add task to state, to specific position
      */
     fun add(entry: TaskEntry, pos: Int)
-
+    /**
+     * Save task to state and to repository, only when task with such id is different
+     * @return true if task has been saved, false otherwise
+     */
     fun save(updatedEntry: TaskEntry): Boolean
 
     /**
@@ -68,6 +71,10 @@ interface ITaskModel : IStatefulModel<TaskListState> {
      */
     fun toggleComplete(entry: TaskEntry)
 
+    /**
+     * Applies new filter if only previous filter is different.
+     * @return true if filter is applied, false otherwise
+     */
     fun saveFilter(newFilter: TaskFilter): Boolean
 
     /**
@@ -84,11 +91,11 @@ interface ITaskModel : IStatefulModel<TaskListState> {
      */
     fun restore(list: List<TaskEntry>)
     /**
-     * Delete task from repository, call remove before it
+     * Delete task from the state and repository
      */
     fun delete(entry: TaskEntry)
     /**
-     * Delete tasks from repository, call remove before it
+     * Delete tasks from the state and repository
      */
     fun delete(list: List<TaskEntry>)
 
@@ -162,7 +169,13 @@ class TaskModel : StatefulModel<TaskListState>(),
         } ?: false
 
     override fun remove(entry: TaskEntry) {
-        state = state.copy(list = state.list?.minus(entry))
+        state.list?.let { list ->
+            state = if (list.contains(entry)) {
+                state.copy(list = list.minus(entry))
+            } else {
+                state
+            }
+        }
     }
 
     override fun removeCompleted(): List<TaskEntry>? =
@@ -180,10 +193,14 @@ class TaskModel : StatefulModel<TaskListState>(),
     }
 
     override fun delete(entry: TaskEntry) {
+        remove(entry)
         taskDbRep.delete(entry)
     }
 
     override fun delete(list: List<TaskEntry>) {
+        for (entry in list) {
+            remove(entry)
+        }
         taskDbRep.delete(list)
     }
 

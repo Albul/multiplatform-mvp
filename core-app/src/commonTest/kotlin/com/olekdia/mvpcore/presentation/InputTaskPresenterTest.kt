@@ -11,8 +11,6 @@ import kotlin.test.*
 class InputTaskPresenterTest : BaseTest() {
 
     val inputPresenter: IInputTaskPresenter = presenterProvider.get(IInputTaskPresenter.COMPONENT_ID)!!
-    val taskModel: ITaskModel = modelProvider.get(
-        ITaskModel.COMPONENT_ID)!!
 
     @Test
     fun presWithoutChange_isStateUnsaved_false() {
