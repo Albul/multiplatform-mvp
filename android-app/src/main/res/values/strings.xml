@@ -18,7 +18,11 @@
     <string name="active_filter">Active</string>
     <string name="completed_filter">Completed</string>
 
+    <string name="discard_changes">Discard changes?</string>
+
     <!-- Common -->
     <string name="undo">Undo</string>
     <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="discard">Discard</string>
 </resources>

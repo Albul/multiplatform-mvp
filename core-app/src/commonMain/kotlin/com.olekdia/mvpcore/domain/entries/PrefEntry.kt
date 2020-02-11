@@ -1,6 +1,6 @@
 package com.olekdia.mvpcore.domain.entries
 
-import com.olekdia.mvpcore.platform.view.managers.PrefManager.pref
+import com.olekdia.mvpcore.presentation.singletons.AppPrefs.prefs
 import kotlin.jvm.JvmField
 
 sealed class PrefEntry<T>(
@@ -9,49 +9,49 @@ sealed class PrefEntry<T>(
 ) {
     class BooleanPref(key: String, defValue: Boolean) : PrefEntry<Boolean>(key, defValue) {
         override var value: Boolean
-            get() = pref[key, defValue]
+            get() = prefs[key, defValue]
             set(value) {
-                pref[key] = value
+                prefs[key] = value
             }
     }
 
     class IntPref(key: String, defValue: Int) : PrefEntry<Int>(key, defValue) {
         override var value: Int
-            get() = pref[key, defValue]
+            get() = prefs[key, defValue]
             set(value) {
-                pref[key] = value
+                prefs[key] = value
             }
     }
 
     class LongPref(key: String, defValue: Long) : PrefEntry<Long>(key, defValue) {
         override var value: Long
-            get() = pref[key, defValue]
+            get() = prefs[key, defValue]
             set(value) {
-                pref[key] = value
+                prefs[key] = value
             }
     }
 
     class FloatPref(key: String, defValue: Float) : PrefEntry<Float>(key, defValue) {
         override var value: Float
-            get() = pref[key, defValue]
+            get() = prefs[key, defValue]
             set(value) {
-                pref[key] = value
+                prefs[key] = value
             }
     }
 
     class StringPref(key: String, defValue: String) : PrefEntry<String>(key, defValue) {
         override var value: String
-            get() = pref[key, defValue] ?: defValue
+            get() = prefs[key, defValue] ?: defValue
             set(value) {
-                pref[key] = value
+                prefs[key] = value
             }
     }
 
     class EnumPref(key: String, defValue: String) : PrefEntry<String>(key, defValue) {
         override var value: String
-            get() = pref[key, defValue] ?: defValue
+            get() = prefs[key, defValue] ?: defValue
             set(value) {
-                pref[key] = value
+                prefs[key] = value
             }
 
         inline fun <reified T : Enum<T>> getEnumValue(): T =
@@ -64,9 +64,9 @@ sealed class PrefEntry<T>(
 
     class StringSetPref(key: String, defValue: Set<String>) : PrefEntry<Set<String>>(key, defValue) {
         override var value: Set<String>
-            get() = pref[key, defValue] ?: defValue
+            get() = prefs[key, defValue] ?: defValue
             set(value) {
-                pref[key] = value
+                prefs[key] = value
             }
         override val valueSerialized: String
             get() = value.joinToString()

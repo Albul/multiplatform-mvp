@@ -1,16 +1,18 @@
 package com.olekdia.mvpcore.domain.models
 
+import com.olekdia.mvp.ISingleComponentFactory
+import com.olekdia.mvp.model.IModel
 import com.olekdia.mvp.model.IStatefulModel
 import com.olekdia.mvp.model.StatefulModel
 import com.olekdia.mvpcore.TaskFilter
 import com.olekdia.mvpcore.domain.entries.TaskEntry
-import com.olekdia.mvpcore.platform.extensions.plus
-import com.olekdia.mvpcore.platform.extensions.replace
-import com.olekdia.mvpcore.platform.view.managers.PrefManager
-import com.olekdia.mvpcore.platform.data.repositories.ITaskDbRepository
+import com.olekdia.mvpcore.common.extensions.plus
+import com.olekdia.mvpcore.common.extensions.replace
+import com.olekdia.mvpcore.presentation.singletons.AppPrefs
+import com.olekdia.mvpcore.domain.repositories.ITaskDbRepository
 
 data class TaskListState(
-    val filter: TaskFilter = PrefManager.taskFilter.getEnumValue(),
+    val filter: TaskFilter = AppPrefs.taskFilter.getEnumValue(),
     val list: List<TaskEntry>? = null // Null indicates that tasks not loaded yet
 ) {
     val filteredList: List<TaskEntry>? = list?.filterList(filter)
@@ -90,8 +92,10 @@ interface ITaskModel : IStatefulModel<TaskListState> {
      */
     fun delete(list: List<TaskEntry>)
 
-    companion object {
+    companion object FACTORY : ISingleComponentFactory<IModel> {
         const val COMPONENT_ID = "TASK_MODEL"
+
+        override fun invoke(): IModel = TaskModel()
     }
 }
 
@@ -152,7 +156,7 @@ class TaskModel : StatefulModel<TaskListState>(),
                     filter = newFilter,
                     list = list
                 )
-                PrefManager.taskFilter.setEnumValue(newFilter)
+                AppPrefs.taskFilter.setEnumValue(newFilter)
                 true
             }
         } ?: false

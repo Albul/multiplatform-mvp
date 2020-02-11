@@ -4,14 +4,12 @@ import com.olekdia.common.INVALID_L
 import com.olekdia.common.extensions.ifNotNull
 import com.olekdia.mvp.presenter.IStatefulViewPresenter
 import com.olekdia.mvp.presenter.StatefulViewPresenter
-import com.olekdia.mvpcore.Key
 import com.olekdia.mvpcore.TaskPriority
-import com.olekdia.mvpcore.ViewType
+import com.olekdia.mvpcore.domain.IExtModelHolder
 import com.olekdia.mvpcore.domain.entries.TaskEntry
-import com.olekdia.mvpcore.domain.models.ITaskModel
-import com.olekdia.mvpcore.platform.view.views.IDiscardDialogView
-import com.olekdia.mvpcore.platform.view.views.IInputTaskView
-import com.olekdia.mvpcore.presentation.ExtStatefulViewPresenter
+import com.olekdia.mvpcore.presentation.IExtPlatformHolder
+import com.olekdia.mvpcore.presentation.IExtPresenterHolder
+import com.olekdia.mvpcore.presentation.views.IInputTaskView
 
 data class InputTaskState(
     val initTask: TaskEntry = TaskEntry(),
@@ -42,8 +40,11 @@ interface IInputTaskPresenter : IStatefulViewPresenter<IInputTaskView, InputTask
     }
 }
 
-class InputTaskPresenter : ExtStatefulViewPresenter<IInputTaskView, InputTaskState>(),
-    IInputTaskPresenter {
+class InputTaskPresenter : StatefulViewPresenter<IInputTaskView, InputTaskState>(),
+    IInputTaskPresenter,
+    IExtModelHolder,
+    IExtPresenterHolder,
+    IExtPlatformHolder {
 
     override fun onNameChange(name: String) {
         state = state.copy(currTask = state.currTask.copy(name = name))
@@ -100,12 +101,6 @@ class InputTaskPresenter : ExtStatefulViewPresenter<IInputTaskView, InputTaskSta
 
     override var state: InputTaskState =
         InputTaskState() // New creation case by default
-
-    private val taskListPresenter: ITaskListPresenter
-        get() = presenterProvider.get(ITaskListPresenter.COMPONENT_ID)!!
-
-    private val taskModel: ITaskModel
-        get() = modelProvider.get(ITaskModel.COMPONENT_ID)!!
 
     override fun onRestoreState(state: InputTaskState) {
         this.state = state

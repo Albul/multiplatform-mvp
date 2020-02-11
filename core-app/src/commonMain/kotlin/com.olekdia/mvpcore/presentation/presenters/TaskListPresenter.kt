@@ -3,15 +3,17 @@ package com.olekdia.mvpcore.presentation.presenters
 import com.olekdia.common.extensions.ifNotNull
 import com.olekdia.common.extensions.ifNotNullAnd
 import com.olekdia.mvp.presenter.IStatefulViewPresenter
+import com.olekdia.mvp.presenter.StatefulViewPresenter
 import com.olekdia.mvpcore.Key
 import com.olekdia.mvpcore.TaskFilter
 import com.olekdia.mvpcore.ViewType
-import com.olekdia.mvpcore.domain.models.ITaskModel
+import com.olekdia.mvpcore.domain.IExtModelHolder
 import com.olekdia.mvpcore.domain.models.TaskListState
-import com.olekdia.mvpcore.platform.view.managers.OnSnackbarStateChangedListener
-import com.olekdia.mvpcore.platform.view.views.IInputTaskView
-import com.olekdia.mvpcore.platform.view.views.ITaskListView
-import com.olekdia.mvpcore.presentation.ExtStatefulViewPresenter
+import com.olekdia.mvpcore.presentation.managers.OnSnackbarStateChangedListener
+import com.olekdia.mvpcore.presentation.views.IInputTaskView
+import com.olekdia.mvpcore.presentation.views.ITaskListView
+import com.olekdia.mvpcore.presentation.IExtPlatformHolder
+import com.olekdia.mvpcore.presentation.IExtPresenterHolder
 
 interface ITaskListPresenter : IStatefulViewPresenter<ITaskListView, TaskListState> {
 
@@ -32,8 +34,11 @@ interface ITaskListPresenter : IStatefulViewPresenter<ITaskListView, TaskListSta
     }
 }
 
-class TaskListPresenter : ExtStatefulViewPresenter<ITaskListView, TaskListState>(),
-    ITaskListPresenter {
+class TaskListPresenter : StatefulViewPresenter<ITaskListView, TaskListState>(),
+    ITaskListPresenter,
+    IExtModelHolder,
+    IExtPresenterHolder,
+    IExtPlatformHolder {
 
     override val componentId: String
         get() = ITaskListPresenter.COMPONENT_ID
@@ -140,9 +145,6 @@ class TaskListPresenter : ExtStatefulViewPresenter<ITaskListView, TaskListState>
 
     override val state: TaskListState
         get() = taskModel.state
-
-    private val taskModel: ITaskModel
-        get() = modelProvider.get(ITaskModel.COMPONENT_ID)!!
 
     override fun onStart() {
         super.onStart()

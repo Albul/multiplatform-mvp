@@ -3,7 +3,7 @@ package com.olekdia.mvpcore.presentation.presenters
 import com.olekdia.mvp.presenter.IViewPresenter
 import com.olekdia.mvp.presenter.StatelessViewPresenter
 import com.olekdia.mvpcore.ViewType
-import com.olekdia.mvpcore.platform.view.views.IMainView
+import com.olekdia.mvpcore.presentation.views.IMainView
 
 interface IMainViewPresenter : IViewPresenter<IMainView> {
 

@@ -4,9 +4,9 @@ import android.content.res.Configuration
 import com.olekdia.mvp.Facade
 import com.olekdia.mvp.IComponentProvider
 import com.olekdia.mvp.presenter.IPresenter
-import com.olekdia.mvpapp.platform.PlatformComponentFactory
+import com.olekdia.mvpapp.presentation.PlatformComponentFactory
 import com.olekdia.mvpcore.domain.ModelFactory
-import com.olekdia.mvpcore.platform.view.views.IMainApp
+import com.olekdia.mvpcore.presentation.views.IMainApp
 import com.olekdia.mvpcore.presentation.PresenterFactory
 import com.olekdia.mvpcore.presentation.presenters.IMainAppPresenter
 

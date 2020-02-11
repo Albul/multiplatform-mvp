@@ -2,10 +2,11 @@ package com.olekdia.mvpcore.presentation.presenters
 
 import com.olekdia.mvp.presenter.IViewPresenter
 import com.olekdia.mvp.presenter.StatelessViewPresenter
-import com.olekdia.mvpcore.domain.models.ITaskModel
-import com.olekdia.mvpcore.platform.data.repositories.IPrefRepository
-import com.olekdia.mvpcore.platform.view.managers.PrefManager
-import com.olekdia.mvpcore.platform.view.views.IMainApp
+import com.olekdia.mvpcore.domain.IExtModelHolder
+import com.olekdia.mvpcore.domain.repositories.IPrefsRepository
+import com.olekdia.mvpcore.presentation.IExtPresenterHolder
+import com.olekdia.mvpcore.presentation.singletons.AppPrefs
+import com.olekdia.mvpcore.presentation.views.IMainApp
 
 interface IMainAppPresenter : IViewPresenter<IMainApp> {
     fun onAppInit()
@@ -18,22 +19,20 @@ interface IMainAppPresenter : IViewPresenter<IMainApp> {
 }
 
 class MainAppPresenter : StatelessViewPresenter<IMainApp>(),
-    IMainAppPresenter {
+    IMainAppPresenter,
+    IExtModelHolder,
+    IExtPresenterHolder {
 
     override val componentId: String
         get() = IMainAppPresenter.COMPONENT_ID
 
     override fun onAppInit() {
-        PrefManager.pref = platformProvider.get(IPrefRepository.COMPONENT_ID)!!
+        AppPrefs.prefs = platformProvider.get(IPrefsRepository.COMPONENT_ID)!!
 
         // Load initial data
-        modelProvider
-            .get<ITaskModel>(ITaskModel.COMPONENT_ID)!!
-            .loadAsync {
-                presenterProvider
-                    .get<ITaskListPresenter>(ITaskListPresenter.COMPONENT_ID)!!
-                    .onUpdateView()
-            }
+        taskModel.loadAsync {
+            taskListPresenter.onUpdateView()
+        }
 
         // todo init rest presenter
 

@@ -2,12 +2,13 @@ package com.olekdia.mvpcore.presentation.presenters
 
 import com.olekdia.mvp.ISingleComponentFactory
 import com.olekdia.mvp.presenter.IPresenter
+import com.olekdia.mvp.presenter.Presenter
 import com.olekdia.mvpcore.Key
 import com.olekdia.mvpcore.Param
 import com.olekdia.mvpcore.ViewType
-import com.olekdia.mvpcore.platform.view.views.IDiscardDialogView
-import com.olekdia.mvpcore.platform.view.views.IInputTaskView
-import com.olekdia.mvpcore.presentation.ExtPresenter
+import com.olekdia.mvpcore.presentation.views.IDiscardDialogView
+import com.olekdia.mvpcore.presentation.views.IInputTaskView
+import com.olekdia.mvpcore.presentation.IExtPresenterHolder
 
 interface IDialogPresenter : IPresenter {
 
@@ -22,7 +23,9 @@ interface IDialogPresenter : IPresenter {
     }
 }
 
-class DialogPresenter : ExtPresenter(), IDialogPresenter {
+class DialogPresenter : Presenter(),
+    IDialogPresenter,
+    IExtPresenterHolder {
 
     override val componentId: String
         get() = IDialogPresenter.COMPONENT_ID
@@ -39,16 +42,8 @@ class DialogPresenter : ExtPresenter(), IDialogPresenter {
         when (componentId) {
             IInputTaskView.COMPONENT_ID -> {
                 when (param) {
-                    Param.DISCARD -> {
-                        presenterProvider
-                            .get<IInputTaskPresenter>(IInputTaskPresenter.COMPONENT_ID)!!
-                            .onDiscard()
-                    }
-                    Param.SAVE -> {
-                        presenterProvider
-                            .get<IInputTaskPresenter>(IInputTaskPresenter.COMPONENT_ID)
-                            ?.onApply()
-                    }
+                    Param.DISCARD -> inputTaskPresenter.onDiscard()
+                    Param.SAVE -> inputTaskPresenter.onApply()
                 }
             }
         }

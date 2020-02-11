@@ -2,7 +2,7 @@ package com.olekdia.mvpcore.presentation.presenters
 
 import com.olekdia.mvp.presenter.Presenter
 import com.olekdia.mvp.presenter.IPresenter
-import com.olekdia.mvpcore.platform.view.managers.IToastManager
+import com.olekdia.mvpcore.presentation.managers.IToastManager
 
 interface IToastPresenter : IPresenter {
 

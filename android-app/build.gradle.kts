@@ -42,7 +42,8 @@ dependencies {
     implementation("com.google.android.material:material:1.2.0-alpha04")
     implementation("com.olekdia:android-common:3.1.3")
     implementation("com.olekdia:fam:3.0.2")
-    //implementation("com.olekdia:multiplatform-common-jvm:${properties["olekdia.common"]}")
+    implementation(properties["olekdia.materialdialog-core"]!!)
+    implementation(properties["olekdia.common-jvm"]!!)
     implementation(project(":multiplatform-mvp", "jvmDefault"))
     implementation(project(":core-app", "jvmDefault"))
 }
