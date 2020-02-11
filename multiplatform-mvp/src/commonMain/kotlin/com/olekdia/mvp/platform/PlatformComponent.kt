@@ -2,6 +2,7 @@ package com.olekdia.mvp.platform
 
 import com.olekdia.mvp.IComponentProvider
 import com.olekdia.mvp.presenter.IPresenter
+import com.olekdia.mvp.presenter.IPresenterHolder
 
 /**
  * This is a base class for framework component.
@@ -11,14 +12,15 @@ import com.olekdia.mvp.presenter.IPresenter
  *  - Managers
  *  - Services
  */
-abstract class PlatformComponent : IPlatformComponent {
+abstract class PlatformComponent : IPlatformComponent,
+    IPresenterHolder,
+    IPlatformHolder {
 
-    lateinit var presenterProvider: IComponentProvider<IPresenter>
+    override lateinit var presenterProvider: IComponentProvider<IPresenter>
         internal set
 
-    lateinit var platformProvider: IComponentProvider<IPlatformComponent>
+    override lateinit var platformProvider: IComponentProvider<IPlatformComponent>
         internal set
-
 
     override fun onCreate() {
     }

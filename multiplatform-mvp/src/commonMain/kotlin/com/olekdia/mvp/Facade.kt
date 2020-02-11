@@ -31,7 +31,6 @@ class Facade(
             }
             is Model -> {
                 component.modelProvider = modelProvider
-                component.presenterProvider = presenterProvider
                 component.platformProvider = platformProvider
             }
             is PlatformComponent -> {

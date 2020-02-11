@@ -1,23 +1,22 @@
 package com.olekdia.mvp.model
 
 import com.olekdia.mvp.IComponentProvider
+import com.olekdia.mvp.platform.IPlatformHolder
 import com.olekdia.mvp.platform.IPlatformComponent
-import com.olekdia.mvp.presenter.IPresenter
 
 /**
  * Domain layer of the app.
  * Classes that inherited from this one should contain abstract business logic,
  * which is independent from particular framework
  */
-abstract class Model : IModel {
+abstract class Model : IModel,
+    IModelHolder,
+    IPlatformHolder {
 
-    lateinit var modelProvider: IComponentProvider<IModel>
+    override lateinit var modelProvider: IComponentProvider<IModel>
         internal set
 
-    lateinit var presenterProvider: IComponentProvider<IPresenter>
-        internal set
-
-    lateinit var platformProvider: IComponentProvider<IPlatformComponent>
+    override lateinit var platformProvider: IComponentProvider<IPlatformComponent>
         internal set
 
     override fun onCreate() {
