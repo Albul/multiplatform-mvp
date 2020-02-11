@@ -3,9 +3,13 @@ package com.olekdia.mvpcore.presentation.presenters
 import com.olekdia.common.INVALID_L
 import com.olekdia.common.extensions.ifNotNull
 import com.olekdia.mvp.presenter.IStatefulViewPresenter
+import com.olekdia.mvp.presenter.StatefulViewPresenter
+import com.olekdia.mvpcore.Key
 import com.olekdia.mvpcore.TaskPriority
+import com.olekdia.mvpcore.ViewType
 import com.olekdia.mvpcore.domain.entries.TaskEntry
 import com.olekdia.mvpcore.domain.models.ITaskModel
+import com.olekdia.mvpcore.platform.view.views.IDiscardDialogView
 import com.olekdia.mvpcore.platform.view.views.IInputTaskView
 import com.olekdia.mvpcore.presentation.ExtStatefulViewPresenter
 
@@ -25,7 +29,11 @@ interface IInputTaskPresenter : IStatefulViewPresenter<IInputTaskView, InputTask
 
     fun onApply()
 
+    fun onDiscard()
+
     fun isStateUnsaved(): Boolean
+
+    fun askDiscardState()
 
     fun discardState()
 
@@ -36,13 +44,6 @@ interface IInputTaskPresenter : IStatefulViewPresenter<IInputTaskView, InputTask
 
 class InputTaskPresenter : ExtStatefulViewPresenter<IInputTaskView, InputTaskState>(),
     IInputTaskPresenter {
-
-    override fun isStateUnsaved(): Boolean =
-        state.initTask != state.currTask
-
-    override fun discardState() {
-        state = state.copy(initTask = state.currTask)
-    }
 
     override fun onNameChange(name: String) {
         state = state.copy(currTask = state.currTask.copy(name = name))
@@ -69,8 +70,25 @@ class InputTaskPresenter : ExtStatefulViewPresenter<IInputTaskView, InputTaskSta
             }
         }
         discardState()
+        view?.finish()
 
         taskListPresenter.onUpdateView()
+    }
+
+    override fun onDiscard() {
+        discardState()
+        view?.finish()
+    }
+
+    override fun isStateUnsaved(): Boolean =
+        state.initTask != state.currTask
+
+    override fun discardState() {
+        state = state.copy(initTask = state.currTask)
+    }
+
+    override fun askDiscardState() {
+        dialogPresenter.onShowDiscardDlg(IInputTaskView.COMPONENT_ID)
     }
 
 //--------------------------------------------------------------------------------------------------

@@ -1,11 +1,19 @@
 package com.olekdia.mvpcore.platform.view.views
 
 import com.olekdia.mvp.IComponent
+import com.olekdia.mvpcore.ViewType
 
 interface IMainView : IComponent {
     fun <T> getPlatformView(): T
 
-    fun showView(componentId: String, params: Array<Pair<String, Any?>>)
+    /**
+     * @return true if view is shown
+     */
+    fun showView(
+        componentId: String,
+        viewType: ViewType,
+        params: Array<Pair<String, Any?>>
+    ): Boolean
 
     companion object {
         const val COMPONENT_ID = "MAIN_VIEW_VIEW"

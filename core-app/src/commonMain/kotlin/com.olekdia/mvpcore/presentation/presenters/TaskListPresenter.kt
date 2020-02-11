@@ -5,6 +5,7 @@ import com.olekdia.common.extensions.ifNotNullAnd
 import com.olekdia.mvp.presenter.IStatefulViewPresenter
 import com.olekdia.mvpcore.Key
 import com.olekdia.mvpcore.TaskFilter
+import com.olekdia.mvpcore.ViewType
 import com.olekdia.mvpcore.domain.models.ITaskModel
 import com.olekdia.mvpcore.domain.models.TaskListState
 import com.olekdia.mvpcore.platform.view.managers.OnSnackbarStateChangedListener
@@ -70,6 +71,7 @@ class TaskListPresenter : ExtStatefulViewPresenter<ITaskListView, TaskListState>
             ?.let { targetEntry ->
                 mainViewPresenter.showView(
                     IInputTaskView.COMPONENT_ID,
+                    ViewType.FORM,
                     arrayOf(Key.INITIAL_ENTRY to targetEntry)
                 )
             }

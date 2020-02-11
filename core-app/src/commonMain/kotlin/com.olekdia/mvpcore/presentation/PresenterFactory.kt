@@ -10,6 +10,7 @@ class PresenterFactory : ComponentFactory<IPresenter>(
         IMainViewPresenter.COMPONENT_ID to { MainViewPresenter() },
         IToastPresenter.COMPONENT_ID to ::ToastPresenter,
         ISnackPresenter.COMPONENT_ID to ::SnackPresenter,
+        IDialogPresenter.COMPONENT_ID to IDialogPresenter.FACTORY,
 
         IInputTaskPresenter.COMPONENT_ID to { InputTaskPresenter() },
         ITaskListPresenter.COMPONENT_ID to { TaskListPresenter() }

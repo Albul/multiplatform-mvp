@@ -9,6 +9,8 @@ interface IInputTaskView : IComponent {
 
     fun setPriority(priority: TaskPriority)
 
+    fun finish()
+
     companion object {
         const val COMPONENT_ID: String = "INPUT_TASK_VIEW"
     }

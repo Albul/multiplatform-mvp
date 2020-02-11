@@ -10,15 +10,15 @@ interface IToastPresenter : IPresenter {
 
     fun onHide()
 
-    override val componentId: String
-        get() = COMPONENT_ID
-
     companion object {
         const val COMPONENT_ID: String = "TOAST_PRES"
     }
 }
 
 class ToastPresenter : Presenter(), IToastPresenter {
+
+    override val componentId: String
+        get() = IToastPresenter.COMPONENT_ID
 
     override fun onShow(text: CharSequence) {
         toastMng?.show(text)

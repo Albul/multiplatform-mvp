@@ -27,3 +27,10 @@ annotation class Key {
         const val CONTENT = "CONTENT"
     }
 }
+
+annotation class Param {
+    companion object {
+        const val SAVE = "SAVE"
+        const val DISCARD = "DISCARD"
+    }
+}
