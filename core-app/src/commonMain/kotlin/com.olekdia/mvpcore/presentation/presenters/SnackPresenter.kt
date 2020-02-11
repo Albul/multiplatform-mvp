@@ -2,8 +2,8 @@ package com.olekdia.mvpcore.presentation.presenters
 
 import com.olekdia.mvp.presenter.IPresenter
 import com.olekdia.mvp.presenter.StatelessViewPresenter
-import com.olekdia.mvpcore.platform.managers.ISnackManager
-import com.olekdia.mvpcore.platform.managers.OnSnackbarStateChangedListener
+import com.olekdia.mvpcore.platform.view.managers.ISnackManager
+import com.olekdia.mvpcore.platform.view.managers.OnSnackbarStateChangedListener
 
 interface ISnackPresenter : IPresenter {
 

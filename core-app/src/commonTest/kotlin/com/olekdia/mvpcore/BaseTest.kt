@@ -7,8 +7,8 @@ import com.olekdia.mvp.platform.IPlatformComponent
 import com.olekdia.mvp.presenter.IPresenter
 import com.olekdia.mvpcore.mocks.PlatformFactoryMock
 import com.olekdia.mvpcore.domain.ModelFactory
-import com.olekdia.mvpcore.platform.managers.PrefManager
-import com.olekdia.mvpcore.platform.repositories.IPrefRepository
+import com.olekdia.mvpcore.platform.view.managers.PrefManager
+import com.olekdia.mvpcore.platform.data.repositories.IPrefRepository
 import com.olekdia.mvpcore.presentation.PresenterFactory
 import com.olekdia.mvpcore.presentation.presenters.IMainAppPresenter
 import com.olekdia.mvpcore.presentation.presenters.ITaskListPresenter
@@ -32,7 +32,8 @@ abstract class BaseTest {
         get() = facade.platformProvider
 
     init {
-        PrefManager.pref = platformProvider.get(IPrefRepository.COMPONENT_ID)!!
+        PrefManager.pref = platformProvider.get(
+            IPrefRepository.COMPONENT_ID)!!
 
         presenterProvider
             .get<IMainAppPresenter>(IMainAppPresenter.COMPONENT_ID)!!

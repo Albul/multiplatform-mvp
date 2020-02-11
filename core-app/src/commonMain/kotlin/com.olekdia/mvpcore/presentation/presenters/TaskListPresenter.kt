@@ -7,9 +7,9 @@ import com.olekdia.mvpcore.Key
 import com.olekdia.mvpcore.TaskFilter
 import com.olekdia.mvpcore.domain.models.ITaskModel
 import com.olekdia.mvpcore.domain.models.TaskListState
-import com.olekdia.mvpcore.platform.managers.OnSnackbarStateChangedListener
-import com.olekdia.mvpcore.platform.views.IInputTaskView
-import com.olekdia.mvpcore.platform.views.ITaskListView
+import com.olekdia.mvpcore.platform.view.managers.OnSnackbarStateChangedListener
+import com.olekdia.mvpcore.platform.view.views.IInputTaskView
+import com.olekdia.mvpcore.platform.view.views.ITaskListView
 import com.olekdia.mvpcore.presentation.ExtStatefulViewPresenter
 
 interface ITaskListPresenter : IStatefulViewPresenter<ITaskListView, TaskListState> {
@@ -70,7 +70,7 @@ class TaskListPresenter : ExtStatefulViewPresenter<ITaskListView, TaskListState>
             ?.let { targetEntry ->
                 mainViewPresenter.showView(
                     IInputTaskView.COMPONENT_ID,
-                    Key.INITIAL_ENTRY to targetEntry
+                    arrayOf(Key.INITIAL_ENTRY to targetEntry)
                 )
             }
     }
@@ -85,7 +85,8 @@ class TaskListPresenter : ExtStatefulViewPresenter<ITaskListView, TaskListState>
                 snackPresenter.onShow(
                     textManager.taskDeleted,
                     textManager.undo,
-                    object : OnSnackbarStateChangedListener {
+                    object :
+                        OnSnackbarStateChangedListener {
                         override fun onUndo() {
                             taskModel.add(affectedEntry, pos)
                             onUpdateView()
@@ -109,7 +110,8 @@ class TaskListPresenter : ExtStatefulViewPresenter<ITaskListView, TaskListState>
             snackPresenter.onShow(
                 textManager.xxTasksDeleted(removedList.size),
                 textManager.undo,
-                object : OnSnackbarStateChangedListener {
+                object :
+                    OnSnackbarStateChangedListener {
                     override fun onUndo() {
                         taskModel.restore(sourceList)
                         onUpdateView()

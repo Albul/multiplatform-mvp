@@ -2,12 +2,12 @@ package com.olekdia.mvpcore.mocks
 
 import com.olekdia.mvp.ComponentFactory
 import com.olekdia.mvp.platform.IPlatformComponent
-import com.olekdia.mvpcore.platform.managers.ISnackManager
-import com.olekdia.mvpcore.platform.managers.ITextManager
-import com.olekdia.mvpcore.platform.managers.IToastManager
-import com.olekdia.mvpcore.platform.repositories.IDbRepository
-import com.olekdia.mvpcore.platform.repositories.IPrefRepository
-import com.olekdia.mvpcore.platform.repositories.ITaskDbRepository
+import com.olekdia.mvpcore.platform.view.managers.ISnackManager
+import com.olekdia.mvpcore.platform.view.managers.ITextManager
+import com.olekdia.mvpcore.platform.view.managers.IToastManager
+import com.olekdia.mvpcore.platform.data.repositories.IDbRepository
+import com.olekdia.mvpcore.platform.data.repositories.IPrefRepository
+import com.olekdia.mvpcore.platform.data.repositories.ITaskDbRepository
 import io.mockk.mockk
 
 class PlatformFactoryMock : ComponentFactory<IPlatformComponent>(

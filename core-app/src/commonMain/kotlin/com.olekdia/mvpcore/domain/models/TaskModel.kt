@@ -6,8 +6,8 @@ import com.olekdia.mvpcore.TaskFilter
 import com.olekdia.mvpcore.domain.entries.TaskEntry
 import com.olekdia.mvpcore.platform.extensions.plus
 import com.olekdia.mvpcore.platform.extensions.replace
-import com.olekdia.mvpcore.platform.managers.PrefManager
-import com.olekdia.mvpcore.platform.repositories.ITaskDbRepository
+import com.olekdia.mvpcore.platform.view.managers.PrefManager
+import com.olekdia.mvpcore.platform.data.repositories.ITaskDbRepository
 
 data class TaskListState(
     val filter: TaskFilter = PrefManager.taskFilter.getEnumValue(),

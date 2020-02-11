@@ -1,8 +1,8 @@
 package com.olekdia.mvpcore.mocks
 
 import com.olekdia.mvp.platform.PlatformComponent
-import com.olekdia.mvpcore.platform.managers.ISnackManager
-import com.olekdia.mvpcore.platform.managers.OnSnackbarStateChangedListener
+import com.olekdia.mvpcore.platform.view.managers.ISnackManager
+import com.olekdia.mvpcore.platform.view.managers.OnSnackbarStateChangedListener
 
 class SnackManagerMock : PlatformComponent(),
     ISnackManager {

@@ -6,7 +6,7 @@ import com.olekdia.mvp.presenter.IStatefulViewPresenter
 import com.olekdia.mvpcore.TaskPriority
 import com.olekdia.mvpcore.domain.entries.TaskEntry
 import com.olekdia.mvpcore.domain.models.ITaskModel
-import com.olekdia.mvpcore.platform.views.IInputTaskView
+import com.olekdia.mvpcore.platform.view.views.IInputTaskView
 import com.olekdia.mvpcore.presentation.ExtStatefulViewPresenter
 
 data class InputTaskState(

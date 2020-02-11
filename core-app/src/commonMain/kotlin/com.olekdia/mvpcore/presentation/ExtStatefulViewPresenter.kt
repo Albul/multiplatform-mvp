@@ -1,7 +1,7 @@
 package com.olekdia.mvpcore.presentation
 
 import com.olekdia.mvp.presenter.StatefulViewPresenter
-import com.olekdia.mvpcore.platform.managers.ITextManager
+import com.olekdia.mvpcore.platform.view.managers.ITextManager
 import com.olekdia.mvpcore.presentation.presenters.IMainViewPresenter
 import com.olekdia.mvpcore.presentation.presenters.ISnackPresenter
 import com.olekdia.mvpcore.presentation.presenters.IToastPresenter

@@ -6,18 +6,15 @@ import android.content.res.ColorStateList
 import android.database.Cursor
 import android.graphics.drawable.Drawable
 import android.os.Build
-import android.os.Bundle
 import android.os.Parcel
-import android.os.Parcelable
 import android.widget.CheckBox
 import androidx.core.graphics.drawable.DrawableCompat
 import com.olekdia.androidcommon.extensions.getDrawableCompat
 import com.olekdia.common.extensions.toBoolean
 import com.olekdia.common.extensions.toInt
 import com.olekdia.mvpapp.R
-import com.olekdia.mvpapp.data.entries.parcels.TaskParcel
+import com.olekdia.mvpapp.platform.data.entries.parcels.TaskParcel
 import com.olekdia.mvpcore.domain.entries.TaskEntry
-import java.io.Serializable
 
 @SuppressLint("PrivateResource")
 fun CheckBox.setTint(color: Int) {

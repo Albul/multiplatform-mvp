@@ -4,18 +4,18 @@ import android.content.Context
 import com.olekdia.androidcommon.extensions.defaultSharedPreferences
 import com.olekdia.mvp.ComponentFactory
 import com.olekdia.mvp.platform.IPlatformComponent
-import com.olekdia.mvpapp.data.repositories.PrefRepository
-import com.olekdia.mvpapp.data.repositories.TaskDbRepository
-import com.olekdia.mvpapp.data.repositories.db.DbRepository
-import com.olekdia.mvpcore.platform.repositories.IDbRepository
-import com.olekdia.mvpapp.platform.managers.SnackManager
-import com.olekdia.mvpapp.platform.managers.TextManager
-import com.olekdia.mvpapp.platform.managers.ToastManager
-import com.olekdia.mvpcore.platform.repositories.IPrefRepository
-import com.olekdia.mvpcore.platform.repositories.ITaskDbRepository
-import com.olekdia.mvpcore.platform.managers.ISnackManager
-import com.olekdia.mvpcore.platform.managers.ITextManager
-import com.olekdia.mvpcore.platform.managers.IToastManager
+import com.olekdia.mvpapp.platform.data.repositories.PrefRepository
+import com.olekdia.mvpapp.platform.data.repositories.TaskDbRepository
+import com.olekdia.mvpapp.platform.data.repositories.db.DbRepository
+import com.olekdia.mvpcore.platform.data.repositories.IDbRepository
+import com.olekdia.mvpapp.platform.view.managers.SnackManager
+import com.olekdia.mvpapp.platform.view.managers.TextManager
+import com.olekdia.mvpapp.platform.view.managers.ToastManager
+import com.olekdia.mvpcore.platform.data.repositories.IPrefRepository
+import com.olekdia.mvpcore.platform.data.repositories.ITaskDbRepository
+import com.olekdia.mvpcore.platform.view.managers.ISnackManager
+import com.olekdia.mvpcore.platform.view.managers.ITextManager
+import com.olekdia.mvpcore.platform.view.managers.IToastManager
 
 class PlatformComponentFactory(private val context: Context) :
     ComponentFactory<IPlatformComponent>(

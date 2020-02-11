@@ -3,7 +3,7 @@ package com.olekdia.mvpcore.mocks
 import com.olekdia.common.INVALID_L
 import com.olekdia.mvpcore.TaskPriority
 import com.olekdia.mvpcore.domain.entries.TaskEntry
-import com.olekdia.mvpcore.platform.repositories.ITaskDbRepository
+import com.olekdia.mvpcore.platform.data.repositories.ITaskDbRepository
 
 class TaskDbRepositoryMock : ITaskDbRepository {
 
