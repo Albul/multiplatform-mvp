@@ -11,6 +11,7 @@ import com.olekdia.fam.FloatingActionsMenu
 import com.olekdia.mvpapp.R
 import com.olekdia.mvpapp.platform.extensions.presenterProvider
 import com.olekdia.mvpapp.platform.extensions.parcelize
+import com.olekdia.mvpapp.platform.view.dialogs.DiscardDialog
 import com.olekdia.mvpcore.platform.view.views.IInputTaskView
 import com.olekdia.mvpcore.platform.view.views.IMainView
 import com.olekdia.mvpcore.presentation.presenters.IMainViewPresenter
@@ -19,6 +20,8 @@ import com.olekdia.mvpapp.platform.view.fragments.IStatefulFragment
 import com.olekdia.mvpapp.platform.view.fragments.IStatefulFragment.StackState
 import com.olekdia.mvpapp.platform.view.fragments.InputTaskFragment
 import com.olekdia.mvpapp.platform.view.fragments.TaskListFragment
+import com.olekdia.mvpcore.ViewType
+import com.olekdia.mvpcore.platform.view.views.IDiscardDialogView
 
 class MainActivity : AppCompatActivity(),
     IMainView {
@@ -37,13 +40,17 @@ class MainActivity : AppCompatActivity(),
     @Suppress("UNCHECKED_CAST")
     override fun <T> getPlatformView(): T = this as T
 
-    override fun showView(componentId: String, params: Array<Pair<String, Any?>>) {
+    override fun showView(
+        componentId: String,
+        viewType: ViewType,
+        params: Array<Pair<String, Any?>>
+    ): Boolean =
         showFragment(
             createFragment(componentId),
             componentId,
+            viewType,
             bundleOf(*params.parcelize())
         )
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,8 +75,7 @@ class MainActivity : AppCompatActivity(),
         showFragment(
             frag = TaskListFragment(),
             fragTag = ITaskListView.COMPONENT_ID,
-            data = null,
-            containerViewId = R.id.content_container
+            viewType = ViewType.MAIN
         )
     }
 
@@ -84,7 +90,11 @@ class MainActivity : AppCompatActivity(),
     }
 
     fun onShowTaskFrag() {
-        showFragment(InputTaskFragment(), IInputTaskView.COMPONENT_ID)
+        showFragment(
+            InputTaskFragment(),
+            IInputTaskView.COMPONENT_ID,
+            ViewType.FORM
+        )
     }
 
     fun prepareActionbar(componentId: String) {
@@ -143,36 +153,48 @@ class MainActivity : AppCompatActivity(),
         when (componentId) {
             IInputTaskView.COMPONENT_ID -> InputTaskFragment()
             ITaskListView.COMPONENT_ID -> TaskListFragment()
+            IDiscardDialogView.COMPONENT_ID -> DiscardDialog()
             else -> null
         }
 
     protected fun showFragment(
         frag: Fragment?,
         fragTag: String,
-        data: Bundle? = null,
-        @IdRes containerViewId: Int = R.id.form_content_container
+        viewType: ViewType,
+        data: Bundle? = null
     ): Boolean {
         return if (frag == null) {
             false
         } else {
-            if (supportFragmentManager.backStackEntryCount != 0) {
+            if (viewType != ViewType.DIALOG
+                && supportFragmentManager.backStackEntryCount != 0
+            ) {
                 sendFragmentTo(topFragment, StackState.BACKGROUND)
             }
 
             frag.arguments = data
             supportFragmentManager
                 .beginTransaction()
-                .setCustomAnimations(
-                    R.anim.frag_enter,
-                    R.anim.frag_exit,
-                    R.anim.frag_enter,
-                    R.anim.frag_exit
-                )
-                .add(containerViewId, frag, fragTag)
-                .addToBackStack(fragTag)
-                .also {
-                    it.commit()
-                }
+                .also { trans ->
+                    when (viewType) {
+                        ViewType.MAIN ->
+                            trans.add(R.id.content_container, frag, fragTag)
+                                .addToBackStack(fragTag)
+                        ViewType.FORM -> {
+                            trans.setCustomAnimations(
+                                R.anim.frag_enter,
+                                R.anim.frag_exit,
+                                R.anim.frag_enter,
+                                R.anim.frag_exit
+                            )
+                                .add(R.id.form_content_container, frag, fragTag)
+                                .addToBackStack(fragTag)
+                        }
+                        ViewType.DIALOG ->
+                            trans.add(frag, fragTag)
+
+                    }
+                }.commit()
 
             true
         }
