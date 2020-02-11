@@ -89,7 +89,9 @@ class InputTaskPresenter : StatefulViewPresenter<IInputTaskView, InputTaskState>
     }
 
     override fun askDiscardState() {
-        dialogPresenter.onShowDiscardDlg(IInputTaskView.COMPONENT_ID)
+        if (isStateUnsaved()) {
+            dialogPresenter.onShowDiscardDlg(IInputTaskView.COMPONENT_ID)
+        }
     }
 
 //--------------------------------------------------------------------------------------------------

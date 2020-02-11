@@ -13,7 +13,7 @@ import kotlin.test.*
 
 class TaskModelTest : BaseTest() {
 
-    val dbRepSpy:ITaskDbRepository = spyk<TaskDbRepositoryMock>().also {
+    val dbRepSpy: ITaskDbRepository = spyk<TaskDbRepositoryMock>().also {
         facade.load(
             platformFactories = arrayOf(ITaskDbRepository.COMPONENT_ID to { it }),
             reloadInstances = true

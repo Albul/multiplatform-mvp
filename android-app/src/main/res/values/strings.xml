@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Todo MVP</string>
-    <string name="cat">Category</string>
 
     <!-- Tasks -->
     <string name="task">Task</string>

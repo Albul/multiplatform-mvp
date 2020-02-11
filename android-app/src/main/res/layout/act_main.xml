@@ -32,22 +32,7 @@
             app:fab_labelsPosition="right"
             app:fab_addBtnLayout="@layout/button_fab_add"
             app:fab_addBtnExpandedRes="@drawable/icb_task"
-            app:fab_addBtnCollapsedRes="@drawable/icb_add">
-
-            <com.olekdia.fam.FloatingActionButton
-                android:id="@+id/fab_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:borderWidth="@dimen/fab_border_width"
-                app:elevation="@dimen/fab_elevation"
-                app:pressedTranslationZ="@dimen/fab_elevation_pressed"
-                app:fabSize="mini"
-                android:src="@drawable/icb_cat"
-                app:backgroundTint="?attr/colorPrimary"
-                app:tint="@color/white"
-                app:fab_title="@string/cat"/>
-
-        </com.olekdia.fam.FloatingActionsMenu>
+            app:fab_addBtnCollapsedRes="@drawable/icb_add" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

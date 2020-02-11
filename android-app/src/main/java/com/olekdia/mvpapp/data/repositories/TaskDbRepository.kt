@@ -65,11 +65,11 @@ class TaskDbRepository : PlatformComponent(),
     }
 
     override fun delete(entry: TaskEntry) {
-        dbRep.delete(Task.TABLE, entry.id)
+        dbRep.startDelete(Task.TABLE, entry.id)
     }
 
     override fun delete(list: List<TaskEntry>) {
-        dbRep.delete(Task.TABLE, whereIdIn(list))
+        dbRep.startDelete(Task.TABLE, whereIdIn(list))
     }
 
 //--------------------------------------------------------------------------------------------------

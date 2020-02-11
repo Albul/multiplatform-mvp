@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import com.olekdia.fam.FloatingActionButton
 import com.olekdia.fam.FloatingActionsMenu
 import com.olekdia.mvpapp.R
 import com.olekdia.mvpapp.common.extensions.presenterProvider
@@ -61,6 +62,7 @@ class MainActivity : AppCompatActivity(),
 
         fabMenu = findViewById<FloatingActionsMenu>(R.id.fab_menu)
             .also {
+                it.setIsExpandable(false)
                 it.setOnFabClickListener { btnId ->
                     when (btnId) {
                         R.id.fab_expand_menu_button -> onShowTaskFrag()
@@ -132,12 +134,13 @@ class MainActivity : AppCompatActivity(),
     override fun onBackPressed() {
         val stackCount: Int = supportFragmentManager.backStackEntryCount
 
-        if (fabMenu?.isExpanded == true && stackCount == 1) {
-            fabMenu?.collapse()
-        } else if (stackCount == 1) {
+        if (stackCount == 1) {
             moveTaskToBack(true)
             supportFinishAfterTransition()
         } else {
+            if (stackCount == 2) {
+                fabMenu?.show()
+            }
             val topFrag: Fragment? = this.topFragment
             if (!keepFragment(topFrag)) {
                 sendFragmentTo(topFrag, StackState.ETERNITY)

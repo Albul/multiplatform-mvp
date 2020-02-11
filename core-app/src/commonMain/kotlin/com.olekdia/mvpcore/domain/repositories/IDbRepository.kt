@@ -10,10 +10,6 @@ interface IDbRepository : IPlatformComponent {
 
     fun delete(table: String, whereClause: String)
 
-    fun execSQL(sql: String)
-
-    fun execSQL(sqls: Array<String>)
-
     companion object {
         const val COMPONENT_ID: String = "DB_REP"
     }
