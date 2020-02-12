@@ -37,13 +37,13 @@ android {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk7", "1.3.61"))
-    implementation("androidx.appcompat:appcompat:1.1.0")
-    implementation("com.google.android.material:material:1.2.0-alpha04")
-    implementation("com.olekdia:android-common:3.1.3")
-    implementation("com.olekdia:fam:3.0.2")
-    implementation(properties["olekdia.materialdialog-core"]!!)
-    implementation(properties["olekdia.common-jvm"]!!)
+    implementation(kotlin("stdlib-jdk7", Versions.kotlin))
+    implementation(Libs.androidx.appcompat)
+    implementation(Libs.androidx.material)
+    implementation(Libs.olekdia.common_jvm)
+    implementation(Libs.olekdia.common_android)
+    implementation(Libs.olekdia.fam)
+    implementation(Libs.olekdia.materialdialog_core)
     implementation(project(":multiplatform-mvp", "jvmDefault"))
     implementation(project(":core-app", "jvmDefault"))
 }
