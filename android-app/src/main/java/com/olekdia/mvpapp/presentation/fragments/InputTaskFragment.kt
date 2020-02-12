@@ -7,10 +7,12 @@ import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.view.postDelayed
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.olekdia.androidcommon.NO_RESOURCE
 import com.olekdia.androidcommon.extensions.ifNotNull
 import com.olekdia.androidcommon.extensions.resetFocus
+import com.olekdia.androidcommon.extensions.showKeyboard
 import com.olekdia.mvpcore.Key
 import com.olekdia.mvpapp.presentation.MainActivity
 import com.olekdia.mvpapp.R
@@ -117,9 +119,23 @@ class InputTaskFragment : StatefulFragment(),
         presenter?.onStart()
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (presenter?.state?.isNewCreation() == true) {
+            nameEditText?.post {
+                ifNotNull(
+                    activity, nameEditText
+                ) { activity, editText ->
+                    editText.requestFocus()
+                    activity.showKeyboard(editText)
+                }
+            }
+        }
+    }
+
     override fun onForeground() {
         super.onForeground()
-        setMenuVisibility(isForeground)
+        setMenuVisibility(true)
 
         ifNotNull(
             activity as? MainActivity, presenter?.state
@@ -131,9 +147,7 @@ class InputTaskFragment : StatefulFragment(),
                 )
             )
         }
-        nameEditText?.run {
-            requestFocus()
-        }
+
     }
 
     override fun onBackground() {

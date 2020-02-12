@@ -52,6 +52,10 @@ class MainActivity : AppCompatActivity(),
             bundleOf(*params.parcelize())
         )
 
+//--------------------------------------------------------------------------------------------------
+//  Activity lifecycle
+//--------------------------------------------------------------------------------------------------
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_main)
@@ -73,16 +77,36 @@ class MainActivity : AppCompatActivity(),
         formContainer = findViewById(R.id.form_content_container)
         snackbarContainer = findViewById(R.id.snackbar_container)
 
-        showFragment(
-            frag = TaskListFragment(),
-            fragTag = ITaskListView.COMPONENT_ID,
-            viewType = ViewType.MAIN
-        )
+        if (savedInstanceState == null) {
+            showFragment(
+                frag = TaskListFragment(),
+                fragTag = ITaskListView.COMPONENT_ID,
+                viewType = ViewType.MAIN
+            )
+        }
     }
-
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
         presenter?.onAttach(this)
+
+        /**
+         * This is fix, because of very strange behaviour of recreated fragments, their order is not saved,
+         * and their views can be shuffled. So we need to bring to Front the view of the top fragment
+         */
+        val fragCount: Int = supportFragmentManager.backStackEntryCount
+        val lastInd: Int = fragCount - 1
+        if (fragCount > 1) {
+            for (i in 0..lastInd) {
+                val frag: Fragment? = getFragmentAt(i)
+
+                if (i > 0) frag?.view?.bringToFront()
+                if (i == lastInd) {
+                    sendFragmentTo(frag, StackState.FOREGROUND) // Last fragment to the top
+                } else {
+                    sendFragmentTo(frag, StackState.BACKGROUND)
+                }
+            }
+        }
     }
 
     override fun onDestroy() {
@@ -217,6 +241,18 @@ class MainActivity : AppCompatActivity(),
                 null
             }
         }
+
+    /**
+     * Returns fragment from back stack
+     * @param index of fragment
+     * @return fragment
+     */
+    protected fun getFragmentAt(index: Int): Fragment? =
+        supportFragmentManager.findFragmentByTag(
+            supportFragmentManager.getBackStackEntryAt(
+                index
+            ).name
+        )
 
     /**
      * If fragment is implemented IStackFragment,

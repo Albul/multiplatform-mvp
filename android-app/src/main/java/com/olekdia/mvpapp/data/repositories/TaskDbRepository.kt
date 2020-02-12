@@ -83,7 +83,7 @@ class TaskDbRepository : PlatformComponent(),
     private fun whereIdIn(list: List<TaskEntry>): String =
         whereColumnInValues(AppContract.BaseColumns._ID, list.map { it.id }, list.size)
 
-    companion object : ISingleComponentFactory<IPlatformComponent> {
+    companion object FACTORY : ISingleComponentFactory<IPlatformComponent> {
         override fun invoke(): TaskDbRepository =
             TaskDbRepository()
 

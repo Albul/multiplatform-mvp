@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:inputType="textCapSentences" />
+        android:inputType="textCapSentences"
+        android:imeOptions="flagNoFullscreen|flagNoExtractUi" />
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/task_priority_group"

@@ -27,6 +27,6 @@ class PlatformComponentFactory(private val context: Context) :
             ISnackManager.COMPONENT_ID to { SnackManager() },
             ITextManager.COMPONENT_ID to { TextManager(context) },
 
-            ITaskDbRepository.COMPONENT_ID to TaskDbRepository.Companion
+            ITaskDbRepository.COMPONENT_ID to TaskDbRepository.FACTORY
         )
     )
