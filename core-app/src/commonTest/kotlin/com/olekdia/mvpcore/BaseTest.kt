@@ -12,6 +12,9 @@ import com.olekdia.mvpcore.mocks.PlatformFactoryMock
 import com.olekdia.mvpcore.presentation.IExtPlatformHolder
 import com.olekdia.mvpcore.presentation.IExtPresenterHolder
 import com.olekdia.mvpcore.presentation.PresenterFactory
+import com.olekdia.mvpcore.presentation.managers.ISnackManager
+import com.olekdia.mvpcore.presentation.managers.IToastManager
+import com.olekdia.mvpcore.presentation.presenters.IDialogPresenter
 import com.olekdia.mvpcore.presentation.presenters.IMainAppPresenter
 import com.olekdia.mvpcore.presentation.singletons.AppPrefs
 import io.mockk.mockk
@@ -46,4 +49,10 @@ abstract class BaseTest : IExtModelHolder,
         // Simulate TaskListView, as it should be initialized during startup
         taskListPresenter.onAttach(mockk(relaxed = true, relaxUnitFun = true))
     }
+
+    val toastMng: IToastManager
+        get() = platformProvider.get(IToastManager.COMPONENT_ID)!!
+
+    val snackMng: ISnackManager
+        get() = platformProvider.get(ISnackManager.COMPONENT_ID)!!
 }

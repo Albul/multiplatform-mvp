@@ -21,7 +21,7 @@ class TaskModelTest : BaseTest() {
     }
 
     @Test
-    fun add_stateChanged_stateContainsEntry() {
+    fun `add(entry) - state is changed, it contains added entry`() {
         val entry = TaskEntry(id = 434)
         val stateBefore = taskModel.state
 
@@ -35,7 +35,7 @@ class TaskModelTest : BaseTest() {
     }
 
     @Test
-    fun addToPos_stateChanged_stateContainsEntry_posIsCorrect() {
+    fun `add(entry, pos) - state is changed, it contains added entry, pos is correct`() {
         val entry = TaskEntry(id = 434)
         val stateBefore = taskModel.state
         val atPos = stateBefore.list!!.size - 2
@@ -48,7 +48,7 @@ class TaskModelTest : BaseTest() {
     }
 
     @Test
-    fun insertNew_stateChanged_stateContainsEntryWithNewId() {
+    fun `insertNew() - state is changed, it contains added entry with new id`() {
         val entry = TaskEntry()
         val stateBefore = taskModel.state
         val listSizeBefore = stateBefore.list!!.size
@@ -63,7 +63,7 @@ class TaskModelTest : BaseTest() {
     }
 
     @Test
-    fun save_taskIsIdentical_taskNotSaved_stateNotChanged() {
+    fun `save() identical entry - entry is not saved, state is not changed`() {
         val stateBefore = taskModel.state
 
         val entry = stateBefore.list!![1]
@@ -76,7 +76,7 @@ class TaskModelTest : BaseTest() {
     }
 
     @Test
-    fun save_taskIsDiff_taskIsSaved_stateChanged_listSizeTheSame() {
+    fun `save() modified entry - entry is saved, state is changed, list size is the same`() {
         val stateBefore = taskModel.state
 
         val entry = stateBefore.list!![1].copy(name = "Bla bla new name")
@@ -92,7 +92,7 @@ class TaskModelTest : BaseTest() {
     }
 
     @Test
-    fun save_notExistingTask_taskNotSaved_stateNotChanged() {
+    fun `save() non existing entry - entry is not saved, state is not changed`() {
         val stateBefore = taskModel.state
 
         val entry = TaskEntry(id = 54354, name = "Very complicated bla bla bla")
@@ -108,7 +108,7 @@ class TaskModelTest : BaseTest() {
     }
 
     @Test
-    fun toggleComplete_notExistingTask_taskNotSaved_stateNotChanged() {
+    fun `toggleComplete() non existing entry - entry is not saved, state is not changed`() {
         val stateBefore = taskModel.state
 
         val entry = TaskEntry(id = 54354, name = "Very complicated bla bla bla")
@@ -123,7 +123,7 @@ class TaskModelTest : BaseTest() {
     }
 
     @Test
-    fun toggleComplete_stateChanged_taskIsCompleteIsToggled() {
+    fun `toggleComplete() - state is changed, entry's isCompleted is toggled`() {
         val stateBefore = taskModel.state
 
         val entry = stateBefore.list!![1]
@@ -140,7 +140,7 @@ class TaskModelTest : BaseTest() {
     }
 
     @Test
-    fun saveFilter_filterIsIdentical_stateNotChanged() {
+    fun `saveFilter() identical filter - state is not changed`() {
         val stateBefore = taskModel.state
         val filterBefore = stateBefore.filter
 
@@ -151,7 +151,7 @@ class TaskModelTest : BaseTest() {
     }
 
     @Test
-    fun saveFilter_filterIsDifferent_stateChanged() {
+    fun `saveFilter() different filter - state is changed`() {
         val stateBefore = taskModel.state
         val filterBefore = stateBefore.filter
 
@@ -164,28 +164,28 @@ class TaskModelTest : BaseTest() {
     }
 
     @Test
-    fun saveFilter_completed_filteredListCorrect() {
+    fun `saveFilter(completed) - filtered list is correct`() {
         taskModel.saveFilter(TaskFilter.COMPLETED)
 
         assertTrue(taskModel.state.filteredList!!.all { it.isCompleted })
     }
 
     @Test
-    fun saveFilter_active_filteredListCorrect() {
+    fun `saveFilter(active) - filtered list is correct`() {
         taskModel.saveFilter(TaskFilter.ACTIVE)
 
         assertTrue(taskModel.state.filteredList!!.all { !it.isCompleted })
     }
 
     @Test
-    fun saveFilter_all_filteredListCorrect() {
+    fun `saveFilter(all) - filtered list is correct`() {
         taskModel.saveFilter(TaskFilter.ALL)
 
         assertEquals(taskModel.state.list!!, taskModel.state.filteredList!!)
     }
 
     @Test
-    fun remove_delete_nonExistingTask_stateNotChanged() {
+    fun `remove() and delete() non existing entry - state is not changed`() {
         val stateBefore = taskModel.state
 
         val entry = TaskEntry(id = 54354, name = "Tomato2")
@@ -198,7 +198,7 @@ class TaskModelTest : BaseTest() {
     }
 
     @Test
-    fun remove_stateChanged() {
+    fun `remove() - state is changed`() {
         val stateBefore = taskModel.state
 
         val entry = stateBefore.list!![1]
@@ -208,7 +208,7 @@ class TaskModelTest : BaseTest() {
     }
 
     @Test
-    fun delete_stateChanged() {
+    fun `delete() state is changed`() {
         val stateBefore = taskModel.state
 
         val entry = stateBefore.list!![1]
@@ -219,7 +219,7 @@ class TaskModelTest : BaseTest() {
     }
 
     @Test
-    fun restoreList_stateChanged_listSubstituted() {
+    fun `restore(list) - state is changed, list is substituted`() {
         val stateBefore = taskModel.state
         val listBefore = stateBefore.list!!
 
@@ -233,7 +233,7 @@ class TaskModelTest : BaseTest() {
     }
 
     @Test
-    fun removeCompleted_completedTasksAreGone() {
+    fun `removeCompleted() - completed entries are gone`() {
         val stateBefore = taskModel.state
         val countCompletedBefore = stateBefore.list!!.count { it.isCompleted }
         if (countCompletedBefore == 0) {
@@ -249,7 +249,7 @@ class TaskModelTest : BaseTest() {
     }
 
     @Test
-    fun deleteList_stateChanged() {
+    fun `delete(list) - state is changed`() {
         val stateBefore = taskModel.state
         val listSizeBefore = stateBefore.list!!.size
         val toDelete = stateBefore.list!!.take(2)

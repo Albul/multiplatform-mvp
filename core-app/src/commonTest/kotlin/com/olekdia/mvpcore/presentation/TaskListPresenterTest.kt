@@ -25,16 +25,17 @@ class TaskListPresenterTest : BaseTest() {
     }
 
     @Test
-    fun onChangeFilter_toIdenticalFilter_stateNotChanged() {
+    fun `onChangeFilter() to identical filter - state is not changed`() {
         val stateBefore = taskModel.state
         taskListPresenter.onChangeFilter(stateBefore.filter)
-        assertNotSame(stateBefore, taskModel.state)
+
+        assertSame(stateBefore, taskModel.state)
         verify(exactly = 0) { taskListViewMock.changeFilter(stateBefore.filter) }
         verify(exactly = 0) { taskListViewMock.dataProvider = taskModel.state.filteredList }
     }
 
     @Test
-    fun onChangeFilter_filterIsApplied() {
+    fun `onChangeFilter() - filter is applied`() {
         val stateBefore = taskModel.state
         taskListPresenter.onChangeFilter(TaskFilter.COMPLETED)
         assertEquals(TaskFilter.COMPLETED, taskModel.state.filter)
@@ -48,7 +49,7 @@ class TaskListPresenterTest : BaseTest() {
     }
 
     @Test
-    fun onToggleCompleted_nonExistingPos_stateNotChanged() {
+    fun `onToggleCompleted() non existing pos - state is not changed`() {
         val stateBefore = taskModel.state
         taskListPresenter.onToggleCompleted(Int.MAX_VALUE)
 
@@ -56,7 +57,7 @@ class TaskListPresenterTest : BaseTest() {
     }
 
     @Test
-    fun onToggleCompleted_stateChanged_isCompletedOpposite() {
+    fun `onToggleCompleted() - state is changed, isCompleted() returns opposite value`() {
         val stateBefore = taskModel.state
         val taskBefore = stateBefore.filteredList!![0]
         taskListPresenter.onToggleCompleted(0)
@@ -68,7 +69,7 @@ class TaskListPresenterTest : BaseTest() {
     }
 
     @Test
-    fun onEdit_nonExistingPos_stateNotChanged() {
+    fun `onEdit() non existing pos - state is not changed`() {
         val stateBefore = taskModel.state
         taskListPresenter.onEdit(Int.MAX_VALUE)
 
@@ -77,7 +78,7 @@ class TaskListPresenterTest : BaseTest() {
     }
 
     @Test
-    fun onEdit_showViewIsCalled() {
+    fun `onEdit() - showView() is called`() {
         val targetEntry = taskModel.state.filteredList!![0]
         taskListPresenter.onEdit(0)
 
@@ -91,11 +92,79 @@ class TaskListPresenterTest : BaseTest() {
     }
 
     @Test
-    fun onDelete_nonExistingPos_stateNotChanged_snackNotShowing() {
+    fun `onDelete() non existing pos - state is not changed, snack is not shown`() {
         val stateBefore = taskModel.state
         taskListPresenter.onDelete(Int.MAX_VALUE)
 
         assertSame(stateBefore, taskModel.state)
-        //assertFalse(snackPresenter.)
+        assertFalse(snackMng.isShown)
+    }
+
+    @Test
+    fun `onDelete() - state is changed, snack is shown`() {
+        val stateBefore = taskModel.state
+        taskListPresenter.onDelete(0)
+
+        assertNotEquals(stateBefore, taskModel.state)
+        assertTrue(snackMng.isShown)
+    }
+
+    @Test
+    fun `onDelete(), snack apply() - state is changed`() {
+        val stateBefore = taskModel.state
+        taskListPresenter.onDelete(0)
+        snackMng.apply()
+
+        assertNotEquals(stateBefore, taskModel.state)
+        assertFalse(snackMng.isShown)
+    }
+
+    @Test
+    fun `onDelete(), snack undo() - state is not changed`() {
+        val stateBefore = taskModel.state
+        taskListPresenter.onDelete(0)
+
+        assertNotEquals(stateBefore, taskModel.state)
+        snackMng.undo()
+
+        assertEquals(stateBefore, taskModel.state)
+        assertFalse(snackMng.isShown)
+    }
+
+    @Test
+    fun `onDeleteCompleted() - state is changed, no more completed tasks`() {
+        val stateBefore = taskModel.state
+        taskListPresenter.onDeleteCompleted()
+
+        assertNotEquals(stateBefore, taskModel.state)
+        assertTrue(snackMng.isShown)
+        assertTrue(taskModel.state.list!!.all { !it.isCompleted })
+    }
+
+    @Test
+    fun `onDeleteCompleted(), snack apply() - state is changed, no more completed tasks`() {
+        val stateBefore = taskModel.state
+        taskListPresenter.onDeleteCompleted()
+
+        assertNotEquals(stateBefore, taskModel.state)
+        assertTrue(snackMng.isShown)
+        snackMng.apply()
+
+        assertNotEquals(stateBefore, taskModel.state)
+        assertFalse(snackMng.isShown)
+        assertTrue(taskModel.state.list!!.all { !it.isCompleted })
+    }
+
+    @Test
+    fun `onDeleteCompleted(), snack undo() - state is not changed`() {
+        val stateBefore = taskModel.state
+        taskListPresenter.onDeleteCompleted()
+
+        assertNotEquals(stateBefore, taskModel.state)
+        assertTrue(snackMng.isShown)
+        snackMng.undo()
+
+        assertEquals(stateBefore, taskModel.state)
+        assertFalse(snackMng.isShown)
     }
 }
