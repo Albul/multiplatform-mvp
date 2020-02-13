@@ -1,5 +1,7 @@
 plugins {
     id("kotlin-multiplatform")
+    id("maven-publish")
+    id("com.jfrog.bintray")
 }
 
 kotlin {
@@ -44,3 +46,5 @@ kotlin {
         }
     }
 }
+
+apply(from = "bintray.gradle")

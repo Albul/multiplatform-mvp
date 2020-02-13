@@ -15,6 +15,7 @@ object Versions {
     }
 
     val android_gradle = "3.5.3"
+    val bintray_gradle = "1.8.4"
 }
 
 
@@ -43,5 +44,6 @@ object Libs {
     object plugin {
         val kotlin_gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
         val android_gradle = "com.android.tools.build:gradle:${Versions.android_gradle}"
+        val bintray_gradle = "com.jfrog.bintray.gradle:gradle-bintray-plugin:${Versions.bintray_gradle}"
     }
 }
