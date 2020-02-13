@@ -1,24 +1,8 @@
 package com.olekdia.mvp.mocks
 
-import com.olekdia.mvp.model.IModel
 import com.olekdia.mvp.model.Model
 
-interface IMockModel : IModel {
-
-    val modelMethodCalled: Int
-    val onCreateCalled: Int
-    val onDestroyCalled: Int
-
-    fun modelMethod()
-
-    fun getModelString(): String
-
-    companion object {
-        const val COMPONENT_ID = "MOCK_MODEL"
-    }
-}
-
-class MockModel : Model(),  IMockModel {
+class MockModelFake : Model(),  IMockModel {
 
     override val componentId: String
         get() = IMockModel.COMPONENT_ID
@@ -37,7 +21,7 @@ class MockModel : Model(),  IMockModel {
     }
 
     override fun getModelString(): String {
-        return "Real model string"
+        return "Fake model string"
     }
 
     override fun onCreate() {

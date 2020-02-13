@@ -21,6 +21,17 @@ class ComponentTest : BaseTest() {
     }
 
     @Test
+    fun `get() instance with param, onDestroy() - instance removed from provider only with that param`() {
+        val model: IMockModel = retrieveMockModel()
+        val model1: IMockModel = modelProvider.get(IMockModel.COMPONENT_ID, "1")!!
+        val model2: IMockModel = modelProvider.get(IMockModel.COMPONENT_ID, "2")!!
+        model1.onDestroy()
+        assertSame(model, retrieveMockModel())
+        assertNotSame(model1, modelProvider.get(IMockModel.COMPONENT_ID, "1")!!)
+        assertSame(model2, modelProvider.get(IMockModel.COMPONENT_ID, "2")!!)
+    }
+
+    @Test
     fun `get() - component providers are injected`() {
         val model: MockModel = modelProvider.get(IMockModel.COMPONENT_ID)!!
         assertSame(model.modelProvider, modelProvider)

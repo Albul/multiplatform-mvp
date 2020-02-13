@@ -33,16 +33,16 @@ class ProviderTest : BaseTest() {
 
     @Test
     fun `get() with diff params - returns different instance`() {
-        val model1: IMockModel = modelProvider.get(IMockModel.COMPONENT_ID, 1)!!
-        val model2: IMockModel = modelProvider.get(IMockModel.COMPONENT_ID, 2)!!
+        val model1: IMockModel = modelProvider.get(IMockModel.COMPONENT_ID, "1")!!
+        val model2: IMockModel = modelProvider.get(IMockModel.COMPONENT_ID, "2")!!
 
         assertNotSame(model1, model2)
     }
 
     @Test
     fun `get() with identical params - returns same instance`() {
-        val model1: IMockModel = modelProvider.get(IMockModel.COMPONENT_ID, 1)!!
-        val model2: IMockModel = modelProvider.get(IMockModel.COMPONENT_ID, 1)!!
+        val model1: IMockModel = modelProvider.get(IMockModel.COMPONENT_ID, "1")!!
+        val model2: IMockModel = modelProvider.get(IMockModel.COMPONENT_ID, "1")!!
 
         assertSame(model1, model2)
     }
@@ -54,6 +54,30 @@ class ProviderTest : BaseTest() {
 
         assertNull(model)
         assertNull(presenter)
+    }
+
+    @Test
+    fun `get(id) equals to get(id, null)`() {
+        assertSame(
+            modelProvider.get<IMockModel>(IMockModel.COMPONENT_ID)!!,
+            modelProvider.get<IMockModel>(IMockModel.COMPONENT_ID, null)!!
+        )
+    }
+
+    @Test
+    fun `get(id) equals to get(id, "")`() {
+        assertSame(
+            modelProvider.get<IMockModel>(IMockModel.COMPONENT_ID)!!,
+            modelProvider.get<IMockModel>(IMockModel.COMPONENT_ID, "")!!
+        )
+    }
+
+    @Test
+    fun `get(id) not equals to get(id, "null")`() {
+        assertNotSame(
+            modelProvider.get<IMockModel>(IMockModel.COMPONENT_ID)!!,
+            modelProvider.get<IMockModel>(IMockModel.COMPONENT_ID, "null")!!
+        )
     }
 
     @Test
@@ -78,21 +102,22 @@ class ProviderTest : BaseTest() {
 
     @Test
     fun `remove(id, param) - removes instance`() {
-        val model1: IMockModel = modelProvider.get(IMockModel.COMPONENT_ID, 1)!!
+        val model1: IMockModel = modelProvider.get(IMockModel.COMPONENT_ID, "1")!!
 
-        modelProvider.remove(IMockModel.COMPONENT_ID , 1)
-        val model2: IMockModel = modelProvider.get(IMockModel.COMPONENT_ID, 1)!!
+        modelProvider.remove(IMockModel.COMPONENT_ID, "1")
+        val model2: IMockModel = modelProvider.get(IMockModel.COMPONENT_ID, "1")!!
 
         assertNotSame(model1, model2)
     }
 
     @Test
-    fun `remove(id, param) diff param - instance not removed`() {
-        val model1: IMockModel = modelProvider.get(IMockModel.COMPONENT_ID, 1)!!
+    fun `remove(id, param) diff params - instance not removed`() {
+        val modelBefore: IMockModel = modelProvider.get(IMockModel.COMPONENT_ID, "1")!!
 
-        modelProvider.remove(IMockModel.COMPONENT_ID , 2)
-        val model2: IMockModel = modelProvider.get(IMockModel.COMPONENT_ID, 1)!!
+        modelProvider.remove(IMockModel.COMPONENT_ID, "2")
+        val modelAfter: IMockModel = modelProvider.get(IMockModel.COMPONENT_ID, "1")!!
 
-        assertSame(model1, model2)
+        assertSame(modelBefore, modelAfter)
+        assertEquals(0, modelAfter.onDestroyCalled)
     }
 }

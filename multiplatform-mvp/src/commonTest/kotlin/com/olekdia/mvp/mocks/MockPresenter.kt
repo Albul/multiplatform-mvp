@@ -11,7 +11,9 @@ interface IMockPresenter : IPresenter {
 
     fun presMethod()
 
-    fun getPresSomething(): String
+    fun onModelMethodShouldBeCalled()
+
+    fun getPresenterString(): String
 
     companion object {
         const val COMPONENT_ID = "MOCK_PRESENTER"
@@ -36,7 +38,13 @@ class MockPresenter : Presenter(),  IMockPresenter {
         presMethodCalled++
     }
 
-    override fun getPresSomething(): String {
+    override fun onModelMethodShouldBeCalled() {
+        modelProvider
+            .get<IMockModel>(IMockModel.COMPONENT_ID)!!
+            .modelMethod()
+    }
+
+    override fun getPresenterString(): String {
         return "Presenter returns something"
     }
 

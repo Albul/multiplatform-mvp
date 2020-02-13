@@ -23,13 +23,18 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
-                implementation(Libs.kotlin.reflect)
             }
         }
         val jvmMain by getting {
             dependencies {
                 implementation(kotlin("stdlib"))
                 implementation(Libs.olekdia.common_jvm)
+            }
+        }
+        val jvmTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(kotlin("test-junit"))
             }
         }
         val jsMain by getting {
@@ -42,6 +47,11 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib"))
                 implementation(Libs.olekdia.common_native)
+            }
+        }
+        val nativeTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
             }
         }
     }
