@@ -11,7 +11,7 @@ android {
         targetSdkVersion(29)
         versionCode = 1
         versionName = "1.0"
-        testInstrumentationRunner = "org.mockito.junit.MockitoJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         getByName("release") {
@@ -19,9 +19,14 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
+    testOptions.unitTests.isIncludeAndroidResources = true
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
     packagingOptions {
         exclude("META-INF/DEPENDENCIES")
@@ -46,4 +51,14 @@ dependencies {
     implementation(Libs.olekdia.materialdialog_core)
     implementation(project(":multiplatform-mvp", "jvmDefault"))
     implementation(project(":core-app", "jvmDefault"))
+
+    testImplementation(Libs.junit)
+    testImplementation(Libs.robolectric)
+    testImplementation(Libs.androidx.test_core)
+    testImplementation(Libs.androidx.test_runner)
+    testImplementation(Libs.androidx.test_rules)
+    testImplementation(Libs.androidx.espresso_core)
+
+    debugImplementation(Libs.androidx.fragment_testing)
+    testImplementation(Libs.androidx.fragment_testing)
 }

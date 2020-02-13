@@ -8,34 +8,28 @@ import androidx.fragment.app.Fragment
 import com.olekdia.androidcommon.extensions.activity
 import com.olekdia.mvp.IComponentProvider
 import com.olekdia.mvp.presenter.IPresenter
-import com.olekdia.mvp.presenter.Presenter
-import com.olekdia.mvpapp.MainApplication
-import com.olekdia.mvpcore.presentation.managers.ITextManager
-import com.olekdia.mvpcore.presentation.presenters.IDialogPresenter
-import com.olekdia.mvpcore.presentation.presenters.IMainViewPresenter
-import com.olekdia.mvpcore.presentation.presenters.ISnackPresenter
-import com.olekdia.mvpcore.presentation.presenters.IToastPresenter
+import com.olekdia.mvpapp.MvpApplication
 
-val Activity.mainApplication: MainApplication?
-    get() = application as? MainApplication
+val Activity.mvpApplication: MvpApplication?
+    get() = application as? MvpApplication
 
 val Activity.presenterProvider: IComponentProvider<IPresenter>?
-    get() = mainApplication?.presenterProvider
+    get() = mvpApplication?.presenterProvider
 
-val View.mainApplication: MainApplication?
-    get() = activity?.application as? MainApplication
-
-val Fragment.mainApplication: MainApplication?
-    get() = activity?.application as? MainApplication
+val Fragment.mainApplication: MvpApplication?
+    get() = activity?.application as? MvpApplication
 
 val Fragment.presenterProvider: IComponentProvider<IPresenter>?
     get() = mainApplication?.presenterProvider
 
-val View.presenterProvider: IComponentProvider<IPresenter>?
-    get() = mainApplication?.presenterProvider
+val View.mvpApplication: MvpApplication?
+    get() = activity?.application as? MvpApplication
 
-val Context.mainApplication: MainApplication?
-    get() = applicationContext as? MainApplication
+val View.presenterProvider: IComponentProvider<IPresenter>?
+    get() = mvpApplication?.presenterProvider
+
+val Context.mvpApplication: MvpApplication?
+    get() = applicationContext as? MvpApplication
 
 val Context.presenterProvider: IComponentProvider<IPresenter>?
-    get() = mainApplication?.presenterProvider
+    get() = mvpApplication?.presenterProvider
