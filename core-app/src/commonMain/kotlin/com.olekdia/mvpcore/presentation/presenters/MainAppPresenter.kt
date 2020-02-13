@@ -34,7 +34,7 @@ class MainAppPresenter : StatelessViewPresenter<IMainApp>(),
             taskListPresenter.onUpdateView()
         }
 
-        // todo init rest presenter
+        // Init rest of the presenter
 
         view?.initApp()
     }

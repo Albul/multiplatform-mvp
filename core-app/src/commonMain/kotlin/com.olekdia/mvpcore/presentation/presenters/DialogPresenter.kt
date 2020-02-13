@@ -1,14 +1,13 @@
 package com.olekdia.mvpcore.presentation.presenters
 
-import com.olekdia.mvp.ISingleComponentFactory
 import com.olekdia.mvp.presenter.IPresenter
 import com.olekdia.mvp.presenter.Presenter
 import com.olekdia.mvpcore.Key
 import com.olekdia.mvpcore.Param
 import com.olekdia.mvpcore.ViewType
+import com.olekdia.mvpcore.presentation.IExtPresenterHolder
 import com.olekdia.mvpcore.presentation.views.IDiscardDialogView
 import com.olekdia.mvpcore.presentation.views.IInputTaskView
-import com.olekdia.mvpcore.presentation.IExtPresenterHolder
 
 interface IDialogPresenter : IPresenter {
 
@@ -16,10 +15,8 @@ interface IDialogPresenter : IPresenter {
 
     fun onDiscardDlg(componentId: String, @Param param: String)
 
-    companion object FACTORY : ISingleComponentFactory<IPresenter> {
+    companion object {
         const val COMPONENT_ID: String = "DIALOG_PRES"
-
-        override fun invoke(): IPresenter = DialogPresenter()
     }
 }
 

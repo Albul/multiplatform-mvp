@@ -6,7 +6,6 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import com.olekdia.fam.FloatingActionButton
 import com.olekdia.fam.FloatingActionsMenu
 import com.olekdia.mvpapp.R
 import com.olekdia.mvpapp.common.extensions.presenterProvider
@@ -281,5 +280,5 @@ class MainActivity : AppCompatActivity(),
      * @return true keep it, false - can be removed from backstack
      */
     protected fun keepFragment(frag: Fragment?): Boolean =
-        frag !is IStatefulFragment || (frag as IStatefulFragment).isKeepFragment()
+        frag !is IStatefulFragment || (frag as IStatefulFragment).onBackPressed()
 }

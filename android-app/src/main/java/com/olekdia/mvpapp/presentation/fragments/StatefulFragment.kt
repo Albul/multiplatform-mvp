@@ -23,7 +23,7 @@ abstract class StatefulFragment : Fragment(),
         stackState = StackState.ETERNITY
     }
 
-    override fun isKeepFragment(): Boolean {
+    override fun onBackPressed(): Boolean {
         return false
     }
 }

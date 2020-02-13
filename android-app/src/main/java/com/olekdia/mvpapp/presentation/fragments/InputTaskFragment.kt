@@ -179,7 +179,7 @@ class InputTaskFragment : StatefulFragment(),
         presenter = null
     }
 
-    override fun isKeepFragment(): Boolean =
+    override fun onBackPressed(): Boolean =
         (presenter?.isStateUnsaved() == true).also { result ->
             if (result) presenter?.askDiscardState()
         }

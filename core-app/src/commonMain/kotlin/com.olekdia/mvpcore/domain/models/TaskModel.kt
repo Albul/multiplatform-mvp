@@ -99,10 +99,8 @@ interface ITaskModel : IStatefulModel<TaskListState> {
      */
     fun delete(list: List<TaskEntry>)
 
-    companion object FACTORY : ISingleComponentFactory<IModel> {
+    companion object {
         const val COMPONENT_ID = "TASK_MODEL"
-
-        override fun invoke(): IModel = TaskModel()
     }
 }
 
