@@ -50,7 +50,6 @@ It consists from two modules:
   
 core-app - contains 30 kotlin files with 900 lines of code.  
 android-app - contains 23 kotlin files with 1662 lines of code.  
-About 35% of code was moved to platform independet testable module
+About 35% of code was moved to platform independent testable module
    
-![TodoMVP edit task](assets/todomvp_edit.png) 
 ![TodoMVP task list](assets/todomvp_list.png)    
