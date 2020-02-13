@@ -1,5 +1,30 @@
 package com.olekdia.mvp
 
+import com.olekdia.mvp.factories.ModelMockFactory
+import com.olekdia.mvp.factories.PlatformMockFactory
+import com.olekdia.mvp.factories.PresenterMockFactory
+import com.olekdia.mvp.mocks.*
+import com.olekdia.mvp.model.IModel
+import com.olekdia.mvp.platform.IPlatformComponent
+import com.olekdia.mvp.presenter.IPresenter
+
 abstract class BaseTest {
 
+    val facade: Facade = Facade(
+        ModelMockFactory(),
+        PresenterMockFactory(),
+        PlatformMockFactory()
+    )
+
+    final val presenterProvider: IComponentProvider<IPresenter>
+        get() = facade.presenterProvider
+
+    final val modelProvider: IComponentProvider<IModel>
+        get() = facade.modelProvider
+
+    final val platformProvider: IComponentProvider<IPlatformComponent>
+        get() = facade.platformProvider
+
+    fun retrieveMockModel(): IMockModel = modelProvider.get(IMockModel.COMPONENT_ID)!!
+    fun retrieveMockPresenter(): IMockPresenter = presenterProvider.get(IMockPresenter.COMPONENT_ID)!!
 }
