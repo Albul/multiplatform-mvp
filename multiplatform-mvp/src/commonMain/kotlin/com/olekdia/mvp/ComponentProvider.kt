@@ -12,7 +12,7 @@ class ComponentProvider<T : ILifecycleComponent>(
         get(componentId, null)
 
     @Suppress("UNCHECKED_CAST")
-    override fun <C : T> get(componentId: String, param: Any?): C? =
+    override fun <C : T> get(componentId: String, param: String?): C? =
         run {
             val instanceId = toInstanceId(componentId, param)
             instanceMap[instanceId]
@@ -22,17 +22,30 @@ class ComponentProvider<T : ILifecycleComponent>(
                         it.onCreate()
                     }
         } as? C
-    
+
     override fun remove(component: T) {
-        remove(component.componentId)
+        with(instanceMap.iterator()) {
+            forEach {
+                if (it.value === component) remove()
+            }
+        }
     }
 
     override fun remove(componentId: String) {
         remove(componentId, null)
     }
 
-    override fun remove(componentId: String, param: Any?) {
+    override fun remove(componentId: String, param: String?) {
         instanceMap.remove(toInstanceId(componentId, param))
+    }
+
+    /**
+     * Remove all components with all parameters
+     */
+    internal fun removeAll(componentId: String) {
+        instanceMap
+            .filter { it.key.startsWith(componentId) }
+            .forEach { it.value.onDestroy() }
     }
 
     private fun create(componentId: String): T? =
@@ -40,11 +53,11 @@ class ComponentProvider<T : ILifecycleComponent>(
             ?.also {
                 facade.inject(it)
             }
-    
-    private fun toInstanceId(componentId: String, param: Any?): String =
+
+    private fun toInstanceId(componentId: String, param: String?): String =
         if (param == null) {
             componentId
         } else {
-            componentId + param.toString()
+            componentId + param
         }
 }

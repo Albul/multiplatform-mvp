@@ -25,74 +25,57 @@ class Facade(
     fun load(
         modelFactories: Array<Pair<String, ISingleComponentFactory<IModel>>>? = null,
         presenterFactories: Array<Pair<String, ISingleComponentFactory<IPresenter>>>? = null,
-        platformFactories: Array<Pair<String, ISingleComponentFactory<IPlatformComponent>>>? = null,
-        reloadInstances: Boolean = true
+        platformFactories: Array<Pair<String, ISingleComponentFactory<IPlatformComponent>>>? = null
     ) {
-        load(modelFactories, modelFactory, modelProvider, reloadInstances)
-        load(presenterFactories, presenterFactory, presenterProvider, reloadInstances)
-        load(platformFactories, platformFactory, platformProvider, reloadInstances)
+        load(modelFactories, modelFactory, modelProvider)
+        load(presenterFactories, presenterFactory, presenterProvider)
+        load(platformFactories, platformFactory, platformProvider)
     }
 
     fun unload(
         modelIds: Array<String>? = null,
         presenterIds: Array<String>? = null,
-        platformIds: Array<String>? = null,
-        unloadInstances: Boolean = true
+        platformIds: Array<String>? = null
     ) {
-        unload(modelIds, modelFactory, modelProvider, unloadInstances)
-        unload(presenterIds, presenterFactory, presenterProvider, unloadInstances)
-        unload(platformIds, platformFactory, platformProvider, unloadInstances)
+        unload(modelIds, modelFactory, modelProvider)
+        unload(presenterIds, presenterFactory, presenterProvider)
+        unload(platformIds, platformFactory, platformProvider)
     }
 
     private fun <T : ILifecycleComponent> load(
         factories: Array<Pair<String, ISingleComponentFactory<T>>>?,
         factory: IComponentFactory<T>,
-        provider: ComponentProvider<T>,
-        reloadInstances: Boolean
+        provider: ComponentProvider<T>
     ) {
         if (factories != null) {
             factory.load(factories)
-            if (reloadInstances) {
-                factories
-                    .map { it.first }
-                    .toTypedArray()
-                    .let { keys ->
-                        unload(keys, provider)
-                        load(keys, provider)
-                    }
-            }
+
+            factories
+                .map { it.first }
+                .toTypedArray()
+                .let { keys ->
+                    unloadInstances(keys, provider)
+                }
         }
     }
 
     private fun <T : ILifecycleComponent> unload(
         ids: Array<String>?,
         factory: IComponentFactory<T>,
-        provider: ComponentProvider<T>,
-        reloadInstances: Boolean
+        provider: ComponentProvider<T>
     ) {
         if (ids != null) {
             factory.unload(ids)
-            if (reloadInstances) {
-                unload(ids, provider)
-            }
+            unloadInstances(ids, provider)
         }
     }
 
-    private fun <T : ILifecycleComponent> unload(
+    private fun <T : ILifecycleComponent> unloadInstances(
         ids: Array<String>,
         provider: ComponentProvider<T>
     ) {
         for (id in ids) {
-            provider.remove(id)
-        }
-    }
-
-    private fun <T : ILifecycleComponent> load(
-        ids: Array<String>,
-        provider: ComponentProvider<T>
-    ) {
-        for (id in ids) {
-            provider.get<T>(id)
+            provider.removeAll(id)
         }
     }
 
