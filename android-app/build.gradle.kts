@@ -58,6 +58,7 @@ dependencies {
     testImplementation(Libs.androidx.test_runner)
     testImplementation(Libs.androidx.test_rules)
     testImplementation(Libs.androidx.espresso_core)
+    testImplementation(Libs.mockk_jvm)
 
     debugImplementation(Libs.androidx.fragment_testing)
     testImplementation(Libs.androidx.fragment_testing)
