@@ -35,7 +35,7 @@ class InputFragmentTest {
     }
 
     @Test
-    fun `InputTaskFragment and presenterProvider should not be null`() {
+    fun `fragment and presenterProvider should not be null`() {
         val scenario = launchFragmentInContainer<InputTaskFragment>()
 
 
@@ -46,7 +46,7 @@ class InputFragmentTest {
     }
 
     @Test
-    fun `InputTaskFragment - presenter have view reference`() {
+    fun `launch fragment - presenter have view reference`() {
         val scenario = launchFragmentInContainer<InputTaskFragment>()
 
         scenario.onFragment { fragment: InputTaskFragment ->
@@ -55,7 +55,7 @@ class InputFragmentTest {
     }
 
     @Test
-    fun `Input text - presenter state is correct`() {
+    fun `input text - presenter state is correct`() {
         val scenario = launchFragmentInContainer<InputTaskFragment>()
         val newTodoName = "New todo"
 
@@ -73,7 +73,7 @@ class InputFragmentTest {
     }
 
     @Test
-    fun `Click priority - presenter state is correct`() {
+    fun `click priority - presenter state is correct`() {
         val scenario = launchFragmentInContainer<InputTaskFragment>()
 
         scenario.onFragment { fragment: InputTaskFragment ->
@@ -89,7 +89,7 @@ class InputFragmentTest {
     }
 
     @Test
-    fun `Change state, click apply - task is saved, fragment is destroyed`() {
+    fun `change state, click apply - task is saved, fragment is destroyed`() {
         val scenario = launchFragmentInContainer<InputTaskFragment>()
         val newTodoName = "New todo1"
 
@@ -114,7 +114,7 @@ class InputFragmentTest {
     }
 
     @Test
-    fun `Change state, click exit - task is not saved, fragment is not destroyed`() {
+    fun `change state, click exit - task is not saved, fragment is not destroyed`() {
         val scenario = launchFragmentInContainer<InputTaskFragment>()
         val newTodoName = "New todo2"
 
@@ -137,7 +137,7 @@ class InputFragmentTest {
     }
 
     @Test
-    fun `Change state, recreate - state is properly restored`() {
+    fun `change state, recreate - state is properly restored`() {
         val scenario = launchFragmentInContainer<InputTaskFragment>()
         val newTodoName = "New todo1"
 

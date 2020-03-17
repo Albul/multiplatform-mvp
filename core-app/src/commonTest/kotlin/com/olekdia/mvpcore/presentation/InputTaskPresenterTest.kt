@@ -12,19 +12,19 @@ class InputTaskPresenterTest : BaseTest() {
     val inputPresenter: IInputTaskPresenter = presenterProvider.get(IInputTaskPresenter.COMPONENT_ID)!!
 
     @Test
-    fun `Check presenter without modifications - isStateUnsaved() returns false`() {
+    fun `check presenter without modifications - isStateUnsaved() returns false`() {
         assertFalse(inputPresenter.isStateUnsaved())
     }
 
     @Test
-    fun `Check default presenter - isNewCreation() returns true`() {
+    fun `check default presenter - isNewCreation() returns true`() {
         assertNotNull(inputPresenter.state.initTask)
         assertNotNull(inputPresenter.state.currTask)
         assertTrue(inputPresenter.state.isNewCreation())
     }
 
     @Test
-    fun `Restore presenter state with existing task - isNewCreation() returns false`() {
+    fun `restore presenter state with existing task - isNewCreation() returns false`() {
         inputPresenter.onRestoreState(
             InputTaskState(
                 TaskEntry(
@@ -41,19 +41,19 @@ class InputTaskPresenterTest : BaseTest() {
     }
 
     @Test
-    fun `Change name - isStateUnsaved() returns true`() {
+    fun `change name - isStateUnsaved() returns true`() {
         inputPresenter.onNameChange("Some name")
         assertTrue(inputPresenter.isStateUnsaved())
     }
 
     @Test
-    fun `Change priority - isStateUnsaved() returns true`() {
+    fun `change priority - isStateUnsaved() returns true`() {
         inputPresenter.onPriorityChange(TaskPriority.HIGH)
         assertTrue(inputPresenter.isStateUnsaved())
     }
 
     @Test
-    fun `Change something, onApply() - isStateUnsaved() returns false`() {
+    fun `change something, onApply() - isStateUnsaved() returns false`() {
         inputPresenter.onNameChange("Some task")
         inputPresenter.onPriorityChange(TaskPriority.HIGH)
         assertTrue(inputPresenter.isStateUnsaved())
@@ -63,7 +63,7 @@ class InputTaskPresenterTest : BaseTest() {
     }
 
     @Test
-    fun `Change something, discardState() - isStateUnsaved() returns false`() {
+    fun `change something, discardState() - isStateUnsaved() returns false`() {
         inputPresenter.onNameChange("Some task2")
         inputPresenter.onPriorityChange(TaskPriority.HIGH)
         assertTrue(inputPresenter.isStateUnsaved())
@@ -73,7 +73,7 @@ class InputTaskPresenterTest : BaseTest() {
     }
 
     @Test
-    fun `Change something, state is valid`() {
+    fun `change something, state is valid`() {
         val name = "Some task"
         inputPresenter.onNameChange(name)
         assertEquals(inputPresenter.state.currTask.name, name)
@@ -84,7 +84,7 @@ class InputTaskPresenterTest : BaseTest() {
     }
 
     @Test
-    fun `Edit new task, onApply() - new task is created`() {
+    fun `edit new task, onApply() - new task is created`() {
         val name = "Buy food"
         inputPresenter.onNameChange(name)
         inputPresenter.onPriorityChange(TaskPriority.HIGH)
@@ -101,7 +101,7 @@ class InputTaskPresenterTest : BaseTest() {
     }
 
     @Test
-    fun `Edit existing task, onApply() - task is saved to state`() {
+    fun `edit existing task, onApply() - task is saved to state`() {
         val existedTask = TaskEntry(
             1111L,
             "Buy food",
