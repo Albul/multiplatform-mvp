@@ -1,3 +1,4 @@
+@file:Suppress("NOTHING_TO_INLINE")
 package com.olekdia.mvpapp.presentation.fragments
 
 import android.os.Bundle
@@ -7,21 +8,20 @@ import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
-import androidx.core.view.postDelayed
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.olekdia.androidcommon.NO_RESOURCE
-import com.olekdia.androidcommon.extensions.ifNotNull
 import com.olekdia.androidcommon.extensions.resetFocus
 import com.olekdia.androidcommon.extensions.showKeyboard
-import com.olekdia.mvpcore.Key
-import com.olekdia.mvpapp.presentation.MainActivity
+import com.olekdia.common.extensions.ifNotNull
 import com.olekdia.mvpapp.R
-import com.olekdia.mvpcore.TaskPriority
 import com.olekdia.mvpapp.common.extensions.presenterProvider
 import com.olekdia.mvpapp.data.entries.parcels.TaskParcel
+import com.olekdia.mvpapp.presentation.MainActivity
+import com.olekdia.mvpcore.Key
+import com.olekdia.mvpcore.TaskPriority
 import com.olekdia.mvpcore.presentation.presenters.IInputTaskPresenter
-import com.olekdia.mvpcore.presentation.views.IInputTaskView
 import com.olekdia.mvpcore.presentation.presenters.InputTaskState
+import com.olekdia.mvpcore.presentation.views.IInputTaskView
 
 class InputTaskFragment : StatefulFragment(),
     IInputTaskView,

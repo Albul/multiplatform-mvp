@@ -1,3 +1,4 @@
+@file:Suppress("NOTHING_TO_INLINE")
 package com.olekdia.mvpapp.presentation.fragments
 
 import android.os.Bundle
@@ -7,7 +8,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.ActionBar.LayoutParams.MATCH_PARENT
 import androidx.appcompat.app.ActionBar.LayoutParams.WRAP_CONTENT
 import com.google.android.material.button.MaterialButtonToggleGroup
-import com.olekdia.androidcommon.extensions.ifNotNull
+import com.olekdia.common.extensions.ifNotNull
 import com.olekdia.mvpapp.presentation.MainActivity
 import com.olekdia.mvpapp.R
 import com.olekdia.mvpapp.common.extensions.presenterProvider

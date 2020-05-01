@@ -5,5 +5,3 @@ include(
         ":core-app",
         ":android-app"
 )
-
-enableFeaturePreview("GRADLE_METADATA")

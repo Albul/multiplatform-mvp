@@ -2,7 +2,7 @@ package com.olekdia.mvpapp.data.entries.extensions
 
 import android.content.ContentValues
 import android.database.Cursor
-import com.olekdia.androidcommon.extensions.toBoolean
+import com.olekdia.common.extensions.toBoolean
 import com.olekdia.common.extensions.toInt
 import com.olekdia.mvpcore.presentation.singletons.AppColors
 import com.olekdia.mvpcore.domain.entries.TaskEntry

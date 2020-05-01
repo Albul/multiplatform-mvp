@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.olekdia.androidcommon.extensions.ifNotNullAnd
+import com.olekdia.common.extensions.ifNotNullAnd
 import com.olekdia.mvpapp.R
 import com.olekdia.mvpcore.presentation.singletons.AppColors
 import com.olekdia.mvpapp.common.extensions.setTint

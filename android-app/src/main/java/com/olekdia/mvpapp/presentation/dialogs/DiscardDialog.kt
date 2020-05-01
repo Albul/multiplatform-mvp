@@ -24,7 +24,7 @@ class DiscardDialog : DialogFragment(), IDiscardDialogView {
     private fun initBuilder(): MaterialDialogBuilder {
         val args = arguments
         val id = args!!.getString(Key.ID)!!
-        return MaterialDialogBuilder(context!!)
+        return MaterialDialogBuilder(requireContext())
             .title(R.string.discard_changes)
             .content(args.getString(Key.CONTENT, ""))
             .positiveText(R.string.discard)
