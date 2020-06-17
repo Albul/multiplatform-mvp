@@ -29,5 +29,5 @@ class ToastPresenter : Presenter(), IToastPresenter {
     }
 
     private val toastMng: IToastManager?
-        get() = platformProvider.get(IToastManager.COMPONENT_ID)
+        get() = platformProvider.getOrCreate(IToastManager.COMPONENT_ID)
 }

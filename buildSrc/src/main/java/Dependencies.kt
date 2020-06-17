@@ -1,6 +1,6 @@
 object Versions {
     val kotlin = "1.3.72"
-    val mockk = "1.9.3"
+    val mockk = "1.10.0"
     val junit = "4.13"
     val robolectric = "4.3.1"
 
@@ -15,10 +15,10 @@ object Versions {
     }
 
     object olekdia {
-        val common = "0.3.0"
-        val common_android = "3.2.9"
-        val fam = "3.0.2"
-        val materialdialog_core = "3.3.13"
+        val common = "0.4.2"
+        val common_android = "3.3.2"
+        val fam = "3.0.3"
+        val materialdialog_core = "3.3.16"
     }
 
     val android_gradle = "3.6.3"

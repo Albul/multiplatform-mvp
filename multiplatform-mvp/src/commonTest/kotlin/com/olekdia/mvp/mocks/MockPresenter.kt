@@ -40,7 +40,7 @@ class MockPresenter : Presenter(),  IMockPresenter {
 
     override fun onModelMethodShouldBeCalled() {
         modelProvider
-            .get<IMockModel>(IMockModel.COMPONENT_ID)!!
+            .getOrCreate<IMockModel>(IMockModel.COMPONENT_ID)!!
             .modelMethod()
     }
 

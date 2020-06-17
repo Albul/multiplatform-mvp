@@ -6,5 +6,5 @@ import com.olekdia.mvpcore.domain.models.ITaskModel
 interface IExtModelHolder : IModelHolder {
 
     val taskModel: ITaskModel
-        get() = modelProvider.get(ITaskModel.COMPONENT_ID)!!
+        get() = modelProvider.getOrCreate(ITaskModel.COMPONENT_ID)!!
 }

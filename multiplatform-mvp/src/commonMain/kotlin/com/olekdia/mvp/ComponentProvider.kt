@@ -8,11 +8,11 @@ class ComponentProvider<T : ILifecycleComponent>(
     private val instanceMap: MutableMap<String, T> = hashMapOf()
 
     @Suppress("UNCHECKED_CAST")
-    override fun <C : T> get(componentId: String): C? =
-        get(componentId, null)
+    override fun <C : T> getOrCreate(componentId: String): C? =
+        getOrCreate(componentId, null)
 
     @Suppress("UNCHECKED_CAST")
-    override fun <C : T> get(componentId: String, param: String?): C? =
+    override fun <C : T> getOrCreate(componentId: String, param: String?): C? =
         run {
             val instanceId = toInstanceId(componentId, param)
             instanceMap[instanceId]
@@ -22,6 +22,13 @@ class ComponentProvider<T : ILifecycleComponent>(
                         it.onCreate()
                     }
         } as? C
+
+    override fun <C : T> get(componentId: String): C? =
+        get(componentId, null)
+
+    @Suppress("UNCHECKED_CAST")
+    override fun <C : T> get(componentId: String, param: String?): C? =
+        instanceMap[toInstanceId(componentId, param)] as? C
 
     override fun remove(component: T) {
         with(instanceMap.iterator()) {

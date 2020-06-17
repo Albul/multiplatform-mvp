@@ -17,7 +17,7 @@ interface IMockPlatformManager : IPlatformComponent {
     }
 }
 
-class MockPlatformManager : PlatformComponent(),  IMockPlatformManager {
+class MockPlatformManager(val param: String) : PlatformComponent(),  IMockPlatformManager {
 
     override val componentId: String
         get() = IMockPlatformManager.COMPONENT_ID

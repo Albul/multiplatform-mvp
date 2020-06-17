@@ -6,22 +6,22 @@ import com.olekdia.mvpcore.presentation.presenters.*
 interface IExtPresenterHolder : IPresenterHolder {
 
     val mainViewPresenter: IMainViewPresenter
-        get() = presenterProvider.get(IMainViewPresenter.COMPONENT_ID)!!
+        get() = presenterProvider.getOrCreate(IMainViewPresenter.COMPONENT_ID)!!
 
     val toastPresenter: IToastPresenter
-        get() = presenterProvider.get(IToastPresenter.COMPONENT_ID)!!
+        get() = presenterProvider.getOrCreate(IToastPresenter.COMPONENT_ID)!!
 
     val snackPresenter: ISnackPresenter
-        get() = presenterProvider.get(ISnackPresenter.COMPONENT_ID)!!
+        get() = presenterProvider.getOrCreate(ISnackPresenter.COMPONENT_ID)!!
 
     val dialogPresenter: IDialogPresenter
-        get() = presenterProvider.get(IDialogPresenter.COMPONENT_ID)!!
+        get() = presenterProvider.getOrCreate(IDialogPresenter.COMPONENT_ID)!!
 
 
 
     val inputTaskPresenter: IInputTaskPresenter
-        get() = presenterProvider.get(IInputTaskPresenter.COMPONENT_ID)!!
+        get() = presenterProvider.getOrCreate(IInputTaskPresenter.COMPONENT_ID)!!
 
     val taskListPresenter: ITaskListPresenter
-        get() = presenterProvider.get(ITaskListPresenter.COMPONENT_ID)!!
+        get() = presenterProvider.getOrCreate(ITaskListPresenter.COMPONENT_ID)!!
 }

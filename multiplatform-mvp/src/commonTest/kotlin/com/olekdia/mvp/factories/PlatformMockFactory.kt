@@ -8,6 +8,6 @@ import com.olekdia.mvp.platform.IPlatformComponent
 class PlatformMockFactory : ComponentFactory<IPlatformComponent>(
 
     mutableMapOf(
-        IMockPlatformManager.COMPONENT_ID to { MockPlatformManager() }
+        IMockPlatformManager.COMPONENT_ID to { MockPlatformManager("Lin") }
     )
 )

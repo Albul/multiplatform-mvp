@@ -25,13 +25,13 @@ class MockView(private val presenterProvider: IComponentProvider<IPresenter>) : 
 
     override fun attach() {
         presenterProvider
-            .get<IMockStatefulViewPresenter>(IMockStatefulViewPresenter.COMPONENT_ID)!!
+            .getOrCreate<IMockStatefulViewPresenter>(IMockStatefulViewPresenter.COMPONENT_ID)!!
             .onAttach(this)
     }
 
     override fun detach() {
         presenterProvider
-            .get<IMockStatefulViewPresenter>(IMockStatefulViewPresenter.COMPONENT_ID)!!
+            .getOrCreate<IMockStatefulViewPresenter>(IMockStatefulViewPresenter.COMPONENT_ID)!!
             .onDetach(this)
     }
 

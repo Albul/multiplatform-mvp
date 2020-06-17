@@ -1,15 +1,13 @@
 package com.olekdia.mvpcore.domain.models
 
-import com.olekdia.mvp.ISingleComponentFactory
-import com.olekdia.mvp.model.IModel
 import com.olekdia.mvp.model.IStatefulModel
 import com.olekdia.mvp.model.StatefulModel
 import com.olekdia.mvpcore.TaskFilter
-import com.olekdia.mvpcore.domain.entries.TaskEntry
 import com.olekdia.mvpcore.common.extensions.plus
 import com.olekdia.mvpcore.common.extensions.replace
-import com.olekdia.mvpcore.presentation.singletons.AppPrefs
+import com.olekdia.mvpcore.domain.entries.TaskEntry
 import com.olekdia.mvpcore.domain.repositories.ITaskDbRepository
+import com.olekdia.mvpcore.presentation.singletons.AppPrefs
 
 data class TaskListState(
     val filter: TaskFilter = AppPrefs.taskFilter.getEnumValue(),
@@ -210,7 +208,7 @@ class TaskModel : StatefulModel<TaskListState>(),
         TaskListState()
 
     private val taskDbRep: ITaskDbRepository
-        get() = platformProvider.get(ITaskDbRepository.COMPONENT_ID)!!
+        get() = platformProvider.getOrCreate(ITaskDbRepository.COMPONENT_ID)!!
 }
 
 fun List<TaskEntry>.filterList(filter: TaskFilter) =

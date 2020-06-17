@@ -14,7 +14,6 @@ import com.olekdia.mvpcore.presentation.IExtPresenterHolder
 import com.olekdia.mvpcore.presentation.PresenterFactory
 import com.olekdia.mvpcore.presentation.managers.ISnackManager
 import com.olekdia.mvpcore.presentation.managers.IToastManager
-import com.olekdia.mvpcore.presentation.presenters.IDialogPresenter
 import com.olekdia.mvpcore.presentation.presenters.IMainAppPresenter
 import com.olekdia.mvpcore.presentation.singletons.AppPrefs
 import io.mockk.mockk
@@ -39,11 +38,11 @@ abstract class BaseTest : IExtModelHolder,
         get() = facade.platformProvider
 
     init {
-        AppPrefs.prefs = platformProvider.get(
+        AppPrefs.prefs = platformProvider.getOrCreate(
             IPrefsRepository.COMPONENT_ID)!!
 
         presenterProvider
-            .get<IMainAppPresenter>(IMainAppPresenter.COMPONENT_ID)!!
+            .getOrCreate<IMainAppPresenter>(IMainAppPresenter.COMPONENT_ID)!!
             .onAppInit()
 
         // Simulate TaskListView, as it should be initialized during startup
@@ -51,8 +50,8 @@ abstract class BaseTest : IExtModelHolder,
     }
 
     val toastMng: IToastManager
-        get() = platformProvider.get(IToastManager.COMPONENT_ID)!!
+        get() = platformProvider.getOrCreate(IToastManager.COMPONENT_ID)!!
 
     val snackMng: ISnackManager
-        get() = platformProvider.get(ISnackManager.COMPONENT_ID)!!
+        get() = platformProvider.getOrCreate(ISnackManager.COMPONENT_ID)!!
 }

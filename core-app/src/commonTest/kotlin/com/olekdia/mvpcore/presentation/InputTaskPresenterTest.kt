@@ -9,7 +9,7 @@ import kotlin.test.*
 
 class InputTaskPresenterTest : BaseTest() {
 
-    val inputPresenter: IInputTaskPresenter = presenterProvider.get(IInputTaskPresenter.COMPONENT_ID)!!
+    val inputPresenter: IInputTaskPresenter = presenterProvider.getOrCreate(IInputTaskPresenter.COMPONENT_ID)!!
 
     @Test
     fun `check presenter without modifications - isStateUnsaved() returns false`() {
