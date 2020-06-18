@@ -82,7 +82,9 @@ class ProviderTest : BaseTest() {
 
     @Test
     fun `get() - returns proper instance`() {
+        assertTrue(modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID) is MockModel)
         assertTrue(modelProvider.get<IMockModel>(IMockModel.COMPONENT_ID) is MockModel)
+        assertTrue(presenterProvider.getOrCreate<IMockPresenter>(IMockPresenter.COMPONENT_ID) is MockPresenter)
         assertTrue(presenterProvider.get<IMockPresenter>(IMockPresenter.COMPONENT_ID) is MockPresenter)
     }
 
@@ -183,12 +185,30 @@ class ProviderTest : BaseTest() {
 
     @Test
     fun `remove(id) - removes instance`() {
-        val model1: IMockModel = retrieveMockModel()
+        val model1: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID)!!
+
+        assertEquals(0, model1.onDestroyCalled)
 
         modelProvider.remove(IMockModel.COMPONENT_ID)
-        val model2: IMockModel = retrieveMockModel()
 
+        assertEquals(0, model1.onDestroyCalled) // by Design
+
+        assertNull(
+            modelProvider[IMockModel.COMPONENT_ID]
+        )
+        val model2: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID)!!
         assertNotSame(model1, model2)
+        assertEquals(0, model2.onDestroyCalled)
+
+        assertNotNull(
+            modelProvider.get<IMockModel>(IMockModel.COMPONENT_ID)
+        )
+
+        model2.onDestroy()
+        assertEquals(1, model2.onDestroyCalled)
+        assertNull(
+            modelProvider.get<IMockModel>(IMockModel.COMPONENT_ID)
+        )
     }
 
     @Test

@@ -31,9 +31,11 @@ class ComponentProvider<T : ILifecycleComponent>(
         instanceMap[toInstanceId(componentId, param)] as? C
 
     override fun remove(component: T) {
-        with(instanceMap.iterator()) {
-            forEach {
-                if (it.value === component) remove()
+        instanceMap.iterator().let { iterator ->
+            iterator.forEach {
+                if (it.value === component) {
+                    iterator.remove()
+                }
             }
         }
     }

@@ -20,6 +20,23 @@ class TaskModelTest : BaseTest() {
     }
 
     @Test
+    fun `check facade is loaded mocked repository instance`() {
+        val compBefore: TaskDbRepositoryMock = platformProvider.getOrCreate(ITaskDbRepository.COMPONENT_ID)!!
+
+        assertEquals("", compBefore.param)
+        val mockOfMock: TaskDbRepositoryMock = TaskDbRepositoryMock("Lol")
+        facade.unload(platformIds = arrayOf(ITaskDbRepository.COMPONENT_ID))
+        facade.load(platformFactories = arrayOf(ITaskDbRepository.COMPONENT_ID to { mockOfMock }))
+
+        assertEquals("Lol", mockOfMock.param)
+        val compAfter: TaskDbRepositoryMock = facade.platformProvider.getOrCreate(ITaskDbRepository.COMPONENT_ID)!!
+        assertEquals("Lol", compAfter.param)
+
+        assertNotSame(compBefore, compAfter)
+        assertSame(compAfter, mockOfMock)
+    }
+
+    @Test
     fun `add(entry) - state is changed, it contains added entry`() {
         val entry = TaskEntry(id = 434)
         val stateBefore = taskModel.state

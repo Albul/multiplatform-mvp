@@ -1,11 +1,18 @@
 package com.olekdia.mvpcore.mocks
 
 import com.olekdia.common.INVALID_L
+import com.olekdia.mvp.platform.PlatformComponent
 import com.olekdia.mvpcore.TaskPriority
 import com.olekdia.mvpcore.domain.entries.TaskEntry
 import com.olekdia.mvpcore.domain.repositories.ITaskDbRepository
 
-class TaskDbRepositoryMock : ITaskDbRepository {
+class TaskDbRepositoryMock() : PlatformComponent(), ITaskDbRepository {
+
+    var param: String = ""
+
+    constructor(param: String) : this() {
+        this.param = param
+    }
 
     private var nextId: Long = 100
 
@@ -61,9 +68,12 @@ class TaskDbRepositoryMock : ITaskDbRepository {
     }
 
     override fun onCreate() {
+        super.onCreate()
     }
 
     override fun onDestroy() {
+        // This is very important
+        super.onDestroy()
     }
 
     override val componentId: String
