@@ -1,28 +1,27 @@
 object Versions {
-    val kotlin = "1.4.0-rc"
+    val kotlin = "1.4.0"
     val mockk = "1.10.0"
     val junit = "4.13"
     val robolectric = "4.3.1"
 
     object androidx {
-        val appcompat = "1.1.0"
+        val appcompat = "1.2.0"
         val material = "1.2.0"
         val test_core = "1.2.0"
         val test_runner = "1.2.0"
         val test_rules = "1.2.0"
         val espresso_core = "3.2.0"
-        val fragment_testing = "1.2.1"
+        val fragment_testing = "1.2.5"
     }
 
     object olekdia {
-        val common = "0.5.0"
-        val common_android = "3.5.0"
+        val common = "0.5.23"
+        val common_android = "3.5.8"
         val fam = "3.0.3"
         val materialdialog_core = "3.5.0"
     }
 
-    val android_gradle = "3.6.3"
-    val bintray_gradle = "1.8.4"
+    val android_gradle = "3.6.4"
 }
 
 
@@ -58,6 +57,5 @@ object Libs {
     object plugin {
         val kotlin_gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
         val android_gradle = "com.android.tools.build:gradle:${Versions.android_gradle}"
-        val bintray_gradle = "com.jfrog.bintray.gradle:gradle-bintray-plugin:${Versions.bintray_gradle}"
     }
 }

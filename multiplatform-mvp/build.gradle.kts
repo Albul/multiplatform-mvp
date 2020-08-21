@@ -1,7 +1,5 @@
 plugins {
     id("kotlin-multiplatform")
-    id("maven-publish")
-    id("com.jfrog.bintray")
 }
 
 kotlin {
@@ -9,9 +7,14 @@ kotlin {
         jvm()
         js() {
             browser()
+            nodejs()
         }
-        linuxX64("native")
-        // macosX64("native")
+        linuxX64()
+        linuxArm64()
+        mingwX64()
+        macosX64()
+        iosArm64()
+        iosX64()
 
         val commonMain by getting {
             dependencies {
@@ -27,8 +30,6 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
-                implementation(kotlin("stdlib"))
-                implementation(Libs.olekdia.common_jvm)
             }
         }
         val jvmTest by getting {
@@ -39,22 +40,30 @@ kotlin {
         }
         val jsMain by getting {
             dependencies {
-                implementation(kotlin("stdlib-js"))
-                implementation(Libs.olekdia.common_js)
             }
         }
-        val nativeMain by getting {
-            dependencies {
-                implementation(kotlin("stdlib"))
-                implementation(Libs.olekdia.common_native)
-            }
+        val nativeMain by creating {
+            dependsOn(commonMain)
         }
-        val nativeTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-            }
+        val linuxX64Main by getting {
+            dependsOn(nativeMain)
+        }
+        val linuxArm64Main by getting {
+            dependsOn(nativeMain)
+        }
+        val mingwX64Main by getting {
+            dependsOn(nativeMain)
+        }
+        val macosX64Main by getting {
+            dependsOn(nativeMain)
+        }
+        val iosArm64Main by getting {
+            dependsOn(nativeMain)
+        }
+        val iosX64Main by getting {
+            dependsOn(nativeMain)
         }
     }
 }
 
-apply(from = "bintray.gradle")
+apply(from = "maven.publish.gradle.kts")

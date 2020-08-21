@@ -10,7 +10,6 @@ buildscript {
     dependencies {
         classpath(Libs.plugin.kotlin_gradle)
         classpath(Libs.plugin.android_gradle)
-        classpath(Libs.plugin.bintray_gradle)
     }
 }
 

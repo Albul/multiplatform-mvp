@@ -8,7 +8,7 @@ kotlin {
         js() {
             browser()
         }
-        linuxX64("native")
+        linuxX64()
 
         val commonMain by getting {
             dependencies {
@@ -26,8 +26,6 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
-                implementation(kotlin("stdlib"))
-                implementation(Libs.olekdia.common_jvm)
             }
         }
         val jvmTest by getting {
@@ -39,8 +37,6 @@ kotlin {
         }
         val jsMain by getting {
             dependencies {
-                implementation(kotlin("stdlib-js"))
-                implementation(Libs.olekdia.common_js)
             }
         }
         val jsTest by getting {
@@ -49,11 +45,11 @@ kotlin {
                 implementation(kotlin("test-js"))
             }
         }
-        val nativeMain by getting {
-            dependencies {
-                implementation(kotlin("stdlib"))
-                implementation(Libs.olekdia.common_native)
-            }
+        val nativeMain by creating {
+            dependsOn(commonMain)
+        }
+        val linuxX64Main by getting {
+            dependsOn(nativeMain)
         }
     }
 }
