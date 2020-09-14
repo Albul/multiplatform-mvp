@@ -3,7 +3,7 @@ package com.olekdia.mvp
 class ComponentProvider<T : ILifecycleComponent>(
     private val facade: Facade,
     private val factory: IComponentFactory<T>
-) : IComponentProvider<T> {
+) : IMutableComponentProvider<T> {
 
     private val instanceMap: MutableMap<String, T> = hashMapOf()
 

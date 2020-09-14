@@ -1,6 +1,6 @@
 package com.olekdia.mvp.presenter
 
-import com.olekdia.mvp.IComponentProvider
+import com.olekdia.mvp.IMutableComponentProvider
 import com.olekdia.mvp.model.IModel
 import com.olekdia.mvp.model.IModelHolder
 import com.olekdia.mvp.platform.IPlatformHolder
@@ -11,13 +11,13 @@ abstract class Presenter : IPresenter,
     IPresenterHolder,
     IPlatformHolder {
 
-    override lateinit var modelProvider: IComponentProvider<IModel>
+    override lateinit var modelProvider: IMutableComponentProvider<IModel>
         internal set
 
-    override lateinit var presenterProvider: IComponentProvider<IPresenter>
+    override lateinit var presenterProvider: IMutableComponentProvider<IPresenter>
         internal set
 
-    override lateinit var platformProvider: IComponentProvider<IPlatformComponent>
+    override lateinit var platformProvider: IMutableComponentProvider<IPlatformComponent>
         internal set
 
     override fun onCreate() {

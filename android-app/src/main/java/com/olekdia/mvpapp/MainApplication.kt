@@ -2,7 +2,7 @@ package com.olekdia.mvpapp
 
 import android.content.res.Configuration
 import com.olekdia.mvp.Facade
-import com.olekdia.mvp.IComponentProvider
+import com.olekdia.mvp.IMutableComponentProvider
 import com.olekdia.mvp.presenter.IPresenter
 import com.olekdia.mvpapp.presentation.PlatformComponentFactory
 import com.olekdia.mvpcore.domain.ModelFactory
@@ -24,7 +24,7 @@ class MainApplication : MvpApplication(),
         )
     }
 
-    override val presenterProvider: IComponentProvider<IPresenter>
+    override val presenterProvider: IMutableComponentProvider<IPresenter>
         get() = facade.presenterProvider
 
     override fun initApp() {

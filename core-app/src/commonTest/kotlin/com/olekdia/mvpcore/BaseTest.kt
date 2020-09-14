@@ -1,7 +1,7 @@
 package com.olekdia.mvpcore
 
 import com.olekdia.mvp.Facade
-import com.olekdia.mvp.IComponentProvider
+import com.olekdia.mvp.IMutableComponentProvider
 import com.olekdia.mvp.model.IModel
 import com.olekdia.mvp.platform.IPlatformComponent
 import com.olekdia.mvp.presenter.IPresenter
@@ -28,13 +28,13 @@ abstract class BaseTest : IExtModelHolder,
         PlatformFactoryMock()
     )
 
-    final override val presenterProvider: IComponentProvider<IPresenter>
+    final override val presenterProvider: IMutableComponentProvider<IPresenter>
         get() = facade.presenterProvider
 
-    final override val modelProvider: IComponentProvider<IModel>
+    final override val modelProvider: IMutableComponentProvider<IModel>
         get() = facade.modelProvider
 
-    final override val platformProvider: IComponentProvider<IPlatformComponent>
+    final override val platformProvider: IMutableComponentProvider<IPlatformComponent>
         get() = facade.platformProvider
 
     init {

@@ -1,7 +1,7 @@
 package com.olekdia.mvp.mocks
 
 import com.olekdia.mvp.IComponent
-import com.olekdia.mvp.IComponentProvider
+import com.olekdia.mvp.IMutableComponentProvider
 import com.olekdia.mvp.presenter.IPresenter
 import com.olekdia.mvp.presenter.IStatefulViewPresenter
 import com.olekdia.mvp.presenter.StatefulViewPresenter
@@ -15,7 +15,7 @@ interface IMockView : IComponent {
     fun detach()
 }
 
-class MockView(private val presenterProvider: IComponentProvider<IPresenter>) : IMockView {
+class MockView(private val presenterProvider: IMutableComponentProvider<IPresenter>) : IMockView {
     override var viewMethodCalled: Int = 0
         private set
 

@@ -1,7 +1,7 @@
 package com.olekdia.mvp.platform
 
-import com.olekdia.mvp.IComponentProvider
+import com.olekdia.mvp.IMutableComponentProvider
 
 interface IPlatformHolder {
-    val platformProvider: IComponentProvider<IPlatformComponent>
+    val platformProvider: IMutableComponentProvider<IPlatformComponent>
 }

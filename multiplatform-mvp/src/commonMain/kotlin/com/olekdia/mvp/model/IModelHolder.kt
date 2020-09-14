@@ -1,7 +1,7 @@
 package com.olekdia.mvp.model
 
-import com.olekdia.mvp.IComponentProvider
+import com.olekdia.mvp.IMutableComponentProvider
 
 interface IModelHolder {
-    val modelProvider: IComponentProvider<IModel>
+    val modelProvider: IMutableComponentProvider<IModel>
 }

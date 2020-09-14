@@ -16,13 +16,13 @@ abstract class BaseTest {
         PlatformMockFactory()
     )
 
-    final val presenterProvider: IComponentProvider<IPresenter>
+    final val presenterProvider: IMutableComponentProvider<IPresenter>
         get() = facade.presenterProvider
 
-    final val modelProvider: IComponentProvider<IModel>
+    final val modelProvider: IMutableComponentProvider<IModel>
         get() = facade.modelProvider
 
-    final val platformProvider: IComponentProvider<IPlatformComponent>
+    final val platformProvider: IMutableComponentProvider<IPlatformComponent>
         get() = facade.platformProvider
 
     fun retrieveMockModel(): IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID)!!

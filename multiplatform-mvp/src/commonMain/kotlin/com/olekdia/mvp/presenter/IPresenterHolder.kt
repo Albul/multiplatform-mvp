@@ -1,7 +1,7 @@
 package com.olekdia.mvp.presenter
 
-import com.olekdia.mvp.IComponentProvider
+import com.olekdia.mvp.IMutableComponentProvider
 
 interface IPresenterHolder {
-    val presenterProvider: IComponentProvider<IPresenter>
+    val presenterProvider: IMutableComponentProvider<IPresenter>
 }

@@ -17,8 +17,8 @@ object Versions {
     object olekdia {
         val common = "0.5.23"
         val common_android = "3.5.8"
-        val fam = "3.0.3"
-        val materialdialog_core = "3.5.0"
+        val fam = "3.0.4"
+        val materialdialog_core = "3.5.2"
     }
 
     val android_gradle = "3.6.4"

@@ -1,7 +1,7 @@
 package com.olekdia.mvpapp
 
 import com.olekdia.mvp.Facade
-import com.olekdia.mvp.IComponentProvider
+import com.olekdia.mvp.IMutableComponentProvider
 import com.olekdia.mvp.presenter.IPresenter
 import com.olekdia.mvpapp.data.repositories.TaskDbRepository
 import com.olekdia.mvpapp.presentation.PlatformComponentFactory
@@ -49,7 +49,7 @@ class TestApplication : MvpApplication(), IMainApp {
     override val componentId: String
         get() = IMainApp.COMPONENT_ID
 
-    override val presenterProvider: IComponentProvider<IPresenter>
+    override val presenterProvider: IMutableComponentProvider<IPresenter>
         get() = facade.presenterProvider
 
     private val mainAppPresenter: IMainAppPresenter
