@@ -67,7 +67,7 @@ class TaskListFragment : StatefulFragment(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter = presenterProvider?.get(ITaskListPresenter.COMPONENT_ID)
+        presenter = presenterProvider?.getOrCreate(ITaskListPresenter.COMPONENT_ID)
 
         setHasOptionsMenu(true)
     }

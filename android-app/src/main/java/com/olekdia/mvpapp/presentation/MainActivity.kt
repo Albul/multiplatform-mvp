@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity(),
         get() = IMainView.COMPONENT_ID
 
     val presenter: IMainViewPresenter?
-        get() = presenterProvider?.get(IMainViewPresenter.COMPONENT_ID)
+        get() = presenterProvider?.getOrCreate(IMainViewPresenter.COMPONENT_ID)
 
     var actionBar: ActionBar? = null
     var fabMenu: FloatingActionsMenu? = null

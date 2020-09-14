@@ -77,7 +77,7 @@ class TaskDbRepository : PlatformComponent(),
 //--------------------------------------------------------------------------------------------------
 
     private val dbRep: DbRepository
-        get() = platformProvider.get(IDbRepository.COMPONENT_ID)!!
+        get() = platformProvider.getOrCreate(IDbRepository.COMPONENT_ID)!!
 
 
     private fun whereIdIn(list: List<TaskEntry>): String =

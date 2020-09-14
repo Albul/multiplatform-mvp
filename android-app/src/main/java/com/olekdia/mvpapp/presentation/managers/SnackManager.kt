@@ -71,7 +71,7 @@ class SnackManager : PlatformComponent(),
 
     private val mainActivity: MainActivity?
         get() = presenterProvider
-            .get<IMainViewPresenter>(IMainViewPresenter.COMPONENT_ID)
+            .getOrCreate<IMainViewPresenter>(IMainViewPresenter.COMPONENT_ID)
             ?.view
             ?.getPlatformView()
 

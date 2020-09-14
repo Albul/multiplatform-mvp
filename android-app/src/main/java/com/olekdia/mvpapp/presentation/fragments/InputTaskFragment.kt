@@ -54,7 +54,7 @@ class InputTaskFragment : StatefulFragment(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter = presenterProvider?.get(IInputTaskPresenter.COMPONENT_ID)
+        presenter = presenterProvider?.getOrCreate(IInputTaskPresenter.COMPONENT_ID)
 
         setHasOptionsMenu(true)
     }

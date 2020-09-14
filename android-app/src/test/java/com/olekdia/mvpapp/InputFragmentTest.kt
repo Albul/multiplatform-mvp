@@ -31,7 +31,7 @@ class InputFragmentTest {
 
     fun getInputTaskPresenter(fragment: Fragment): IInputTaskPresenter {
         return fragment.presenterProvider
-            ?.get<IInputTaskPresenter>(IInputTaskPresenter.COMPONENT_ID)!!
+            ?.getOrCreate<IInputTaskPresenter>(IInputTaskPresenter.COMPONENT_ID)!!
     }
 
     @Test
@@ -49,7 +49,7 @@ class InputFragmentTest {
     fun `launch fragment - presenter have view reference`() {
         val scenario = launchFragmentInContainer<InputTaskFragment>()
 
-        scenario.onFragment { fragment: InputTaskFragment ->
+        scenario.moveToState(Lifecycle.State.RESUMED).onFragment { fragment: InputTaskFragment ->
             assertNotNull(getInputTaskPresenter(fragment).view)
         }
     }
@@ -95,7 +95,7 @@ class InputFragmentTest {
 
         scenario.onFragment { fragment: InputTaskFragment ->
             val listPresenter = fragment.presenterProvider!!
-                .get<ITaskListPresenter>(ITaskListPresenter.COMPONENT_ID)
+                .getOrCreate<ITaskListPresenter>(ITaskListPresenter.COMPONENT_ID)
 
             fragment.view!!
                 .findViewById<EditText>(R.id.task_name)
@@ -120,7 +120,7 @@ class InputFragmentTest {
 
         scenario.onFragment { fragment: InputTaskFragment ->
             val listPresenter = fragment.presenterProvider!!
-                .get<ITaskListPresenter>(ITaskListPresenter.COMPONENT_ID)!!
+                .getOrCreate<ITaskListPresenter>(ITaskListPresenter.COMPONENT_ID)!!
             assertNotNull(listPresenter.state.list)
 
             fragment.view!!

@@ -43,7 +43,7 @@ class DiscardDialog : DialogFragment(), IDiscardDialogView {
 
     override fun apply(componentId: String, @Param param: String) {
         presenterProvider
-            ?.get<IDialogPresenter>(IDialogPresenter.COMPONENT_ID)
+            ?.getOrCreate<IDialogPresenter>(IDialogPresenter.COMPONENT_ID)
             ?.onDiscardDlg(componentId, param)
     }
 }
