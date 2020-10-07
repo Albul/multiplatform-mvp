@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.olekdia.fam.FloatingActionsMenu
+import com.olekdia.fam.FloatingActionsMenu.OnFabClickListener
 import com.olekdia.mvpapp.R
 import com.olekdia.mvpapp.common.extensions.presenterProvider
 import com.olekdia.mvpapp.common.extensions.parcelize
@@ -65,10 +66,12 @@ class MainActivity : AppCompatActivity(),
 
         fabMenu = findViewById<FloatingActionsMenu>(R.id.fab_menu)
             .also {
-                it.setIsExpandable(false)
-                it.setOnFabClickListener { btnId ->
-                    when (btnId) {
-                        R.id.fab_expand_menu_button -> onShowTaskFrag()
+                it.isExpandable = false
+                it.fabClickListener = object : OnFabClickListener {
+                    override fun onFabClick(btnId: Int) {
+                        when (btnId) {
+                            R.id.fab_expand_menu_button -> onShowTaskFrag()
+                        }
                     }
                 }
             }
