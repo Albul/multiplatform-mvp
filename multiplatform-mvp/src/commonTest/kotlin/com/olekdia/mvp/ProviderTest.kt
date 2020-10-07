@@ -33,50 +33,51 @@ class ProviderTest : BaseTest() {
 
     @Test
     fun `getOrCreate() with diff params - returns different instance`() {
-        val model1: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID, "1")!!
-        val model2: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID, "2")!!
+        val model1: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID, "1")
+        val model2: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID, "2")
 
         assertNotSame(model1, model2)
     }
 
     @Test
     fun `getOrCreate() with identical params - returns same instance`() {
-        val model1: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID, "1")!!
-        val model2: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID, "1")!!
+        val model1: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID, "1")
+        val model2: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID, "1")
 
         assertSame(model1, model2)
     }
 
     @Test
-    fun `getOrCreate() unknown id - returns null`() {
-        val model: IMockModel? = modelProvider.getOrCreate("UNKNOWN_KEY")
-        val presenter: IMockPresenter? = presenterProvider.getOrCreate(IMockModel.COMPONENT_ID)
-
-        assertNull(model)
-        assertNull(presenter)
+    fun `getOrCreate() unknown id - throws NoSuchElementException`() {
+        assertFailsWith(NoSuchElementException::class) {
+            modelProvider.getOrCreate<IMockModel>("UNKNOWN_KEY")
+        }
+        assertFailsWith(NoSuchElementException::class) {
+            presenterProvider.getOrCreate<IMockPresenter>(IMockModel.COMPONENT_ID)
+        }
     }
 
     @Test
     fun `getOrCreate(id) equals to get(id, null)`() {
         assertSame(
-            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID)!!,
-            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID, null)!!
+            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID),
+            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID, null)
         )
     }
 
     @Test
     fun `getOrCreate(id) equals to get(id, "")`() {
         assertSame(
-            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID)!!,
-            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID, "")!!
+            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID),
+            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID, "")
         )
     }
 
     @Test
     fun `getOrCreate(id) not equals to get(id, "null")`() {
         assertNotSame(
-            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID)!!,
-            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID, "null")!!
+            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID),
+            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID, "null")
         )
     }
 
@@ -90,7 +91,7 @@ class ProviderTest : BaseTest() {
 
     @Test
     fun `get() multiple times - returns same instance`() {
-        val model1: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID)!!
+        val model1: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID)
         val model2: IMockModel = modelProvider.get(IMockModel.COMPONENT_ID)!!
         val model3: IMockModel = modelProvider.get(IMockModel.COMPONENT_ID)!!
 
@@ -138,8 +139,8 @@ class ProviderTest : BaseTest() {
     @Test
     fun `get(id) equals to get(id, null)`() {
         assertSame(
-            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID)!!,
-            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID, null)!!
+            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID),
+            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID, null)
         )
 
         assertSame(
@@ -151,8 +152,8 @@ class ProviderTest : BaseTest() {
     @Test
     fun `get(id) equals to get(id, "")`() {
         assertSame(
-            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID)!!,
-            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID, "")!!
+            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID),
+            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID, "")
         )
 
         assertSame(
@@ -164,8 +165,8 @@ class ProviderTest : BaseTest() {
     @Test
     fun `get(id) not equals to get(id, "null")`() {
         assertNotSame(
-            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID)!!,
-            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID, "null")!!
+            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID),
+            modelProvider.getOrCreate<IMockModel>(IMockModel.COMPONENT_ID, "null")
         )
         assertNotSame(
             modelProvider.get<IMockModel>(IMockModel.COMPONENT_ID)!!,
@@ -185,7 +186,7 @@ class ProviderTest : BaseTest() {
 
     @Test
     fun `remove(id) - removes instance`() {
-        val model1: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID)!!
+        val model1: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID)
 
         assertEquals(0, model1.onDestroyCalled)
 
@@ -196,7 +197,7 @@ class ProviderTest : BaseTest() {
         assertNull(
             modelProvider[IMockModel.COMPONENT_ID]
         )
-        val model2: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID)!!
+        val model2: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID)
         assertNotSame(model1, model2)
         assertEquals(0, model2.onDestroyCalled)
 
@@ -213,20 +214,20 @@ class ProviderTest : BaseTest() {
 
     @Test
     fun `remove(id, param) - removes instance`() {
-        val model1: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID, "1")!!
+        val model1: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID, "1")
 
         modelProvider.remove(IMockModel.COMPONENT_ID, "1")
-        val model2: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID, "1")!!
+        val model2: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID, "1")
 
         assertNotSame(model1, model2)
     }
 
     @Test
     fun `remove(id, param) diff params - instance not removed`() {
-        val modelBefore: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID, "1")!!
+        val modelBefore: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID, "1")
 
         modelProvider.remove(IMockModel.COMPONENT_ID, "2")
-        val modelAfter: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID, "1")!!
+        val modelAfter: IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID, "1")
 
         assertSame(modelBefore, modelAfter)
         assertEquals(0, modelAfter.onDestroyCalled)

@@ -25,6 +25,6 @@ abstract class BaseTest {
     final val platformProvider: IMutableComponentProvider<IPlatformComponent>
         get() = facade.platformProvider
 
-    fun retrieveMockModel(): IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID)!!
-    fun retrieveMockPresenter(): IMockPresenter = presenterProvider.getOrCreate(IMockPresenter.COMPONENT_ID)!!
+    fun retrieveMockModel(): IMockModel = modelProvider.getOrCreate(IMockModel.COMPONENT_ID)
+    fun retrieveMockPresenter(): IMockPresenter = presenterProvider.getOrCreate(IMockPresenter.COMPONENT_ID)
 }

@@ -9,7 +9,7 @@ class PresenterTest : BaseTest() {
     fun `onRestoreState() - state is changed`() {
         val newState = MockState(5)
         val presenter: IMockStatefulViewPresenter = presenterProvider
-            .getOrCreate(IMockStatefulViewPresenter.COMPONENT_ID)!!
+            .getOrCreate(IMockStatefulViewPresenter.COMPONENT_ID)
         presenter.onRestoreState(newState)
         assertSame(newState, presenter.state)
         assertEquals(5, presenter.state.stateInt)
@@ -22,7 +22,7 @@ class PresenterTest : BaseTest() {
         mockView.attach()
 
         val presenter: IMockStatefulViewPresenter = presenterProvider
-            .getOrCreate(IMockStatefulViewPresenter.COMPONENT_ID)!!
+            .getOrCreate(IMockStatefulViewPresenter.COMPONENT_ID)
         assertSame(mockView, presenter.view)
         assertEquals(1, presenter.onAttachCalled)
     }
@@ -34,7 +34,7 @@ class PresenterTest : BaseTest() {
         mockView.detach()
 
         val presenter: IMockStatefulViewPresenter = presenterProvider
-            .getOrCreate(IMockStatefulViewPresenter.COMPONENT_ID)!!
+            .getOrCreate(IMockStatefulViewPresenter.COMPONENT_ID)
         assertNull(presenter.view)
         assertEquals(1, presenter.onAttachCalled)
     }
@@ -45,7 +45,7 @@ class PresenterTest : BaseTest() {
         mockView.attach()
 
         val presenter: IMockStatefulViewPresenter = presenterProvider
-            .getOrCreate(IMockStatefulViewPresenter.COMPONENT_ID)!!
+            .getOrCreate(IMockStatefulViewPresenter.COMPONENT_ID)
 
         presenter.onDetach(MockView(presenterProvider))
         assertSame(mockView, presenter.view)
@@ -57,7 +57,7 @@ class PresenterTest : BaseTest() {
         mockView.attach()
 
         val presenter: IMockStatefulViewPresenter = presenterProvider
-            .getOrCreate(IMockStatefulViewPresenter.COMPONENT_ID)!!
+            .getOrCreate(IMockStatefulViewPresenter.COMPONENT_ID)
 
         assertEquals(0, mockView.viewMethodCalled)
         presenter.onViewMethodShouldBeCalled()

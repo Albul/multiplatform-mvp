@@ -8,20 +8,20 @@ class ComponentProvider<T : ILifecycleComponent>(
     private val instanceMap: MutableMap<String, T> = hashMapOf()
 
     @Suppress("UNCHECKED_CAST")
-    override fun <C : T> getOrCreate(componentId: String): C? =
+    override fun <C : T> getOrCreate(componentId: String): C =
         getOrCreate(componentId, null)
 
     @Suppress("UNCHECKED_CAST")
-    override fun <C : T> getOrCreate(componentId: String, param: String?): C? =
+    override fun <C : T> getOrCreate(componentId: String, param: String?): C =
         run {
             val instanceId = toInstanceId(componentId, param)
             instanceMap[instanceId]
                 ?: create(componentId)
-                    ?.also {
+                    .also {
                         instanceMap[instanceId] = it
                         it.onCreate()
                     }
-        } as? C
+        } as C
 
     override fun <C : T> get(componentId: String): C? =
         get(componentId, null)
@@ -57,10 +57,13 @@ class ComponentProvider<T : ILifecycleComponent>(
             .forEach { it.value.onDestroy() }
     }
 
-    private fun create(componentId: String): T? =
+    private fun create(componentId: String): T =
         factory.create(componentId)
             ?.also {
                 facade.inject(it)
+            }
+            ?: run {
+                throw NoSuchElementException("$componentId not loaded")
             }
 
     private fun toInstanceId(componentId: String, param: String?): String =
