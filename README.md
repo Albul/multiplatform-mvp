@@ -1,7 +1,7 @@
 # Multiplatform mvp
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) 
-[ ![Download](https://api.bintray.com/packages/olekdia/olekdia/multiplatform-mvp/images/download.svg?version=0.1.1) ](https://bintray.com/olekdia/olekdia/multiplatform-mvp/0.1.1/link)
+[ ![Download](https://api.bintray.com/packages/olekdia/olekdia/multiplatform-mvp/images/download.svg?version=0.2.0) ](https://bintray.com/olekdia/olekdia/multiplatform-mvp/0.2.0/link)
 
 ---
 
@@ -16,16 +16,16 @@ To use in multiplatform project add:
 ```gradle
 dependencies {
   ...
-  implementation("com.olekdia:mvp-common:0.1.1")
+  implementation("com.olekdia:mvp-common:0.2.0")
 }
 ```
 
 To use in platform specific projects include one of the following:
 ```gradle
 dependencies {
-  implementation("com.olekdia:mvp-common-jvm:0.1.1")
-  implementation("com.olekdia:mvp-common-js:0.1.1")
-  implementation("com.olekdia:mvp-common-native:0.1.1")
+  implementation("com.olekdia:mvp-common-jvm:0.2.0")
+  implementation("com.olekdia:mvp-common-js:0.2.0")
+  implementation("com.olekdia:mvp-common-native:0.2.0")
 }
 ```
 
