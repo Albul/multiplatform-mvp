@@ -5,7 +5,7 @@ import org.gradle.api.publish.PublishingExtension
 plugins {
     id("kotlin-multiplatform")
     id("org.jetbrains.dokka") version "1.4.0-rc"
-    id("io.codearte.nexus-staging") version "0.22.0"
+    id("io.codearte.nexus-staging") version "0.30.0"
     `maven-publish`
     signing
 }
@@ -126,7 +126,7 @@ tasks {
 //  Publishing
 //--------------------------------------------------------------------------------------------------
 
-val fis = FileInputStream("local.properties")
+val fis = project.rootProject.file("local.properties").inputStream()
 val properties = Properties().apply {
     load(fis)
 }

@@ -27,7 +27,7 @@ class MainAppPresenter : StatelessViewPresenter<IMainApp>(),
         get() = IMainAppPresenter.COMPONENT_ID
 
     override fun onAppInit() {
-        AppPrefs.prefs = platformProvider.getOrCreate(IPrefsRepository.COMPONENT_ID)!!
+        AppPrefs.prefs = platformProvider.getOrCreate(IPrefsRepository.COMPONENT_ID)
 
         // Load initial data
         taskModel.loadAsync {

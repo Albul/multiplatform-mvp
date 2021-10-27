@@ -208,7 +208,7 @@ class TaskModel : StatefulModel<TaskListState>(),
         TaskListState()
 
     private val taskDbRep: ITaskDbRepository
-        get() = platformProvider.getOrCreate(ITaskDbRepository.COMPONENT_ID)!!
+        get() = platformProvider.getOrCreate(ITaskDbRepository.COMPONENT_ID)
 }
 
 fun List<TaskEntry>.filterList(filter: TaskFilter) =

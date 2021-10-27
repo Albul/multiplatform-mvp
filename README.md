@@ -16,23 +16,17 @@ To use in multiplatform project add:
 ```gradle
 dependencies {
   ...
-  implementation("com.olekdia:mvp-common:0.2.0")
+  implementation("com.olekdia:mvp-common:0.3.0")
 }
 ```
 
 To use in platform specific projects include one of the following:
 ```gradle
 dependencies {
-  implementation("com.olekdia:mvp-common-jvm:0.2.0")
-  implementation("com.olekdia:mvp-common-js:0.2.0")
-  implementation("com.olekdia:mvp-common-native:0.2.0")
+  implementation("com.olekdia:mvp-common-jvm:0.3.0")
+  implementation("com.olekdia:mvp-common-js:0.3.0")
+  implementation("com.olekdia:mvp-common-native:0.3.0")
 }
-```
-
-Make sure your Gradle vesion is 5.3+, and that you have metadata enabled in settings.gradle
-
-```gradle
-enableFeaturePreview("GRADLE_METADATA")
 ```
 
 ### Library

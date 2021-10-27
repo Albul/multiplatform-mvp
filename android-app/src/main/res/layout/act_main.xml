@@ -23,16 +23,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|bottom"
-            android:layout_marginStart="@dimen/fab_port_negative_left_margin"
             android:paddingStart="@dimen/fab_port_left_margin"
             android:paddingBottom="@dimen/fab_port_bottom_margin"
             android:layout_marginBottom="@dimen/fab_port_negative_bottom_margin"
             android:clipToPadding="false"
             android:elevation="@dimen/fam_elevation"
-            app:fab_labelsPosition="right"
-            app:fab_addBtnLayout="@layout/button_fab_add"
-            app:fab_addBtnExpandedRes="@drawable/icb_task"
-            app:fab_addBtnCollapsedRes="@drawable/icb_add" />
+            app:fab_labelsPosition="right">
+
+            <com.olekdia.fam.FloatingActionButton
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/fab_expand_menu_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:borderWidth="@dimen/fab_border_width"
+                app:elevation="@dimen/fab_elevation"
+                app:pressedTranslationZ="@dimen/fab_elevation_pressed"
+                app:fabSize="normal"
+                android:src="@drawable/icb_add"
+                app:tint="@color/white"
+                app:backgroundTint="?attr/colorPrimary"
+                app:fab_title="@string/task" />
+
+        </com.olekdia.fam.FloatingActionsMenu>
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

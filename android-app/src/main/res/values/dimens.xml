@@ -5,7 +5,7 @@
     <!-- Fab-->
     <dimen name="fam_elevation">10dp</dimen>
 
-    <dimen name="fab_port_negative_left_margin">-4dp</dimen>
+    <dimen name="fab_port_negative_left_margin">4dp</dimen>
     <dimen name="fab_port_negative_bottom_margin">-8.5dp</dimen>
 
     <dimen name="fab_port_left_margin">0dp</dimen>

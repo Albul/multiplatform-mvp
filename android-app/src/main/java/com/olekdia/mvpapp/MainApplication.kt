@@ -37,7 +37,7 @@ class MainApplication : MvpApplication(),
 
     private val mainAppPresenter: IMainAppPresenter
         get() = presenterProvider
-            .getOrCreate(IMainAppPresenter.COMPONENT_ID)!!
+            .getOrCreate(IMainAppPresenter.COMPONENT_ID)
 
     override fun onCreate() {
         super.onCreate()

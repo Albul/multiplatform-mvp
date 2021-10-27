@@ -6,5 +6,5 @@ import com.olekdia.mvpcore.presentation.managers.ITextManager
 interface IExtPlatformHolder : IPlatformHolder {
 
     val textManager: ITextManager
-        get() = platformProvider.getOrCreate(ITextManager.COMPONENT_ID)!!
+        get() = platformProvider.getOrCreate(ITextManager.COMPONENT_ID)
 }

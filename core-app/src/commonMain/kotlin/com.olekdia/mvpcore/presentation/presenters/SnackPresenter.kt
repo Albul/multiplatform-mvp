@@ -47,5 +47,5 @@ class SnackPresenter : StatelessViewPresenter<ISnackManager>(),
     }
 
     private val snackMng: ISnackManager
-        get() = platformProvider.getOrCreate(ISnackManager.COMPONENT_ID)!!
+        get() = platformProvider.getOrCreate(ISnackManager.COMPONENT_ID)
 }
